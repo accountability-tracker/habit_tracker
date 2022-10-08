@@ -35,6 +35,9 @@ final cust_darkTheme = ThemeData(
      bodyText1: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)),
      bodyText2: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)),
   ),
+
+  // background - Color.fromRGBO(26, 26, 26, 1.0),
+  // background-compliment - Color.fromRGBO(41, 41, 41, 1.0),
 );
 
 final cust_lightTheme = ThemeData(
