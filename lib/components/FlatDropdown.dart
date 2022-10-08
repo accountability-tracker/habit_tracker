@@ -44,7 +44,7 @@ class _FlatDropdown extends State<FlatDropdown> {
       ),
 
       child:Padding(
-        padding: EdgeInsets.only(left:30, right:30),
+        padding: EdgeInsets.only(left: 16, right: 16),
 
         child: DropdownButton(
           value: widget.value,
