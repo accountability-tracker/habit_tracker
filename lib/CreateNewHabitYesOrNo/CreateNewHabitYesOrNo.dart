@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../components/FlatTextField.dart';
+import '../components/FlatDropdown.dart';
 
 const List<String> frequencyList = <String>[
   'Every Day',
@@ -28,6 +29,7 @@ class _Page_CreateNewHabitYesOrNo extends State<Page_CreateNewHabitYesOrNo> {
   final nameTextController = TextEditingController();
   final questionTextController = TextEditingController();
   String frequencyValue = frequencyList.first;
+
   String reminderValue = reminderList.first;
   final notesTextController = TextEditingController();
 
@@ -101,37 +103,25 @@ class _Page_CreateNewHabitYesOrNo extends State<Page_CreateNewHabitYesOrNo> {
             ),
 
             Text("Frequency"),
-            DropdownButton(
+            FlatDropdown(
               value: frequencyValue,
-              icon: const Icon(Icons.arrow_downward),
-              onChanged: (String? value) {
+              onValueChanged: (String? value_arg) {
                 setState(() {
-                    frequencyValue = value!;
+                    frequencyValue = value_arg!;
                 });
               },
-              items: frequencyList.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-              }).toList(),
+              items: frequencyList,
             ),
 
             Text("Reminder"),
-            DropdownButton(
+            FlatDropdown(
               value: reminderValue,
-              icon: const Icon(Icons.arrow_downward),
-              onChanged: (String? value) {
+              onValueChanged: (String? value_arg) {
                 setState(() {
-                    reminderValue = value!;
+                    reminderValue = value_arg!;
                 });
               },
-              items: reminderList.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-              }).toList(),
+              items: reminderList,
             ),
 
             Text("Notes"),
