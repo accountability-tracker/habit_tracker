@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'theme.dart';
 
+import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 
 void main() {
@@ -121,6 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+
+      drawer: DrawerCust(),
 
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
