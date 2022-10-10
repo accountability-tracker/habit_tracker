@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -52,10 +52,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -71,6 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final ThemeMode tm = ref.watch(themeProvider);
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -102,13 +105,21 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           ),
 
-          IconButton(
-            icon: Icon(Icons.dark_mode),
-            onPressed: (){
-              //code to execute when this button is pressed
-              //TBD
-            }
-          ),
+          if(ref.watch(themeProvider) == ThemeMode.dark) ...[
+            IconButton(
+              icon: Icon(Icons.light_mode),
+              onPressed: (){
+                ref.read(themeProvider.notifier).toggleTheme();
+              },
+            ),
+          ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
+            IconButton(
+              icon: Icon(Icons.dark_mode),
+              onPressed: (){
+                ref.read(themeProvider.notifier).toggleTheme();
+              },
+            ),
+          ],
 
           //more widgets to place here
         ],
@@ -133,35 +144,36 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-            ),
+            // const Text(
+            //   'You have pushed the button this many times:',
+            // ),
+            // Text(
+            //   '$_counter',
+            // ),
 
-            const ThemeToggleButton(),
+            // const ThemeToggleButton(),
 
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Page_CreateNewHabitYesOrNo()),
-                );
-              },
-              child: const Text("Create new habit"),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const Page_CreateNewHabitYesOrNo()),
+            //     );
+            //   },
+            //   child: const Text("Create new habit"),
+            // ),
           ],
         ),
       ),
 
       drawer: DrawerCust(),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: const Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
+
     );
   }
 }
