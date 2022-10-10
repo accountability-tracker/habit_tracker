@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import '../habits.dart';
+
 import '../components/FlatTextField.dart';
 import '../components/FlatDropdown.dart';
 
+// TODO(clearfeld): move this into its own file and make it an enum instead
 const List<String> frequencyList = <String>[
   'Every Day',
   'Every Week',
@@ -12,34 +15,27 @@ const List<String> frequencyList = <String>[
   'Every Month'
 ];
 
+// TODO(clearfeld): expend this into its own class
 const List<String> reminderList = <String>[
   'Off',
   'On'
 ];
 
-class Page_CreateNewHabitYesOrNo extends StatefulWidget {
+class Page_CreateNewHabitYesOrNo extends ConsumerStatefulWidget {
   const Page_CreateNewHabitYesOrNo({super.key});
 
   @override
-  State<Page_CreateNewHabitYesOrNo> createState() => _Page_CreateNewHabitYesOrNo();
+  _Page_CreateNewHabitYesOrNo createState() => _Page_CreateNewHabitYesOrNo();
+  // State<Page_CreateNewHabitYesOrNo> createState() => _Page_CreateNewHabitYesOrNo();
 }
 
-class _Page_CreateNewHabitYesOrNo extends State<Page_CreateNewHabitYesOrNo> {
-  // int _counter = 0;
-
+class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOrNo> {
   final nameTextController = TextEditingController();
   final questionTextController = TextEditingController();
   String frequencyValue = frequencyList.first;
 
   String reminderValue = reminderList.first;
   final notesTextController = TextEditingController();
-
-  // void _incrementCounter() {
-  //   setState(() {
-  //       _counter++;
-  //   });
-  // }
-
 
   // create some values
   Color pickerColor = Color(0xff443a49);
@@ -49,11 +45,51 @@ class _Page_CreateNewHabitYesOrNo extends State<Page_CreateNewHabitYesOrNo> {
     setState(() => pickerColor = color);
   }
 
+  @override
+  void initState() {
+    super.initState();
+    ref.read(habitsManagerProvider);
+  }
 
   @override
   void dispose() {
     nameTextController.dispose();
     super.dispose();
+  }
+
+  void addHabit() {
+
+    ref.watch(habitsManagerProvider.notifier).addHabit(Habit_YesOrNo(
+      // TODO(clearfeld): pull id from isar or whatever the persistance ends up being
+      -1,
+
+      E_HABITS.YES_OR_NO,
+      nameTextController.text,
+      currentColor,
+      questionTextController.text,
+      notesTextController.text
+    ));
+
+
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       content: Text(
+    //         nameTextController.text + " " +
+    //         questionTextController.text + " " +
+    //         frequencyValue + " " +
+    //         reminderValue + " " +
+    //         notesTextController.text + " " +
+    //         currentColor.toString()
+    //       )
+    //     );
+    //   },
+    // );
+  }
+
+  void leavePage(context) {
+    Navigator.pop(context);
   }
 
   @override
@@ -270,21 +306,7 @@ class _Page_CreateNewHabitYesOrNo extends State<Page_CreateNewHabitYesOrNo> {
                         padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                       ),
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              content: Text(
-                                nameTextController.text + " " +
-                                questionTextController.text + " " +
-                                frequencyValue + " " +
-                                reminderValue + " " +
-                                notesTextController.text + " " +
-                                currentColor.toString()
-                              ),
-                            );
-                          },
-                        );
+                        addHabit();
                       },
                       child: Text('Save'),
                     ),
@@ -301,7 +323,7 @@ class _Page_CreateNewHabitYesOrNo extends State<Page_CreateNewHabitYesOrNo> {
                         padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                       ),
                       onPressed: () {
-                        Navigator.pop(context);
+                        leavePage(context);
                       },
                       child: Text('Cancel'),
                     ),

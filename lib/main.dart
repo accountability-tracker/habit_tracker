@@ -5,6 +5,7 @@ import 'theme.dart';
 
 import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
+import 'components/HabitListMain.dart';
 
 void main() {
   runApp(
@@ -151,6 +152,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             //   '$_counter',
             // ),
 
+            HabitListMain(),
             // const ThemeToggleButton(),
 
             // TextButton(
