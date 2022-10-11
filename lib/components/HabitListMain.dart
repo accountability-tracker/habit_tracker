@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../habits.dart';
 import './Habits/HabitLine.dart';
-
-typedef void SetValueStringCallback(String? value_arg);
+import './FiveDayLine.dart';
 
 class HabitListMain extends ConsumerStatefulWidget {
   const HabitListMain({
@@ -31,12 +30,25 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
 
     return Column(
       children: <Widget>[
-        for(var habit in him)
-        if(habit is Habit_YesOrNo) ...[
-          HabitLine(
-            habit: habit
-          ),
-        ]
+
+        FiveDayLine(),
+
+        Column(
+          children: <Widget>[
+            for(var habit in him)
+            if(habit is Habit_YesOrNo) ...[
+              Container(
+                color: Color.fromRGBO(31, 31, 31, 1.0),
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.all(2.0),
+                padding: const EdgeInsets.all(8.0),
+                child: HabitLine(
+                  habit: habit
+                ),
+              ),
+            ]
+          ],
+        ),
       ],
     );
   }
