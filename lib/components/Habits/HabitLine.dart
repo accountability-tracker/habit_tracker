@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../habits.dart';
 
+import '../../HabitSpecificview/HabitSpecificview.dart';
+
 class HabitLine extends StatefulWidget {
   HabitLine({Key? key, required this.habit}) : super(key: key);
 
@@ -19,12 +21,22 @@ class _HabitLine extends State<HabitLine> {
   Widget build(BuildContext context) {
 
     return Container(
-      child: Text(
-        widget.habit.getTitle(),
-        style: TextStyle(
-          fontSize: 24.0,
-          color: widget.habit.getColor()
+      child: TextButton(
+        child: Text(
+          widget.habit.getTitle(),
+          style: TextStyle(
+            fontSize: 24.0,
+            color: widget.habit.getColor()
+          ),
         ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Page_HabitSpecificView(
+                habit: widget.habit
+            )),
+          );
+        },
       ),
     );
   }
