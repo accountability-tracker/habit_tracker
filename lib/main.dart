@@ -6,6 +6,7 @@ import 'theme.dart';
 import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 import 'components/HabitListMain.dart';
+import './AboutPage/AboutPage.dart';
 
 void main() {
   runApp(
@@ -70,6 +71,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     });
   }
 
+  void _more_option_selected(int item) {
+    print(item);
+    if(item == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Page_About()),
+      );
+    }
+    // if i == 1 delete TODO
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -122,6 +134,19 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             ),
           ],
 
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            color: Colors.red,
+            itemBuilder: (context) => [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Text("About",style: TextStyle(color: Colors.white),),
+              ),
+            ],
+            onSelected: (item) => {
+              _more_option_selected(item)
+            },
+          ),
           //more widgets to place here
         ],
       ),
