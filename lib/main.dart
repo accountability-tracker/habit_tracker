@@ -7,6 +7,7 @@ import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 import 'components/HabitListMain.dart';
 import './AboutPage/AboutPage.dart';
+import './SettingsPage/SettingsPage.dart';
 
 void main() {
   runApp(
@@ -101,34 +102,35 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: (){
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Page_CreateNewHabitYesOrNo()),
               );
-              //code to execute when this button is pressed
             }
           ),
 
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: (){
-              //code to execute when this button is pressed
-              //TBD
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Page_Settings()),
+              );
             }
           ),
 
           if(ref.watch(themeProvider) == ThemeMode.dark) ...[
             IconButton(
               icon: Icon(Icons.light_mode),
-              onPressed: (){
+              onPressed: () {
                 ref.read(themeProvider.notifier).toggleTheme();
               },
             ),
           ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
             IconButton(
               icon: Icon(Icons.dark_mode),
-              onPressed: (){
+              onPressed: () {
                 ref.read(themeProvider.notifier).toggleTheme();
               },
             ),
