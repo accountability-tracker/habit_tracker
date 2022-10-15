@@ -38,32 +38,53 @@ class _FiveDayLine extends ConsumerState<FiveDayLine> {
 
       child: Row(
         children: <Widget>[
-          Spacer(),
+          // Spacer(),
+
+          Container(
+            width: MediaQuery.of(context).size.width * 0.45,
+          ),
 
           // Text(date.toString()),
           // Text(date.add(Duration(days: 1)).toString()),
 
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Container(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget> [
+                for(var n in  nd)
+                Column(
                   children: <Widget>[
-
-                    for(var n in  nd)
-                    Column(
-                      children: <Widget>[
-                        Text(printDay(date.subtract(Duration(days: (4 - n))).weekday)),
-                        Text(date.subtract(Duration(days: (4 - n))).day.toString()),
-                      ],
-                    )
-
+                    Text(printDay(date.subtract(Duration(days: (4 - n))).weekday)),
+                    Text(date.subtract(Duration(days: (4 - n))).day.toString()),
                   ],
                 ),
-              ),
+              ],
             ),
           ),
+
+          // Expanded(
+          //   child: Align(
+          //     alignment: Alignment.centerRight,
+          //     child: Container(
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //         children: <Widget>[
+
+          //           for(var n in  nd)
+          //           Column(
+          //             children: <Widget>[
+          //               Text(printDay(date.subtract(Duration(days: (4 - n))).weekday)),
+          //               Text(date.subtract(Duration(days: (4 - n))).day.toString()),
+          //             ],
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
         ],
       ),
     );
