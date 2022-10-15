@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import "../../s_isar.dart";
+import "../../entities/habit.dart";
+
 import '../../habits.dart';
 
 import '../../HabitSpecificview/HabitSpecificview.dart';
@@ -11,7 +14,8 @@ class HabitLine extends StatefulWidget {
   HabitLine({Key? key, required this.habit}) : super(key: key);
 
   // TODO(clearfeld): update this to work with other habit types
-  final Habit_YesOrNo habit;
+  // final Habit_YesOrNo habit;
+  final Habit habit;
 
   @override
   _HabitLine createState() => _HabitLine();
@@ -47,7 +51,7 @@ class _HabitLine extends State<HabitLine> {
                 widget.habit.getTitle(),
                 style: TextStyle(
                   fontSize: 24.0,
-                  color: widget.habit.getColor()
+                  color: Color(widget.habit.getColor())
                 ),
               ),
               onPressed: () {

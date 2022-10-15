@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'theme.dart';
+import 's_isar.dart';
 
 import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
@@ -59,6 +60,9 @@ class MyHomePage extends ConsumerStatefulWidget {
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
+  // TODO: make a riverpod instance that keeps track of the Isar Instance
+  final isar_service = IsarService();
+
   int _counter = 0;
 
   void _incrementCounter() {
@@ -105,7 +109,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Page_CreateNewHabitYesOrNo()),
+                MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                    isar_service: isar_service
+                )),
               );
             }
           ),
@@ -179,7 +185,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             //   '$_counter',
             // ),
 
-            HabitListMain(),
+            HabitListMain(
+              isar_service: isar_service
+            ),
             // const ThemeToggleButton(),
 
             // TextButton(

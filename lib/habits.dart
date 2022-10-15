@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-enum E_HABITS {
-  UNINITALIZED,
-  YES_OR_NO,
-  MEASURABLE,
-  COMPLEX
-}
+// import "s_isar.dart";
+import "../habit_enums.dart";
 
 class Habit_YesOrNo {
   int id = -1;

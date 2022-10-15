@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import "../../s_isar.dart";
+import "../../entities/habit.dart";
+import "../../habit_enums.dart";
+
 import '../../habits.dart';
 
 class HabitYesOrNoToggle extends StatefulWidget {
@@ -9,7 +13,7 @@ class HabitYesOrNoToggle extends StatefulWidget {
   }) : super(key: key);
 
   // TODO(clearfeld): update this to work with other habit types
-  final Habit_YesOrNo habit;
+  final Habit habit;
 
   @override
   _HabitYesOrNoToggle createState() => _HabitYesOrNoToggle();
@@ -26,7 +30,7 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
       icon: (
         toggled_on ? Icon(Icons.close) : Icon(Icons.check)
       ),
-      color: Colors.red,
+      color: Color(widget.habit.getColor()), // Colors.red,
       onPressed: (){
         var x = !toggled_on;
         setState(() {

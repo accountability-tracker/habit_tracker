@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import "../s_isar.dart";
+import "../entities/habit.dart";
+import "../habit_enums.dart";
+
 import '../habits.dart';
 
 import '../components/FlatTextField.dart';
@@ -22,7 +26,12 @@ const List<String> reminderList = <String>[
 ];
 
 class Page_CreateNewHabitYesOrNo extends ConsumerStatefulWidget {
-  const Page_CreateNewHabitYesOrNo({super.key});
+  const Page_CreateNewHabitYesOrNo({
+      super.key,
+      required this.isar_service
+  });
+
+  final IsarService isar_service;
 
   @override
   _Page_CreateNewHabitYesOrNo createState() => _Page_CreateNewHabitYesOrNo();
@@ -58,6 +67,16 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
   }
 
   void addHabit() {
+
+    widget.isar_service.saveHabit(
+      Habit.Full(
+        E_HABITS.YES_OR_NO,
+        nameTextController.text,
+        currentColor.toString(),
+        questionTextController.text,
+        notesTextController.text
+      )
+    );
 
     ref.watch(habitsManagerProvider.notifier).addHabit(Habit_YesOrNo(
       // TODO(clearfeld): pull id from isar or whatever the persistance ends up being
