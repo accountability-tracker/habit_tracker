@@ -1,3 +1,5 @@
+import "dart:async";
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -279,7 +281,35 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Reminder"),
+
+                  Row(
+                    children: <Widget> [
+                      Text("Reminder"),
+
+                      TextButton(
+                        child: Text("Test time picker"),
+                        onPressed: () async {
+                          TimeOfDay? selectedTime = await showTimePicker(
+                            initialTime: TimeOfDay.now(),
+                            context: context,
+
+                            // 24 Hour format - setting
+                            // builder: (BuildContext context, Widget? child) {
+                            //   return MediaQuery(
+                            //     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                            //     child: child!,
+                            //   );
+                            // },
+
+                          );
+
+                          if(selectedTime == null) return;
+
+                          print("Select time - " + selectedTime.toString());
+                        }
+                      ),
+                    ],
+                  ),
 
                   SizedBox(height: 8.0,),
 
