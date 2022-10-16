@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 
-// Interface options
+import "./Interface/ToggleWithShortPress.dart";
 import "./Interface/ExtendDayAFewHoursPastMidnight.dart";
 import "./Interface/EnableSkipDays.dart";
+import "./Interface/ShowQuestionMarksForMissingData.dart";
+import "./Interface/UsePureBlackInDarkTheme.dart";
+import "./Interface/FirstDayOfTheWeek.dart";
+
+import "./Reminder/MakeNotifcationsSticky.dart";
+import "./Reminder/CustomizeNotifcations.dart";
+
+import "./Database/ExportFullBackup.dart";
+import "./Database/ExportAsCSV.dart";
+import "./Database/ImportData.dart";
+
+import "./Troubleshooting/GenerateBugReport.dart";
+
+import "./Links/HelpAndFAQ.dart";
+import "./Links/About.dart";
 
 class Page_Settings extends StatefulWidget {
   const Page_Settings({
@@ -17,6 +32,8 @@ class _Page_Settings extends State<Page_Settings> {
 
   bool light = true;
 
+  var height_spacing = 16.0;
+
   @override
   Widget build(BuildContext context) {
 
@@ -26,35 +43,169 @@ class _Page_Settings extends State<Page_Settings> {
           "Settings",
         ),
       ),
-      body: Container(
-        margin: EdgeInsets.all(16.0),
-        // width: MediaQuery.of(context).size.width * 0.9,
+      body: SingleChildScrollView(
 
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+        child: Container(
+          margin: EdgeInsets.all(16.0),
+          // width: MediaQuery.of(context).size.width * 0.9,
 
-            Text(
-              "Interface",
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.cyan
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              // interface options
+              Text(
+                "Interface",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.cyan
+                ),
               ),
-            ),
 
-            SizedBox(
-              height: 8.0,
-            ),
+              SizedBox(
+                height: height_spacing,
+              ),
 
-            const ExtendDayAFewHoursPastMidnight(),
+              const ToggleWithShortPress(),
 
-            SizedBox(
-              height: 16.0,
-            ),
+              SizedBox(
+                height: height_spacing,
+              ),
 
-            const EnableSkipDays(),
+              const ExtendDayAFewHoursPastMidnight(),
 
-          ],
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const EnableSkipDays(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const ShowQuestionMarksForMissingData(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const UsePureBlackInDarkTheme(),
+
+              // SizedBox(
+              //   height: height_spacing,
+              // ),
+              //
+              // const Widget Opacity what is this option even for?(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const FirstDayOfTheWeek(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              // reminder options
+              Text(
+                "Reminder",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.cyan
+                ),
+              ),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const MakeNotifcationsSticky(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const CustomizeNotifcations(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              // Databse options
+              Text(
+                "Database",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.cyan
+                ),
+              ),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const ExportFullBackup(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const ExportAsCSV(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const ImportData(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              // Databse options
+              Text(
+                "Troubleshooting",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.cyan
+                ),
+              ),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const GenerateBugReport(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              // Databse options
+              Text(
+                "Links",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.cyan
+                ),
+              ),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const HelpAndFAQ(),
+
+              SizedBox(
+                height: height_spacing,
+              ),
+
+              const About(),
+
+            ],
+          ),
         ),
       ),
     );
