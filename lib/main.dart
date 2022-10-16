@@ -6,6 +6,7 @@ import 's_isar.dart';
 
 import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
+import 'CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
 import 'components/HabitListMain.dart';
 import './AboutPage/AboutPage.dart';
 import './SettingsPage/SettingsPage.dart';
@@ -115,6 +116,23 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               );
             }
           ),
+
+          // TODO: collapse this into one button and have a modal give the selection
+          // of yes-or-no or measurable habit. This is just for testing the routes and pages.
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Page_CreateNewHabitMeasurable(
+                    // TODO: make this isar service accessible from a riverpod provider instead of passing it explicity
+                    isar_service: isar_service
+                )),
+              );
+            }
+          ),
+
+
 
           IconButton(
             icon: Icon(Icons.settings),
