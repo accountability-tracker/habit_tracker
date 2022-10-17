@@ -37,6 +37,15 @@ class IsarService {
     return await isar.habits.where().findAll();
   }
 
+  // TODO(clearfeld): return bool and add error state if this isn't true
+  // for now assuming true for testing and iteration purposes
+  Future<void> deleteHabit(int habit_id_arg) async {
+    final isar = await db;
+    await isar.writeTxn(() async {
+        isar.habits.delete(habit_id_arg);
+    });
+  }
+
   //
 
 }

@@ -11,7 +11,13 @@ import '../../HabitSpecificview/HabitSpecificview.dart';
 import 'HabitYesOrNoToggle.dart';
 
 class HabitLine extends StatefulWidget {
-  HabitLine({Key? key, required this.habit}) : super(key: key);
+  HabitLine({
+      Key? key,
+      required this.isar_service,
+      required this.habit
+  }) : super(key: key);
+
+  final IsarService isar_service;
 
   // TODO(clearfeld): update this to work with other habit types
   // final Habit_YesOrNo habit;
@@ -58,6 +64,7 @@ class _HabitLine extends State<HabitLine> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Page_HabitSpecificView(
+                      isar_service: widget.isar_service,
                       habit: widget.habit
                   )),
                 );

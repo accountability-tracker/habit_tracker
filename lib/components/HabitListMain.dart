@@ -58,6 +58,7 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                         margin: const EdgeInsets.all(2.0),
                         padding: const EdgeInsets.all(8.0),
                         child: HabitLine(
+                          isar_service: widget.isar_service,
                           habit: habit
                         ),
                       );

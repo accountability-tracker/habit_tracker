@@ -119,334 +119,336 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
       appBar: AppBar(
         title: Text("Create New Habit (Measurable)"),
       ),
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            margin: const EdgeInsets.all(16.0),
 
-          constraints: BoxConstraints (
-            minWidth: 320,
-            maxWidth: 896, // 16 * 56
-          ),
-          width: MediaQuery.of(context).size.width * 0.7,
+            constraints: BoxConstraints (
+              minWidth: 320,
+              maxWidth: 896, // 16 * 56
+            ),
+            width: MediaQuery.of(context).size.width * 0.7,
 
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // const Text(
-              //   'Create your new habit',
-              // ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // const Text(
+                //   'Create your new habit',
+                // ),
 
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Name"),
+
+                          SizedBox(height: 8.0,),
+
+                          FlatTextField(
+                            textController: nameTextController,
+                            hintText: 'e.g. Run'
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(width: 16.0,),
+
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Name"),
+                        Text("Color"),
 
                         SizedBox(height: 8.0,),
 
-                        FlatTextField(
-                          textController: nameTextController,
-                          hintText: 'e.g. Run'
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(width: 16.0,),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Color"),
-
-                      SizedBox(height: 8.0,),
-
-                      GestureDetector (
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Pick a color!'),
-                                content: SingleChildScrollView(
-                                  child: ColorPicker(
-                                    pickerColor: pickerColor,
-                                    onColorChanged: changeColor,
+                        GestureDetector (
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Pick a color!'),
+                                  content: SingleChildScrollView(
+                                    child: ColorPicker(
+                                      pickerColor: pickerColor,
+                                      onColorChanged: changeColor,
+                                    ),
+                                    // Use Material color picker:
+                                    //
+                                    // child: MaterialPicker(
+                                    //   pickerColor: pickerColor,
+                                    //   onColorChanged: changeColor,
+                                    //   showLabel: true, // only on portrait mode
+                                    // ),
+                                    //
+                                    // Use Block color picker:
+                                    //
+                                    // child: BlockPicker(
+                                    //   pickerColor: currentColor,
+                                    //   onColorChanged: changeColor,
+                                    // ),
+                                    //
+                                    // child: MultipleChoiceBlockPicker(
+                                    //   pickerColors: currentColors,
+                                    //   onColorsChanged: changeColors,
+                                    // ),
                                   ),
-                                  // Use Material color picker:
-                                  //
-                                  // child: MaterialPicker(
-                                  //   pickerColor: pickerColor,
-                                  //   onColorChanged: changeColor,
-                                  //   showLabel: true, // only on portrait mode
-                                  // ),
-                                  //
-                                  // Use Block color picker:
-                                  //
-                                  // child: BlockPicker(
-                                  //   pickerColor: currentColor,
-                                  //   onColorChanged: changeColor,
-                                  // ),
-                                  //
-                                  // child: MultipleChoiceBlockPicker(
-                                  //   pickerColors: currentColors,
-                                  //   onColorsChanged: changeColors,
-                                  // ),
-                                ),
-                                actions: <Widget>[
-                                  ElevatedButton(
-                                    child: const Text('Got it'),
-                                    onPressed: () {
-                                      setState(() => currentColor = pickerColor);
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            }
-                          );
-                        },
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      child: const Text('Got it'),
+                                      onPressed: () {
+                                        setState(() => currentColor = pickerColor);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }
+                            );
+                          },
 
-                        child:
-                        Container(
-                          color: Color.fromRGBO(41, 41, 41, 1.0),
-                          width: 48.0,
-                          height: 48.0,
-
-                          child: Container(
-                            margin: const EdgeInsets.all(10.0),
-                            color: currentColor,
+                          child:
+                          Container(
+                            color: Color.fromRGBO(41, 41, 41, 1.0),
                             width: 48.0,
                             height: 48.0,
+
+                            child: Container(
+                              margin: const EdgeInsets.all(10.0),
+                              color: currentColor,
+                              width: 48.0,
+                              height: 48.0,
+                            ),
                           ),
                         ),
+
+                        // TextField(
+                        //   controller: nameTextController,
+                        //   decoration: InputDecoration(
+                        //     border: OutlineInputBorder(),
+                        //     hintText: "e.g. Exercise",
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 32.0,),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Question"),
+
+                    SizedBox(height: 8.0,),
+
+                    FlatTextField(
+                      textController: questionTextController,
+                      hintText: "e.g. How many miles did you run today?",
+                    ),
+                  ],
+                ),
+
+
+                SizedBox(height: 32.0,),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Unit"),
+
+                    SizedBox(height: 8.0,),
+
+                    FlatTextField(
+                      textController: unitTextController,
+                      hintText: "e.g. miles",
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 32.0,),
+
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Target"),
+
+                          SizedBox(height: 8.0,),
+
+                          FlatTextField(
+                            textController: targetTextController,
+                            hintText: "e.g. 15",
+                          ),
+                        ],
                       ),
+                    ),
 
-                      // TextField(
-                      //   controller: nameTextController,
-                      //   decoration: InputDecoration(
-                      //     border: OutlineInputBorder(),
-                      //     hintText: "e.g. Exercise",
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ],
-              ),
+                    SizedBox(width: 16.0,),
 
-              SizedBox(height: 32.0,),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Frequency"),
 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("Question"),
+                          SizedBox(height: 8.0,),
 
-                  SizedBox(height: 8.0,),
+                          FlatDropdown(
+                            value: frequencyValue,
+                            onValueChanged: (String? value_arg) {
+                              setState(() {
+                                  frequencyValue = value_arg!;
+                              });
+                            },
+                            items: frequencyList,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
 
-                  FlatTextField(
-                    textController: questionTextController,
-                    hintText: "e.g. How many miles did you run today?",
-                  ),
-                ],
-              ),
+                SizedBox(height: 32.0,),
 
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget> [
+                        Text("Target Type"),
+                      ],
+                    ),
 
-              SizedBox(height: 32.0,),
+                    SizedBox(height: 8.0,),
 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("Unit"),
+                    FlatDropdown(
+                      value: targetTypeValue,
+                      onValueChanged: (String? value_arg) {
+                        setState(() {
+                            targetTypeValue = value_arg!;
+                        });
+                      },
+                      items: targetTypeList,
+                    ),
 
-                  SizedBox(height: 8.0,),
+                  ],
+                ),
 
-                  FlatTextField(
-                    textController: unitTextController,
-                    hintText: "e.g. miles",
-                  ),
-                ],
-              ),
+                SizedBox(height: 32.0,),
 
-              SizedBox(height: 32.0,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Target"),
+                    Row(
+                      children: <Widget> [
+                        Text("Reminder"),
 
-                        SizedBox(height: 8.0,),
+                        TextButton(
+                          child: Text("Test time picker"),
+                          onPressed: () async {
+                            TimeOfDay? selectedTime = await showTimePicker(
+                              initialTime: TimeOfDay.now(),
+                              context: context,
 
-                        FlatTextField(
-                          textController: targetTextController,
-                          hintText: "e.g. 15",
+                              // 24 Hour format - setting
+                              // builder: (BuildContext context, Widget? child) {
+                              //   return MediaQuery(
+                              //     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                              //     child: child!,
+                              //   );
+                              // },
+
+                            );
+
+                            if(selectedTime == null) return;
+
+                            print("Select time - " + selectedTime.toString());
+                          }
                         ),
                       ],
                     ),
-                  ),
 
-                  SizedBox(width: 16.0,),
+                    SizedBox(height: 8.0,),
 
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Frequency"),
+                    FlatDropdown(
+                      value: reminderValue,
+                      onValueChanged: (String? value_arg) {
+                        setState(() {
+                            reminderValue = value_arg!;
+                        });
+                      },
+                      items: reminderList,
+                    ),
+                  ],
+                ),
 
-                        SizedBox(height: 8.0,),
+                SizedBox(height: 32.0,),
 
-                        FlatDropdown(
-                          value: frequencyValue,
-                          onValueChanged: (String? value_arg) {
-                            setState(() {
-                                frequencyValue = value_arg!;
-                            });
-                          },
-                          items: frequencyList,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Notes"),
+
+                    SizedBox(height: 8.0,),
+
+                    FlatTextField(
+                      textController: notesTextController,
+                      hintText: "(Optional)",
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 48.0,),
+
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      child:
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue, // background
+                          onPrimary: Colors.white, // foreground
+                          padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 32.0,),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget> [
-                      Text("Target Type"),
-                    ],
-                  ),
-
-                  SizedBox(height: 8.0,),
-
-                  FlatDropdown(
-                    value: targetTypeValue,
-                    onValueChanged: (String? value_arg) {
-                      setState(() {
-                          targetTypeValue = value_arg!;
-                      });
-                    },
-                    items: targetTypeList,
-                  ),
-
-                ],
-              ),
-
-              SizedBox(height: 32.0,),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-                  Row(
-                    children: <Widget> [
-                      Text("Reminder"),
-
-                      TextButton(
-                        child: Text("Test time picker"),
-                        onPressed: () async {
-                          TimeOfDay? selectedTime = await showTimePicker(
-                            initialTime: TimeOfDay.now(),
-                            context: context,
-
-                            // 24 Hour format - setting
-                            // builder: (BuildContext context, Widget? child) {
-                            //   return MediaQuery(
-                            //     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                            //     child: child!,
-                            //   );
-                            // },
-
-                          );
-
-                          if(selectedTime == null) return;
-
-                          print("Select time - " + selectedTime.toString());
-                        }
+                        onPressed: () {
+                          addHabit();
+                        },
+                        child: Text('Save'),
                       ),
-                    ],
-                  ),
-
-                  SizedBox(height: 8.0,),
-
-                  FlatDropdown(
-                    value: reminderValue,
-                    onValueChanged: (String? value_arg) {
-                      setState(() {
-                          reminderValue = value_arg!;
-                      });
-                    },
-                    items: reminderList,
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 32.0,),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text("Notes"),
-
-                  SizedBox(height: 8.0,),
-
-                  FlatTextField(
-                    textController: notesTextController,
-                    hintText: "(Optional)",
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 48.0,),
-
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Expanded(
-                    child:
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue, // background
-                        onPrimary: Colors.white, // foreground
-                        padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      ),
-                      onPressed: () {
-                        addHabit();
-                      },
-                      child: Text('Save'),
                     ),
-                  ),
 
-                  SizedBox(width: 16.0,),
+                    SizedBox(width: 16.0,),
 
-                  Expanded(
-                    child:
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.grey, // background
-                        onPrimary: Colors.white, // foreground
-                        padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                    Expanded(
+                      child:
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.grey, // background
+                          onPrimary: Colors.white, // foreground
+                          padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        ),
+                        onPressed: () {
+                          leavePage(context);
+                        },
+                        child: Text('Cancel'),
                       ),
-                      onPressed: () {
-                        leavePage(context);
-                      },
-                      child: Text('Cancel'),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
 
-            ],
+              ],
+            ),
           ),
         ),
 
