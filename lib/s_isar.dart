@@ -55,9 +55,17 @@ class IsarService {
     return await isar.habitDates.filter().habit_idEqualTo(habit_id_arg).limit(10).findAll();
   }
 
-  Future<void> putHabitDate(HabitDate habitDate) async {
+  Future<int> putHabitDate(HabitDate habitDate) async {
     final isar = await db;
-    isar.writeTxnSync<int>(() => isar.habitDates.putSync(habitDate));
+    var x = isar.writeTxnSync<int>(() =>
+      isar.habitDates.putSync(habitDate)
+    );
+    // TODO(clearfled): seems to be the item id which is good enough
+    // needs more testing to confirm
+    // cant find any additional info in the docs
+    // probably should dive into the isar source and double check this at some point
+    // print("Isar x = " + x.toString());
+    return x;
   }
 
 }

@@ -52,7 +52,7 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
             toggled_on ? Icon(Icons.check) : Icon(Icons.close)
           ),
           color: Color(widget.habit.getColor()), // Colors.red,
-          onPressed: () {
+          onPressed: () async {
             var x = !toggled_on;
             setState(() {
                 toggled_on = x;
@@ -64,14 +64,46 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
             // print(widget.date.day);
 
             if(widget.habitDate == null) {
+              widget.habitDate?.value = x ? 1 : 0;
+
+
+
               // widget.habitDate =
-              widget.isar_service.putHabitDate(
+              var id = await widget.isar_service.putHabitDate(
                 HabitDate.Full(
                   widget.habit.id,
                   '${widget.date.year}-${widget.date.month}-${widget.date.day}',
                   x ? 1 : 0
                 )
               );
+
+              widget.habitDate = HabitDate.FullWithId(
+                id,
+                widget.habit.id,
+                '${widget.date.year}-${widget.date.month}-${widget.date.day}',
+                x ? 1 : 0
+              );
+
+            } else {
+              widget.habitDate?.value = x ? 1 : 0;
+              // var hd = widget.habitDate().. value: x ? 1 : 0;
+              print(widget.habitDate);
+              var i  = widget.habitDate?.id;
+              var hi = widget.habitDate?.habit_id;
+              var d  = widget.habitDate?.date;
+              var v  = widget.habitDate?.value;
+
+              if(i != null &&
+                hi != null &&
+                d != null &&
+                v != null) {
+
+                widget.isar_service.putHabitDate(
+                  HabitDate.FullWithId(
+                    i, hi, d, v
+                  )
+                );
+              }
             }
             //code to execute when this button is pressed
           }
