@@ -161,6 +161,45 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           ],
 
           PopupMenuButton(
+            icon: Icon(Icons.sort),
+            color: Colors.red,
+            itemBuilder: (context) => [
+              // Text(
+              //   "Sort",
+              //   style: TextStyle(color: Colors.white),
+              // ),
+
+              PopupMenuItem<int>(
+                value: 0,
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.arrow_upward),
+                    Text("Manually",style: TextStyle(color: Colors.white),),
+                  ],
+                ),
+              ),
+
+              PopupMenuItem<int>(
+                value: 1,
+                child: Text("By name",style: TextStyle(color: Colors.white),),
+              ),
+
+              PopupMenuItem<int>(
+                value: 2,
+                child: Text("By color",style: TextStyle(color: Colors.white),),
+              ),
+
+              PopupMenuItem<int>(
+                value: 3,
+                child: Text("By status",style: TextStyle(color: Colors.white),),
+              ),
+            ],
+            onSelected: (item) => {
+              _more_option_selected(item)
+            },
+          ),
+
+          PopupMenuButton(
             icon: Icon(Icons.more_vert),
             color: Colors.red,
             itemBuilder: (context) => [
