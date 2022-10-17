@@ -2,6 +2,7 @@ import "package:isar/isar.dart";
 import 'package:path_provider/path_provider.dart';
 
 import "entities/habit.dart";
+import "entities/habit_date.dart";
 
 class IsarService {
   late Future<Isar> db;
@@ -16,7 +17,7 @@ class IsarService {
       print('App Doc path - ' + appDocDir.path);
 
       return await Isar.open(
-        [HabitSchema],
+        [HabitSchema, HabitDateSchema],
         directory: appDocDir.path,
         inspector: true
       );
@@ -46,6 +47,17 @@ class IsarService {
     });
   }
 
-  //
+  // Habit Date Helpers
+
+  Future<List<HabitDate>> getHabitsDateLastSeven(int habit_id_arg) async {
+    final isar = await db;
+    // return await isar.habitDates.where().findAll();
+    return await isar.habitDates.filter().habit_idEqualTo(habit_id_arg).limit(10).findAll();
+  }
+
+  Future<void> putHabitDate(HabitDate habitDate) async {
+    final isar = await db;
+    isar.writeTxnSync<int>(() => isar.habitDates.putSync(habitDate));
+  }
 
 }
