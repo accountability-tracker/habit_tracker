@@ -8,6 +8,7 @@ import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 import 'CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
 import 'components/HabitListMain.dart';
+import 'components/ProgressBar.dart';
 import './AboutPage/AboutPage.dart';
 import './SettingsPage/SettingsPage.dart';
 
@@ -246,6 +247,12 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               isar_service: isar_service
             ),
             // const ThemeToggleButton(),
+            ProgressBar(
+              habit_name: "Worked on Flutter",
+              full_units: 5,
+              current_units: 2,
+              uom: "Days",
+            ),
 
             // TextButton(
             //   onPressed: () {
