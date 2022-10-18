@@ -85,24 +85,10 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                   dstr + (d.day - 5).toString(),
                   dstr + (d.day - 6).toString(),
                 ];
-
                 List<dynamic> xy = [];
 
-                // List<dynamic> xyz = [
-                //   {
-                //     "date": dstr + (d.day).toString(),
-                //     "object": null
-                //   }
-                // ];
-
-                // print(xyz[0]["date"]);
-
                 var habit_dates = snapshot.data;
-                // print(habit_dates);
                 if(habit_dates != null) {
-                  // for(var v in habit_dates) {
-                  //   print(v.getDate());
-                  // }
 
                   // sort by date
                   habit_dates.sort((a, b) {
@@ -111,34 +97,27 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
 
                   var i = 0;
                   for(var p in x) {
-
                     var found = false;
                     for(var v in habit_dates) {
-                      // print(v.getDate());
 
                       if(v.getDate() == p) {
                         xy.add({
                             "date": p,
                             "object": v
                         });
-                        // xyz[i]["object"] = v;
                         found = true;
                       }
                     }
 
                     if(!found) {
-                      // print("Here");
                       xy.add({
                           "date": p,
                           "object": null
                       });
                     }
+
                     i += 1;
                   }
-
-                  // for(var v in xy) {
-                  //   print(v.toString());
-                  // }
                 }
 
                 return HistoryBarChart(

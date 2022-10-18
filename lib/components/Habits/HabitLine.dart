@@ -95,12 +95,14 @@ class _HabitLine extends State<HabitLine> {
                     // TODO(clearfeld): move the date logic outside somewhere in global state
                     // currently dates are being generated per habit + static day line
                     // we shouldnt be doing o(n) but o(1) generations and just using the stored date values
-                    List<int> x = [5,4,3,2,1];
+                    List<int> x = [4, 3, 2, 1, 0];
                     final habits = x.mapIndexed((index, habit) {
                         // int hidx = habit.key;
+                        // print(index);
+
                         return HabitYesOrNoToggle(
                           habit: widget.habit,
-                          date: date.subtract(Duration(days: (index - date.weekday + 1))),
+                          date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                           isar_service: widget.isar_service
                         );
                     }).toList();
@@ -169,13 +171,15 @@ class _HabitLine extends State<HabitLine> {
 
                     // return Text("test");
 
-                    List<int> x = [5,4,3,2,1];
+                    List<int> x = [4, 3, 2, 1, 0];
                     final habits = x.mapIndexed((index, habit) {
                         // int hidx = habit.key;
+                        // print(index);
+
                         return HabitYesOrNoToggle(
                           habitDate: habitDates[index],
                           habit: widget.habit,
-                          date: date.subtract(Duration(days: (index - date.weekday + 1))),
+                          date: date.subtract(Duration(days: (4 - x[index]))), // index - date.weekday + 1
                           isar_service: widget.isar_service
                         );
                     }).toList();
