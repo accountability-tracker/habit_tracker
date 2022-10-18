@@ -6,11 +6,14 @@ import "../../s_isar.dart";
 import "../../entities/habit.dart";
 import "package:habit_tracker/entities/habit_date.dart";
 
+import 'package:habit_tracker/habit_enums.dart';
+
 import '../../habits.dart';
 
 import '../../HabitSpecificview/HabitSpecificview.dart';
 
 import 'HabitYesOrNoToggle.dart';
+import 'package:habit_tracker/components/habits/HabitMeasurableBlock.dart';
 
 class HabitLine extends StatefulWidget {
   HabitLine({
@@ -100,11 +103,27 @@ class _HabitLine extends State<HabitLine> {
                         // int hidx = habit.key;
                         // print(index);
 
-                        return HabitYesOrNoToggle(
-                          habit: widget.habit,
-                          date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
-                          isar_service: widget.isar_service
-                        );
+                        if(widget.habit.type == E_HABITS.YES_OR_NO) {
+                          return HabitYesOrNoToggle(
+                            habit: widget.habit,
+                            date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
+                            isar_service: widget.isar_service
+                          );
+                        } else if(widget.habit.type == E_HABITS.MEASURABLE) {
+                          return HabitMeasurableBlock(
+                            habit: widget.habit,
+                            date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
+                            isar_service: widget.isar_service
+                          );
+                        } else {
+                          // TODO: allow nulls and check and display an error if this is reached
+                          return HabitYesOrNoToggle(
+                            habit: widget.habit,
+                            date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
+                            isar_service: widget.isar_service
+                          );
+                        }
+
                     }).toList();
 
                     return new Row(
@@ -176,13 +195,29 @@ class _HabitLine extends State<HabitLine> {
                         // int hidx = habit.key;
                         // print(index);
 
-                        return HabitYesOrNoToggle(
-                          habitDate: habitDates[index],
-                          habit: widget.habit,
-                          date: date.subtract(Duration(days: (4 - x[index]))), // index - date.weekday + 1
-                          isar_service: widget.isar_service
-                        );
+                        if(widget.habit.type == E_HABITS.YES_OR_NO) {
+                          return HabitYesOrNoToggle(
+                            habitDate: habitDates[index],
+                            habit: widget.habit,
+                            date: date.subtract(Duration(days: (4 - x[index]))), // index - date.weekday + 1
+                            isar_service: widget.isar_service
+                          );
+                        } else if(widget.habit.type == E_HABITS.MEASURABLE) {
+                          return HabitMeasurableBlock(
+                            habit: widget.habit,
+                            date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
+                            isar_service: widget.isar_service
+                          );
+                        } else {
+                          // TODO: allow nulls and check and display an error if this is reached
+                          return HabitYesOrNoToggle(
+                            habit: widget.habit,
+                            date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
+                            isar_service: widget.isar_service
+                          );
+                        }
                     }).toList();
+
 
                     return new Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

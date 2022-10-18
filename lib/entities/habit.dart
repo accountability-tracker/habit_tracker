@@ -32,6 +32,9 @@ class Habit {
   late int frequency_amount;
   // late int frequency_out_of_days;
 
+  late String? unit;
+  late int? target;
+
   late String? reminder; // Time
 
   late String? question;
@@ -52,6 +55,32 @@ class Habit {
     this.type = type;
     this.title = title;
     this.color = color;
+    this.unit = null;
+    this.target = null;
+    this.frequency = frequency;
+    this.frequency_amount = frequency_amount;
+    this.reminder = reminder;
+    this.question = question;
+    this.notes = notes;
+  }
+
+  Habit.FullMeasurable(
+    E_HABITS type,
+    String title,
+    String color,
+    String unit,
+    int target,
+    E_HABIT_FREQUENCY frequency,
+    int frequency_amount,
+    String? reminder,
+    String? question,
+    String? notes
+  ) {
+    this.type = type;
+    this.title = title;
+    this.color = color;
+    this.unit = unit;
+    this.target = target;
     this.frequency = frequency;
     this.frequency_amount = frequency_amount;
     this.reminder = reminder;

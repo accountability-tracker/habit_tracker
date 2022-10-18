@@ -77,6 +77,22 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
   }
 
   void addHabit() {
+
+    widget.isar_service.saveHabit(
+      Habit.FullMeasurable(
+        E_HABITS.MEASURABLE,
+        nameTextController.text,
+        currentColor.toString(),
+        unitTextController.text,
+        int.parse(targetTextController.text),
+        E_HABIT_FREQUENCY.EVERY_DAY,
+        1,
+        "",
+        questionTextController.text,
+        notesTextController.text
+      )
+    );
+
     // TODO: add measurable habit save
     // widget.isar_service.saveHabit(
     //   Habit.Full(
