@@ -8,6 +8,13 @@ import "../habit_enums.dart";
 
 part "habit.g.dart";
 
+enum E_HABIT_FREQUENCY {
+  EVERY_DAY,
+  EVERY_X_DAYS,
+  X_TIMES_PER_WEEK,
+  X_TIMES_PER_MONTH,
+  // CUSTOM
+}
 
 @Collection()
 class Habit {
@@ -20,8 +27,15 @@ class Habit {
 
   late String color;
 
-  late String question;
-  late String notes;
+  @enumerated
+  late E_HABIT_FREQUENCY frequency;
+  late int frequency_amount;
+  // late int frequency_out_of_days;
+
+  late String? reminder; // Time
+
+  late String? question;
+  late String? notes;
 
   Habit() {}
 
@@ -29,12 +43,18 @@ class Habit {
     E_HABITS type,
     String title,
     String color,
-    String question,
-    String notes
+    E_HABIT_FREQUENCY frequency,
+    int frequency_amount,
+    String? reminder,
+    String? question,
+    String? notes
   ) {
     this.type = type;
     this.title = title;
     this.color = color;
+    this.frequency = frequency;
+    this.frequency_amount = frequency_amount;
+    this.reminder = reminder;
     this.question = question;
     this.notes = notes;
   }
@@ -49,5 +69,13 @@ class Habit {
     var c = this.color.substring(6, this.color.length - 1);
     // print(c);
     return int.parse(c);
+  }
+
+  String? getQuestion() {
+    return this.question;
+  }
+
+  String? getNotes() {
+    return this.notes;
   }
 }

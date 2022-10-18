@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import "s_isar.dart";
 import "../habit_enums.dart";
 
+// TODO: remove this file completey
+
 class Habit_YesOrNo {
   int id = -1;
   E_HABITS type = E_HABITS.UNINITALIZED;
@@ -43,6 +45,14 @@ class Habit_YesOrNo {
 
   Color getColor() {
     return color;
+  }
+
+  String getQuestion() {
+    return question;
+  }
+
+  String getNotes() {
+    return notes;
   }
 }
 

@@ -75,6 +75,9 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
         E_HABITS.YES_OR_NO,
         nameTextController.text,
         currentColor.toString(),
+        E_HABIT_FREQUENCY.EVERY_DAY,
+        1,
+        "",
         questionTextController.text,
         notesTextController.text
       )

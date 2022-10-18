@@ -10,6 +10,8 @@ import '../habits.dart';
 import '../components/FlatTextField.dart';
 // import '../components/FlatDropdown.dart';
 
+import 'package:habit_tracker/HabitSpecificview/HabitVariablesOverviewBlock.dart';
+
 class Page_HabitSpecificView extends ConsumerStatefulWidget {
   const Page_HabitSpecificView({
       super.key,
@@ -104,8 +106,13 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
           child: Column(
             children: <Widget>[
 
-              Text(
-                widget.habit.getTitle(),
+              // Text(
+              //   widget.habit.getTitle(),
+              // ),
+
+              HabitVariablesOverviewBlock(
+                isar_service: widget.isar_service,
+                habit: widget.habit,
               ),
 
             ],
