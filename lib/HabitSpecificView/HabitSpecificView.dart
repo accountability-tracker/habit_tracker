@@ -11,6 +11,7 @@ import '../components/FlatTextField.dart';
 // import '../components/FlatDropdown.dart';
 
 import 'package:habit_tracker/HabitSpecificview/HabitVariablesOverviewBlock.dart';
+import 'package:habit_tracker/HabitSpecificview/HistoryChart.dart';
 
 class Page_HabitSpecificView extends ConsumerStatefulWidget {
   const Page_HabitSpecificView({
@@ -111,6 +112,13 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
               // ),
 
               HabitVariablesOverviewBlock(
+                isar_service: widget.isar_service,
+                habit: widget.habit,
+              ),
+
+              SizedBox(height: 16.0,),
+
+              HistoryChart(
                 isar_service: widget.isar_service,
                 habit: widget.habit,
               ),

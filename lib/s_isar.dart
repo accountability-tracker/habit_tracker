@@ -52,6 +52,8 @@ class IsarService {
   Future<List<HabitDate>> getHabitsDateLastSeven(int habit_id_arg) async {
     final isar = await db;
     // return await isar.habitDates.where().findAll();
+
+    // TODO(clearfeld): make this filter an actual week range on the dates
     return await isar.habitDates.filter().habit_idEqualTo(habit_id_arg).limit(10).findAll();
   }
 

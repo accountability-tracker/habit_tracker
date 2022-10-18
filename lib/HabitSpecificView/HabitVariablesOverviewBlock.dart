@@ -66,7 +66,9 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
 
               SizedBox(width: 16.0,),
 
-              Text("test"),
+              Text(
+                widget.habit.getFrequency().toString()
+              ),
             ],
           ),
 
@@ -82,7 +84,10 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
 
               SizedBox(width: 16.0,),
 
-              Text("test"),
+              Text(
+                (widget.habit.getReminder() == null ||
+                widget.habit.getReminder() == "") ? "OFF" : widget.habit.getReminder()
+              ),
             ],
           ),
 
@@ -99,7 +104,9 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
               SizedBox(width: 16.0,),
 
               Text(
-                widget.habit.getQuestion() == null ? "N/A" : widget.habit.getQuestion(),
+                (widget.habit.getQuestion() == null ||
+                  widget.habit.getQuestion() == "")
+                ? "N/A" : widget.habit.getQuestion(),
               ),
             ],
           ),
@@ -117,7 +124,9 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
               SizedBox(width: 16.0,),
 
               Text(
-                widget.habit.getNotes() == null ? "N/A" : widget.habit.getNotes(),
+                (widget.habit.getNotes() == null ||
+                  widget.habit.getNotes() == "")
+                  ? "N/A" : widget.habit.getNotes(),
               ),
             ],
           ),

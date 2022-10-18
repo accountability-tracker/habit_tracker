@@ -71,6 +71,18 @@ class Habit {
     return int.parse(c);
   }
 
+  E_HABIT_FREQUENCY getFrequency() {
+    return this.frequency;
+  }
+
+  int getFrequencyAmount() {
+    return this.frequency_amount;
+  }
+
+  String? getReminder() {
+    return this.reminder;
+  }
+
   String? getQuestion() {
     return this.question;
   }
