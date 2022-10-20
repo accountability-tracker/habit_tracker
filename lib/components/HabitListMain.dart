@@ -8,6 +8,8 @@ import '../habits.dart';
 import './Habits/HabitLine.dart';
 import './FiveDayLine.dart';
 
+import 'package:habit_tracker/components/ProgressBar.dart';
+
 class HabitListMain extends ConsumerStatefulWidget {
   const HabitListMain({
       super.key,
@@ -38,77 +40,75 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
     // TODO: scrollview
 
     return Column(
-      children: <Widget>[
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
 
+      children: <Widget>[
         FiveDayLine(),
 
-        Column(
-          children: <Widget>[
+        Expanded(
+          child: SingleChildScrollView(
+            // onReorder: (int oldIndex, int newIndex) {},
 
-            FutureBuilder<List<Habit>>(
-              future: widget.isar_service.getAllHabits(),
-              builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
+            child:
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-                if(snapshot.hasData) {
-                  // print(snapshot.data);
-                  final habits = snapshot.data!.map((habit) {
-                      return Container(
-                        color: Color.fromRGBO(31, 31, 31, 1.0),
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.all(2.0),
-                        padding: const EdgeInsets.all(8.0),
-                        child: HabitLine(
-                          isar_service: widget.isar_service,
-                          habit: habit
-                        ),
-                      );
-                  }).toList();
+              children: <Widget>[
 
-                  return new Column(children: habits);
-                }
+                FutureBuilder<List<Habit>>(
+                  future: widget.isar_service.getAllHabits(),
+                  builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
 
-                return Text(
-                  "Loading indacator..."
-                );
+                    if(snapshot.hasData) {
+                      // print(snapshot.data);
+                      final habits = snapshot.data!.map((habit) {
 
-              //   if (snapshot.hasData) {
-              //     final courses = snapshot.data!.map((course) {
-              //         return MultiSelectItem<Course>(course, course.title);
-              //     }).toList();
+                          return Container(
+                            color: Color.fromRGBO(31, 31, 31, 1.0),
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.all(2.0),
+                            padding: const EdgeInsets.all(8.0),
+                            child: HabitLine(
+                              isar_service: widget.isar_service,
+                              habit: habit
+                            ),
+                          );
+                      }).toList();
 
-              //     return MultiSelectDialogField<Course>(
-              //         items: courses,
-              //         onConfirm: (value) {
-              //           selectedCourses = value;
-              //         });
-              //   }
-              //   return const Center(child: CircularProgressIndicator());
-              // },
+                      return new Column(children: habits);
+                    }
 
-                // return Row(children: [
-                //     const Text("Teacher: "),
-                //     Text(snapshot.hasData
-                //       ? snapshot.data!.name
-                //       : "No teacher yet for this course.")
-                // ]);
-
-              },
+                    return Text(
+                      "Loading indacator..."
+                    );
+                  },
+                ),
+                // for(var habit in habits)
+                // if(habit is Habit_YesOrNo) ...[
+                //   Container(
+                //     color: Color.fromRGBO(31, 31, 31, 1.0),
+                //     width: MediaQuery.of(context).size.width,
+                //     margin: const EdgeInsets.all(2.0),
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: HabitLine(
+                //       habit: habit
+                //     ),
+                //   ),
+                // ]
+              ],
             ),
 
-            // for(var habit in habits)
-            // if(habit is Habit_YesOrNo) ...[
-            //   Container(
-            //     color: Color.fromRGBO(31, 31, 31, 1.0),
-            //     width: MediaQuery.of(context).size.width,
-            //     margin: const EdgeInsets.all(2.0),
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: HabitLine(
-            //       habit: habit
-            //     ),
-            //   ),
-            // ]
+            // );
+          ),
+        ),
 
-          ],
+        ProgressBar(
+          habit_name: "Worked on Flutter",
+          full_units: 5,
+          current_units: 2,
+          uom: "Days",
         ),
       ],
     );

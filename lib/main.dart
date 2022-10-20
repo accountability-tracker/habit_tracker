@@ -8,7 +8,6 @@ import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 import 'CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
 import 'components/HabitListMain.dart';
-import 'components/ProgressBar.dart';
 import './AboutPage/AboutPage.dart';
 import './SettingsPage/SettingsPage.dart';
 
@@ -133,8 +132,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             }
           ),
 
-
-
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
@@ -219,52 +216,14 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // const Text(
-            //   'You have pushed the button this many times:',
-            // ),
-            // Text(
-            //   '$_counter',
-            // ),
-
-            HabitListMain(
-              isar_service: isar_service
-            ),
-            // const ThemeToggleButton(),
-            ProgressBar(
-              habit_name: "Worked on Flutter",
-              full_units: 5,
-              current_units: 2,
-              uom: "Days",
-            ),
-
-            // TextButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const Page_CreateNewHabitYesOrNo()),
-            //     );
-            //   },
-            //   child: const Text("Create new habit"),
-            // ),
-          ],
+        child: HabitListMain(
+          isar_service: isar_service
         ),
+
+        //   // Invoke "debug painting" (press "p" in the console, choose the
+        //   // "Toggle Debug Paint" action from the Flutter Inspector in Android
+        //   // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+        //   // to see the wireframe for each widget.
       ),
 
       drawer: DrawerCust(),
@@ -274,7 +233,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       //   tooltip: 'Increment',
       //   child: const Icon(Icons.add),
       // ), // This trailing comma makes auto-formatting nicer for build methods.
-
     );
   }
 }
