@@ -148,6 +148,8 @@ class _HabitLine extends State<HabitLine> {
                     // print(date);
                     final hdates = snapshot.data!.map((hd) { return hd; }).toList();
 
+
+
                     for(var i = 0; i < habitDates.length; ++i) {
                       // print("Idx - " + i.toString());
                       var hd = habitDates[i];
@@ -204,6 +206,7 @@ class _HabitLine extends State<HabitLine> {
                           );
                         } else if(widget.habit.type == E_HABITS.MEASURABLE) {
                           return HabitMeasurableBlock(
+                            habitDate: habitDates[index],
                             habit: widget.habit,
                             date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                             isar_service: widget.isar_service
@@ -231,13 +234,6 @@ class _HabitLine extends State<HabitLine> {
                     // );
                   }
                 }
-
-                // if(snapshot.data! == null) {
-                //   print("NULL");
-                //   return HabitYesOrNoToggle(
-                //     habit: widget.habit
-                //   );
-                // }
 
                 // if(snapshot.hasData) {
 
