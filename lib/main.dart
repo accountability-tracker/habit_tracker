@@ -108,27 +108,133 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
-                    isar_service: isar_service
-                )),
-              );
-            }
-          ),
 
-          // TODO: collapse this into one button and have a modal give the selection
-          // of yes-or-no or measurable habit. This is just for testing the routes and pages.
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Page_CreateNewHabitMeasurable(
-                    // TODO: make this isar service accessible from a riverpod provider instead of passing it explicity
-                    isar_service: isar_service
-                )),
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Scaffold(
+                    body: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        children: <Widget>[
+                          Spacer(),
+
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                                    isar_service: isar_service
+                                )),
+                              );
+                            },
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Yes or No",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24.0,
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 8.0,),
+
+                                  Text(
+                                    "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                              decoration: BoxDecoration(
+                                color: const Color(0xff7c94b6),
+                                border: Border.all(
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 4.0,),
+
+                                                    GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Page_CreateNewHabitMeasurable(
+                                    isar_service: isar_service
+                                )),
+                              );
+                            },
+                            child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  "Measurable",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24.0,
+                                  ),
+                                ),
+
+                                SizedBox(height: 8.0,),
+
+                                Text(
+                                  "e.g. How many miles did you run today? How many pages did you read?",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                            decoration: BoxDecoration(
+                              color: const Color(0xff7c94b6),
+                              border: Border.all(
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          ),
+
+                          SizedBox(height: 4.0,),
+
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("Close"),
+                          ),
+
+                          Spacer(),
+                        ],
+                      ),
+                    ),
+                  );
+                  //     Navigator.of(context).pop();
+                }
               );
+
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+              //       isar_service: isar_service
+              //   )),
+              // );
             }
           ),
 
