@@ -55,7 +55,7 @@ class _Page_Settings extends State<Page_Settings> {
             children: <Widget>[
 
               // interface options
-              Text(
+              const Text(
                 "Interface",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -110,7 +110,7 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               // reminder options
-              Text(
+              const Text(
                 "Reminder",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -135,7 +135,7 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               // Databse options
-              Text(
+              const Text(
                 "Database",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -166,7 +166,7 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               // Databse options
-              Text(
+              const Text(
                 "Troubleshooting",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -185,7 +185,7 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               // Databse options
-              Text(
+              const Text(
                 "Links",
                 style: TextStyle(
                   fontSize: 20.0,

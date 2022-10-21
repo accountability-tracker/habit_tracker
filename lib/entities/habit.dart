@@ -1,10 +1,7 @@
-import "package:isar/isar.dart";
-
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 
-import "../habit_enums.dart";
-
-// import "../habits.dart";
+import 'package:habit_tracker/habit_enums.dart';
 
 part "habit.g.dart";
 
