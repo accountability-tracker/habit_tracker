@@ -27,7 +27,7 @@ class _CustomizeNotifcations extends State<CustomizeNotifcations> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-              Text(
+              const Text(
                 "Customize notifcations",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,11 +35,11 @@ class _CustomizeNotifcations extends State<CustomizeNotifcations> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 4.0,
               ),
 
-              Text(
+              const Text(
                 "Change sound, vibration, light and other notifcation settings. (TODO show modal)",
                 style: TextStyle(
                   fontSize: 16.0,

@@ -27,7 +27,7 @@ class _EnableSkipDays extends State<EnableSkipDays> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-              Text(
+              const Text(
                 "Enable skip days",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,12 +35,12 @@ class _EnableSkipDays extends State<EnableSkipDays> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 4.0,
               ),
 
 
-              Text(
+              const Text(
                 "Toggle twice to add a skip instead of a checkmark. Skips keep your score unchanged and don't break your streak.",
                 style: TextStyle(
                   fontSize: 16.0,

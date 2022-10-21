@@ -26,7 +26,7 @@ class _About extends State<About> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
               TextButton(
-                child: Text(
+                child: const Text(
                   "About",
                   style: TextStyle(
                     fontSize: 20.0,

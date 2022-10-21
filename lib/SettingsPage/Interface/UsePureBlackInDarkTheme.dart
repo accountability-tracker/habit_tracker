@@ -27,7 +27,7 @@ class _UsePureBlackInDarkTheme extends State<UsePureBlackInDarkTheme> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-              Text(
+              const Text(
                 "Use pure black in dark theme",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,11 +35,11 @@ class _UsePureBlackInDarkTheme extends State<UsePureBlackInDarkTheme> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 4.0,
               ),
 
-              Text(
+              const Text(
                 "Replaces the none pure black background with pure black in dark theme. Reduces battery usage in phones with amoled displays.",
                 style: TextStyle(
                   fontSize: 16.0,

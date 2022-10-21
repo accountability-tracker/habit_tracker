@@ -24,7 +24,7 @@ class _HelpAndFAQ extends State<HelpAndFAQ> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-              Text(
+              const Text(
                 "Help & FAQ",
                 style: TextStyle(
                   fontSize: 20.0,

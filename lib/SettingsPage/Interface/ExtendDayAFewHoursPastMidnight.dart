@@ -27,7 +27,7 @@ class _ExtendDayAFewHoursPastMidnight extends State<ExtendDayAFewHoursPastMidnig
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-              Text(
+              const Text(
                 "Extend day a few hours past midnight",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,12 +35,12 @@ class _ExtendDayAFewHoursPastMidnight extends State<ExtendDayAFewHoursPastMidnig
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 4.0,
               ),
 
 
-              Text(
+              const Text(
                 "Wait until 5:00am to show a new day. Useful if you typically go to sleep after midnight.",
                 style: TextStyle(
                   fontSize: 16.0,
