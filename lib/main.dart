@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'theme.dart';
-import 's_isar.dart';
+import 'package:habit_tracker/theme.dart';
+import 'package:habit_tracker/s_isar.dart';
 
-import 'components/Drawer_Cust.dart';
-import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
-import 'CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
-import 'components/HabitListMain.dart';
+import 'package:habit_tracker/components/Drawer_Cust.dart';
+import 'package:habit_tracker/CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
+import 'package:habit_tracker/CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
+import 'package:habit_tracker/components/HabitListMain.dart';
 import 'package:habit_tracker/page_about/page_about.dart';
-import './SettingsPage/SettingsPage.dart';
+import 'package:habit_tracker/SettingsPage/SettingsPage.dart';
 
 void main() {
   runApp(
@@ -62,10 +62,10 @@ class MyHomePage extends ConsumerStatefulWidget {
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   // TODO: make a riverpod instance that keeps track of the Isar Instance
-  final isar_service = IsarService();
+  final isarService = IsarService();
 
   void _more_option_selected(int item) {
-    print(item);
+    // print(item);
     if(item == 0) {
       Navigator.push(
         context,
@@ -78,7 +78,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    final ThemeMode tm = ref.watch(themeProvider);
+    // final ThemeMode tm = ref.watch(themeProvider);
 
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -93,7 +93,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         title: Text(widget.title),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
 
               showDialog(
@@ -104,7 +104,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         children: <Widget>[
-                          Spacer(),
+                          const Spacer(),
 
                           GestureDetector(
                             onTap: () {
@@ -113,14 +113,14 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
-                                    isarService: isar_service
+                                    isarService: isarService
                                 )),
                               );
                             },
                             child: Container(
                               child: Column(
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Yes or No",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -128,9 +128,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                     ),
                                   ),
 
-                                  SizedBox(height: 8.0,),
+                                  const SizedBox(height: 8.0,),
 
-                                  Text(
+                                  const Text(
                                     "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -140,7 +140,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                 ],
                               ),
 
-                              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                               decoration: BoxDecoration(
                                 color: const Color(0xff7c94b6),
                                 border: Border.all(
@@ -151,63 +151,63 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                             ),
                           ),
 
-                          SizedBox(height: 4.0,),
+                          const SizedBox(height: 4.0,),
 
-                                                    GestureDetector(
+                          GestureDetector(
                             onTap: () {
                               Navigator.of(context).pop();
 
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => Page_CreateNewHabitMeasurable(
-                                    isar_service: isar_service
+                                    isar_service: isarService
                                 )),
                               );
                             },
                             child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  "Measurable",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24.0,
+                              child: Column(
+                                children: <Widget>[
+                                  const Text(
+                                    "Measurable",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24.0,
+                                    ),
                                   ),
-                                ),
 
-                                SizedBox(height: 8.0,),
+                                  const SizedBox(height: 8.0,),
 
-                                Text(
-                                  "e.g. How many miles did you run today? How many pages did you read?",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
+                                  const Text(
+                                    "e.g. How many miles did you run today? How many pages did you read?",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-
-                              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                            decoration: BoxDecoration(
-                              color: const Color(0xff7c94b6),
-                              border: Border.all(
-                                width: 2,
+                                ],
                               ),
-                              borderRadius: BorderRadius.circular(4),
+
+                              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                              decoration: BoxDecoration(
+                                color: const Color(0xff7c94b6),
+                                border: Border.all(
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                             ),
                           ),
-                          ),
 
-                          SizedBox(height: 4.0,),
+                          const SizedBox(height: 4.0,),
 
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text("Close"),
+                            child: const Text("Close"),
                           ),
 
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ),
                     ),
@@ -226,7 +226,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           ),
 
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                 context,
@@ -237,14 +237,14 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
           if(ref.watch(themeProvider) == ThemeMode.dark) ...[
             IconButton(
-              icon: Icon(Icons.light_mode),
+              icon: const Icon(Icons.light_mode),
               onPressed: () {
                 ref.read(themeProvider.notifier).toggleTheme();
               },
             ),
           ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
             IconButton(
-              icon: Icon(Icons.dark_mode),
+              icon: const Icon(Icons.dark_mode),
               onPressed: () {
                 ref.read(themeProvider.notifier).toggleTheme();
               },
@@ -252,7 +252,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           ],
 
           PopupMenuButton(
-            icon: Icon(Icons.sort),
+            icon: const Icon(Icons.sort),
             color: Colors.red,
             itemBuilder: (context) => [
               // Text(
@@ -264,23 +264,23 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 value: 0,
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.arrow_upward),
-                    Text("Manually",style: TextStyle(color: Colors.white),),
+                    const Icon(Icons.arrow_upward),
+                    const Text("Manually",style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),
 
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 value: 1,
                 child: Text("By name",style: TextStyle(color: Colors.white),),
               ),
 
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 value: 2,
                 child: Text("By color",style: TextStyle(color: Colors.white),),
               ),
 
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 value: 3,
                 child: Text("By status",style: TextStyle(color: Colors.white),),
               ),
@@ -291,10 +291,10 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           ),
 
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             color: Colors.red,
             itemBuilder: (context) => [
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 value: 0,
                 child: Text("About",style: TextStyle(color: Colors.white),),
               ),
@@ -310,7 +310,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: HabitListMain(
-          isar_service: isar_service
+          isar_service: isarService
         ),
 
         //   // Invoke "debug painting" (press "p" in the console, choose the
@@ -319,7 +319,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         //   // to see the wireframe for each widget.
       ),
 
-      drawer: DrawerCust(),
+      drawer: const DrawerCust(),
 
       // floatingActionButton: FloatingActionButton(
       //   onPressed: _incrementCounter,
