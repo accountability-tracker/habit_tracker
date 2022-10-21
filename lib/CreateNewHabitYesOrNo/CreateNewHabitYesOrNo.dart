@@ -30,10 +30,12 @@ const List<String> reminderList = <String>[
 class Page_CreateNewHabitYesOrNo extends ConsumerStatefulWidget {
   const Page_CreateNewHabitYesOrNo({
       super.key,
-      required this.isar_service
+      required this.isar_service,
+      this.f_habit,
   });
 
   final IsarService isar_service;
+  final Habit? f_habit;
 
   @override
   _Page_CreateNewHabitYesOrNo createState() => _Page_CreateNewHabitYesOrNo();
@@ -60,6 +62,19 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
   void initState() {
     super.initState();
     ref.read(habitsManagerProvider);
+
+    if(widget.f_habit != null) {
+      print("Her");
+      nameTextController.text = widget.f_habit?.getTitle() ?? "" ;
+      questionTextController.text = widget.f_habit?.getQuestion() ?? "" ;
+      // // String frequencyValue = frequencyList.first;
+
+      // // String reminderValue = reminderList.first;
+      notesTextController.text = widget.f_habit?.getNotes() ?? "" ;
+
+      pickerColor = Color(widget.f_habit?.getColor() ?? 0xff443a49);
+      currentColor = Color(widget.f_habit?.getColor() ?? 0xff443a49);
+    }
   }
 
   @override
@@ -70,18 +85,28 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
 
   void addHabit() {
 
-    widget.isar_service.saveHabit(
-      Habit.Full(
-        E_HABITS.YES_OR_NO,
-        nameTextController.text,
-        currentColor.toString(),
-        E_HABIT_FREQUENCY.EVERY_DAY,
-        1,
-        "",
-        questionTextController.text,
-        notesTextController.text
-      )
-    );
+    if(widget.f_habit != null) {
+      var h = widget.f_habit;
+      h?.title = nameTextController.text;
+      h?.question = questionTextController.text;
+      h?.notes = notesTextController.text;
+      h?.color = currentColor.toString();
+
+      widget.isar_service.updateHabit(h);
+    } else {
+      widget.isar_service.saveHabit(
+        Habit.Full(
+          E_HABITS.YES_OR_NO,
+          nameTextController.text,
+          currentColor.toString(),
+          E_HABIT_FREQUENCY.EVERY_DAY,
+          1,
+          "",
+          questionTextController.text,
+          notesTextController.text
+        )
+      );
+    }
 
     ref.watch(habitsManagerProvider.notifier).addHabit(Habit_YesOrNo(
         // TODO(clearfeld): pull id from isar or whatever the persistance ends up being
@@ -389,11 +414,6 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
           ),
         ),
 
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: _incrementCounter,
-        //   tooltip: 'Increment',
-        //   child: const Icon(Icons.add),
-        // ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

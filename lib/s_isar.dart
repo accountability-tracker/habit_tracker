@@ -38,6 +38,16 @@ class IsarService {
     return await isar.habits.where().findAll();
   }
 
+  Future<void> updateHabit(Habit? habit_arg) async {
+    if(habit_arg != null) {
+      final isar = await db;
+
+      await isar.writeTxn(() async {
+          await isar.habits.put(habit_arg);
+      });
+    }
+  }
+
   Future<void> changeHabitArchivedState(int habit_id_arg, bool archived_state_arg) async {
     final isar = await db;
 

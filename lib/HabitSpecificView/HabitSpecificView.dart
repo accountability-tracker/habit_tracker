@@ -10,6 +10,8 @@ import '../habits.dart';
 import '../components/FlatTextField.dart';
 // import '../components/FlatDropdown.dart';
 
+import 'package:habit_tracker/CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
+
 import 'package:habit_tracker/HabitSpecificview/HabitVariablesOverviewBlock.dart';
 import 'package:habit_tracker/HabitSpecificview/HistoryChart.dart';
 
@@ -67,7 +69,13 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: (){
-
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                    isar_service: widget.isar_service,
+                    f_habit: widget.habit
+                )),
+              );
             }
           ),
 
