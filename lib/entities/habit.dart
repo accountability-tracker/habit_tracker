@@ -92,6 +92,10 @@ class Habit {
     this.archived = null;
   }
 
+  E_HABITS getType() {
+    return this.type;
+  }
+
   String getTitle() {
     return this.title;
   }
@@ -118,6 +122,14 @@ class Habit {
 
   String? getQuestion() {
     return this.question;
+  }
+
+  String? getUnit() {
+    return this.unit;
+  }
+
+  int? getTarget() {
+    return this.target;
   }
 
   String? getNotes() {

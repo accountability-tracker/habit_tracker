@@ -36,10 +36,12 @@ const List<String> targetTypeList = <String>[
 class Page_CreateNewHabitMeasurable extends ConsumerStatefulWidget {
   const Page_CreateNewHabitMeasurable({
       super.key,
-      required this.isar_service
+      required this.isar_service,
+      this.f_habit,
   });
 
   final IsarService isar_service;
+  final Habit? f_habit;
 
   @override
   _Page_CreateNewHabitMeasurable createState() => _Page_CreateNewHabitMeasurable();
@@ -68,31 +70,61 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
   void initState() {
     super.initState();
     ref.read(habitsManagerProvider);
+
+    if(widget.f_habit != null) {
+      nameTextController.text = widget.f_habit?.getTitle() ?? "" ;
+      questionTextController.text = widget.f_habit?.getQuestion() ?? "" ;
+      unitTextController.text = widget.f_habit?.getUnit() ?? "" ;
+      targetTextController.text = widget.f_habit?.getTarget().toString() ?? "" ;
+      // // String frequencyValue = frequencyList.first;
+
+      // // String reminderValue = reminderList.first;
+      notesTextController.text = widget.f_habit?.getNotes() ?? "" ;
+
+      pickerColor = Color(widget.f_habit?.getColor() ?? 0xff443a49);
+      currentColor = Color(widget.f_habit?.getColor() ?? 0xff443a49);
+    }
   }
 
   @override
   void dispose() {
     nameTextController.dispose();
+    unitTextController.dispose();
+    targetTextController.dispose();
+    questionTextController.dispose();
+    notesTextController.dispose();
     super.dispose();
   }
 
   void addHabit() {
 
-    widget.isar_service.saveHabit(
-      Habit.FullMeasurable(
-        E_HABITS.MEASURABLE,
-        nameTextController.text,
-        currentColor.toString(),
-        unitTextController.text,
-        int.parse(targetTextController.text),
-        E_HABIT_FREQUENCY.EVERY_DAY,
-        1,
-        "",
-        questionTextController.text,
-        notesTextController.text
-      )
-    );
 
+    if(widget.f_habit != null) {
+      var h = widget.f_habit;
+      h?.title = nameTextController.text;
+      h?.question = questionTextController.text;
+      h?.unit = unitTextController.text;
+      h?.target = int.parse(targetTextController.text);
+      h?.notes = notesTextController.text;
+      h?.color = currentColor.toString();
+
+      widget.isar_service.updateHabit(h);
+    } else {
+      widget.isar_service.saveHabit(
+        Habit.FullMeasurable(
+          E_HABITS.MEASURABLE,
+          nameTextController.text,
+          currentColor.toString(),
+          unitTextController.text,
+          int.parse(targetTextController.text),
+          E_HABIT_FREQUENCY.EVERY_DAY,
+          1,
+          "",
+          questionTextController.text,
+          notesTextController.text
+        )
+      );
+    }
     // TODO: add measurable habit save
     // widget.isar_service.saveHabit(
     //   Habit.Full(

@@ -7,10 +7,13 @@ import "../entities/habit.dart";
 
 import '../habits.dart';
 
+import 'package:habit_tracker/habit_enums.dart';
+
 import '../components/FlatTextField.dart';
 // import '../components/FlatDropdown.dart';
 
 import 'package:habit_tracker/CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
+import 'package:habit_tracker/CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
 
 import 'package:habit_tracker/HabitSpecificview/HabitVariablesOverviewBlock.dart';
 import 'package:habit_tracker/HabitSpecificview/HistoryChart.dart';
@@ -68,14 +71,32 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
-            onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
-                    isar_service: widget.isar_service,
-                    f_habit: widget.habit
-                )),
-              );
+            onPressed: () {
+              switch (widget.habit.getType()) {
+                case E_HABITS.YES_OR_NO:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                      isar_service: widget.isar_service,
+                      f_habit: widget.habit
+                  )),
+                );
+                break;
+
+                case E_HABITS.MEASURABLE:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Page_CreateNewHabitMeasurable(
+                      isar_service: widget.isar_service,
+                      f_habit: widget.habit
+                  )),
+                );
+                break;
+
+                default:
+                  print("error - habit type isnt yes-or-no or measurable");
+                break;
+              }
             }
           ),
 

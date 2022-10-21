@@ -64,7 +64,6 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
     ref.read(habitsManagerProvider);
 
     if(widget.f_habit != null) {
-      print("Her");
       nameTextController.text = widget.f_habit?.getTitle() ?? "" ;
       questionTextController.text = widget.f_habit?.getQuestion() ?? "" ;
       // // String frequencyValue = frequencyList.first;
@@ -80,6 +79,8 @@ class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOr
   @override
   void dispose() {
     nameTextController.dispose();
+    questionTextController.dispose();
+    notesTextController.dispose();
     super.dispose();
   }
 
