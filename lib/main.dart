@@ -8,7 +8,7 @@ import 'components/Drawer_Cust.dart';
 import 'CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 import 'CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
 import 'components/HabitListMain.dart';
-import './AboutPage/AboutPage.dart';
+import 'package:habit_tracker/page_about/page_about.dart';
 import './SettingsPage/SettingsPage.dart';
 
 void main() {

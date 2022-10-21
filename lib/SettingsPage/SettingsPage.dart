@@ -17,7 +17,8 @@ import "./Database/ImportData.dart";
 import "./Troubleshooting/GenerateBugReport.dart";
 
 import "./Links/HelpAndFAQ.dart";
-import "./Links/About.dart";
+import 'package:habit_tracker/page_about/page_about.dart';
+import 'package:habit_tracker/SettingsPage/Links/About.dart';
 
 class Page_Settings extends StatefulWidget {
   const Page_Settings({

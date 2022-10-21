@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../AboutPage/AboutPage.dart';
+import 'package:habit_tracker/page_about/page_about.dart';
 // import '../habits.dart';
 
 class About extends StatefulWidget {
