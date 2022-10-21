@@ -45,98 +45,98 @@ class Habit {
   Habit() {}
 
   Habit.Full(
-    E_HABITS type,
-    String title,
-    String color,
-    E_HABIT_FREQUENCY frequency,
-    int frequency_amount,
-    String? reminder,
-    String? question,
-    String? notes,
+    E_HABITS type_arg,
+    String title_arg,
+    String color_arg,
+    E_HABIT_FREQUENCY frequency_arg,
+    int frequency_amount_arg,
+    String? reminder_arg,
+    String? question_arg,
+    String? notes_arg,
   ) {
-    this.type = type;
-    this.title = title;
-    this.color = color;
-    this.unit = null;
-    this.target = null;
-    this.frequency = frequency;
-    this.frequency_amount = frequency_amount;
-    this.reminder = reminder;
-    this.question = question;
-    this.notes = notes;
-    this.archived = null;
+    type = type_arg;
+    title = title_arg;
+    color = color_arg;
+    unit = null;
+    target = null;
+    frequency = frequency_arg;
+    frequency_amount = frequency_amount_arg;
+    reminder = reminder_arg;
+    question = question_arg;
+    notes = notes_arg;
+    archived = null;
   }
 
   Habit.FullMeasurable(
-    E_HABITS type,
-    String title,
-    String color,
-    String unit,
-    int target,
-    E_HABIT_FREQUENCY frequency,
-    int frequency_amount,
-    String? reminder,
-    String? question,
-    String? notes
+    E_HABITS type_arg,
+    String title_arg,
+    String color_arg,
+    String unit_arg,
+    int target_arg,
+    E_HABIT_FREQUENCY frequency_arg,
+    int frequency_amount_arg,
+    String? reminder_arg,
+    String? question_arg,
+    String? notes_arg
   ) {
-    this.type = type;
-    this.title = title;
-    this.color = color;
-    this.unit = unit;
-    this.target = target;
-    this.frequency = frequency;
-    this.frequency_amount = frequency_amount;
-    this.reminder = reminder;
-    this.question = question;
-    this.notes = notes;
-    this.archived = null;
+    type = type_arg;
+    title = title_arg;
+    color = color_arg;
+    unit = unit_arg;
+    target = target_arg;
+    frequency = frequency_arg;
+    frequency_amount = frequency_amount_arg;
+    reminder = reminder_arg;
+    question = question_arg;
+    notes = notes_arg;
+    archived = null;
   }
 
   E_HABITS getType() {
-    return this.type;
+    return type;
   }
 
   String getTitle() {
-    return this.title;
+    return title;
   }
 
   int getColor() {
     // print(this.color);
     // final c =
-    var c = this.color.substring(6, this.color.length - 1);
+    var c = color.substring(6, color.length - 1);
     // print(c);
     return int.parse(c);
   }
 
   E_HABIT_FREQUENCY getFrequency() {
-    return this.frequency;
+    return frequency;
   }
 
   int getFrequencyAmount() {
-    return this.frequency_amount;
+    return frequency_amount;
   }
 
   String? getReminder() {
-    return this.reminder;
+    return reminder;
   }
 
   String? getQuestion() {
-    return this.question;
+    return question;
   }
 
   String? getUnit() {
-    return this.unit;
+    return unit;
   }
 
   int? getTarget() {
-    return this.target;
+    return target;
   }
 
   String? getNotes() {
-    return this.notes;
+    return notes;
   }
 
   bool IsArchived() {
-    return !(this.archived == null || this.archived == false);
+    return !(archived == null || archived == false);
   }
 }
