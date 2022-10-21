@@ -40,6 +40,8 @@ class Habit {
   late String? question;
   late String? notes;
 
+  late bool? archived;
+
   Habit() {}
 
   Habit.Full(
@@ -50,7 +52,7 @@ class Habit {
     int frequency_amount,
     String? reminder,
     String? question,
-    String? notes
+    String? notes,
   ) {
     this.type = type;
     this.title = title;
@@ -62,6 +64,7 @@ class Habit {
     this.reminder = reminder;
     this.question = question;
     this.notes = notes;
+    this.archived = null;
   }
 
   Habit.FullMeasurable(
@@ -86,6 +89,7 @@ class Habit {
     this.reminder = reminder;
     this.question = question;
     this.notes = notes;
+    this.archived = null;
   }
 
   String getTitle() {
@@ -118,5 +122,9 @@ class Habit {
 
   String? getNotes() {
     return this.notes;
+  }
+
+  bool IsArchived() {
+    return !(this.archived == null || this.archived == false);
   }
 }

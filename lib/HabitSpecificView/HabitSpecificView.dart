@@ -77,19 +77,26 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
             itemBuilder: (context) => [
               PopupMenuItem<int>(
                 value: 0,
-                child: Text("Export",style: TextStyle(color: Colors.white),),
+                child: Text("Archive",style: TextStyle(color: Colors.white),),
               ),
 
               PopupMenuItem<int>(
                 value: 1,
+                child: Text("Export",style: TextStyle(color: Colors.white),),
+              ),
+
+              PopupMenuItem<int>(
+                value: 2,
                 child: Text("Delete",style: TextStyle(color: Colors.white),),
               ),
             ],
             onSelected: (item) async {
               // print(item)
-              // if i == 1 delete TODO
+              if(item == 0) {
+                await widget.isar_service.changeHabitArchivedState(widget.habit.id, !widget.habit.IsArchived());
+              }
 
-              if(item == 1) {
+              if(item == 2) {
                 await widget.isar_service.deleteHabit(widget.habit.id);
                 Navigator.pop(context);
               }

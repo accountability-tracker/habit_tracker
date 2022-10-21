@@ -109,7 +109,7 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
           }
         ),
 
-        Text(widget.date.day.toString())
+        // Text(widget.date.day.toString())
       ],
     );
   }

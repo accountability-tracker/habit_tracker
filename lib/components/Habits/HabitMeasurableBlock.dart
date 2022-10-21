@@ -210,7 +210,7 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
           },
         ),
 
-        Text(widget.date.day.toString())
+        // Text(widget.date.day.toString())
       ],
     );
   }

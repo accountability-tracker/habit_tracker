@@ -17,55 +17,60 @@ const HabitSchema = CollectionSchema(
   name: r'Habit',
   id: 3896650575830519340,
   properties: {
-    r'color': PropertySchema(
+    r'archived': PropertySchema(
       id: 0,
+      name: r'archived',
+      type: IsarType.bool,
+    ),
+    r'color': PropertySchema(
+      id: 1,
       name: r'color',
       type: IsarType.string,
     ),
     r'frequency': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'frequency',
       type: IsarType.byte,
       enumMap: _HabitfrequencyEnumValueMap,
     ),
     r'frequency_amount': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'frequency_amount',
       type: IsarType.long,
     ),
     r'notes': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'notes',
       type: IsarType.string,
     ),
     r'question': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'question',
       type: IsarType.string,
     ),
     r'reminder': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'reminder',
       type: IsarType.string,
     ),
     r'target': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'target',
       type: IsarType.long,
     ),
     r'title': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'title',
       type: IsarType.string,
     ),
     r'type': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'type',
       type: IsarType.byte,
       enumMap: _HabittypeEnumValueMap,
     ),
     r'unit': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'unit',
       type: IsarType.string,
     )
@@ -125,16 +130,17 @@ void _habitSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.color);
-  writer.writeByte(offsets[1], object.frequency.index);
-  writer.writeLong(offsets[2], object.frequency_amount);
-  writer.writeString(offsets[3], object.notes);
-  writer.writeString(offsets[4], object.question);
-  writer.writeString(offsets[5], object.reminder);
-  writer.writeLong(offsets[6], object.target);
-  writer.writeString(offsets[7], object.title);
-  writer.writeByte(offsets[8], object.type.index);
-  writer.writeString(offsets[9], object.unit);
+  writer.writeBool(offsets[0], object.archived);
+  writer.writeString(offsets[1], object.color);
+  writer.writeByte(offsets[2], object.frequency.index);
+  writer.writeLong(offsets[3], object.frequency_amount);
+  writer.writeString(offsets[4], object.notes);
+  writer.writeString(offsets[5], object.question);
+  writer.writeString(offsets[6], object.reminder);
+  writer.writeLong(offsets[7], object.target);
+  writer.writeString(offsets[8], object.title);
+  writer.writeByte(offsets[9], object.type.index);
+  writer.writeString(offsets[10], object.unit);
 }
 
 Habit _habitDeserialize(
@@ -144,20 +150,21 @@ Habit _habitDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Habit();
-  object.color = reader.readString(offsets[0]);
+  object.archived = reader.readBoolOrNull(offsets[0]);
+  object.color = reader.readString(offsets[1]);
   object.frequency =
-      _HabitfrequencyValueEnumMap[reader.readByteOrNull(offsets[1])] ??
+      _HabitfrequencyValueEnumMap[reader.readByteOrNull(offsets[2])] ??
           E_HABIT_FREQUENCY.EVERY_DAY;
-  object.frequency_amount = reader.readLong(offsets[2]);
+  object.frequency_amount = reader.readLong(offsets[3]);
   object.id = id;
-  object.notes = reader.readStringOrNull(offsets[3]);
-  object.question = reader.readStringOrNull(offsets[4]);
-  object.reminder = reader.readStringOrNull(offsets[5]);
-  object.target = reader.readLongOrNull(offsets[6]);
-  object.title = reader.readString(offsets[7]);
-  object.type = _HabittypeValueEnumMap[reader.readByteOrNull(offsets[8])] ??
+  object.notes = reader.readStringOrNull(offsets[4]);
+  object.question = reader.readStringOrNull(offsets[5]);
+  object.reminder = reader.readStringOrNull(offsets[6]);
+  object.target = reader.readLongOrNull(offsets[7]);
+  object.title = reader.readString(offsets[8]);
+  object.type = _HabittypeValueEnumMap[reader.readByteOrNull(offsets[9])] ??
       E_HABITS.UNINITALIZED;
-  object.unit = reader.readStringOrNull(offsets[9]);
+  object.unit = reader.readStringOrNull(offsets[10]);
   return object;
 }
 
@@ -169,26 +176,28 @@ P _habitDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     case 1:
+      return (reader.readString(offset)) as P;
+    case 2:
       return (_HabitfrequencyValueEnumMap[reader.readByteOrNull(offset)] ??
           E_HABIT_FREQUENCY.EVERY_DAY) as P;
-    case 2:
-      return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 4:
       return (reader.readStringOrNull(offset)) as P;
     case 5:
       return (reader.readStringOrNull(offset)) as P;
     case 6:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 7:
-      return (reader.readString(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 8:
+      return (reader.readString(offset)) as P;
+    case 9:
       return (_HabittypeValueEnumMap[reader.readByteOrNull(offset)] ??
           E_HABITS.UNINITALIZED) as P;
-    case 9:
+    case 10:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -308,6 +317,32 @@ extension HabitQueryWhere on QueryBuilder<Habit, Habit, QWhereClause> {
 }
 
 extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> archivedIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'archived',
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> archivedIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'archived',
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> archivedEqualTo(
+      bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'archived',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Habit, Habit, QAfterFilterCondition> colorEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1429,6 +1464,18 @@ extension HabitQueryObject on QueryBuilder<Habit, Habit, QFilterCondition> {}
 extension HabitQueryLinks on QueryBuilder<Habit, Habit, QFilterCondition> {}
 
 extension HabitQuerySortBy on QueryBuilder<Habit, Habit, QSortBy> {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByArchived() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'archived', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByArchivedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'archived', Sort.desc);
+    });
+  }
+
   QueryBuilder<Habit, Habit, QAfterSortBy> sortByColor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'color', Sort.asc);
@@ -1551,6 +1598,18 @@ extension HabitQuerySortBy on QueryBuilder<Habit, Habit, QSortBy> {
 }
 
 extension HabitQuerySortThenBy on QueryBuilder<Habit, Habit, QSortThenBy> {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByArchived() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'archived', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByArchivedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'archived', Sort.desc);
+    });
+  }
+
   QueryBuilder<Habit, Habit, QAfterSortBy> thenByColor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'color', Sort.asc);
@@ -1685,6 +1744,12 @@ extension HabitQuerySortThenBy on QueryBuilder<Habit, Habit, QSortThenBy> {
 }
 
 extension HabitQueryWhereDistinct on QueryBuilder<Habit, Habit, QDistinct> {
+  QueryBuilder<Habit, Habit, QDistinct> distinctByArchived() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'archived');
+    });
+  }
+
   QueryBuilder<Habit, Habit, QDistinct> distinctByColor(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1756,6 +1821,12 @@ extension HabitQueryProperty on QueryBuilder<Habit, Habit, QQueryProperty> {
   QueryBuilder<Habit, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<Habit, bool?, QQueryOperations> archivedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'archived');
     });
   }
 

@@ -64,6 +64,10 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                     if(snapshot.hasData) {
                       // print(snapshot.data);
                       final habits = snapshot.data!.map((habit) {
+                          if(habit.IsArchived()) {
+                            // print(" - " + habit.IsArchived().toString());
+                            return SizedBox();
+                          }
 
                           return Container(
                             color: Color.fromRGBO(31, 31, 31, 1.0),

@@ -38,6 +38,18 @@ class IsarService {
     return await isar.habits.where().findAll();
   }
 
+  Future<void> changeHabitArchivedState(int habit_id_arg, bool archived_state_arg) async {
+    final isar = await db;
+
+    await isar.writeTxn(() async {
+        final habit = await isar.habits.get(habit_id_arg);
+        if(habit != null) {
+          habit.archived = archived_state_arg;
+          await isar.habits.put(habit);
+        }
+    });
+  }
+
   // TODO(clearfeld): return bool and add error state if this isn't true
   // for now assuming true for testing and iteration purposes
   Future<void> deleteHabit(int habit_id_arg) async {
