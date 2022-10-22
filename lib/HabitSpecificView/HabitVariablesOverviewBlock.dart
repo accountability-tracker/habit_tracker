@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:habit_tracker/s_isar.dart';
-import 'package:habit_tracker/entities/habit.dart';
-
-import 'package:habit_tracker/habits.dart';
-
-import 'package:habit_tracker/components/FlatTextField.dart';
-// import '../components/FlatDropdown.dart';
 
 class HabitVariablesOverviewBlock extends ConsumerStatefulWidget {
   const HabitVariablesOverviewBlock({
       super.key,
-      required this.isar_service,
+      required this.isarService,
       required this.habit
   });
 
-  final IsarService isar_service;
+  final IsarService isarService;
 
   // TODO: eventually handle the other habit types besides yes or no
   final dynamic habit;
@@ -47,24 +40,24 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
 
         children: <Widget>[
 
-          Text(
+          const Text(
             "Overview",
             style: TextStyle(
               fontSize: 24.0,
             ),
           ),
 
-          SizedBox(height: 16.0,),
+          const SizedBox(height: 16.0,),
 
           Row(
             children: <Widget>[
 
-              Icon(
+              const Icon(
                 Icons.calendar_month,
                 color: Colors.white,
               ),
 
-              SizedBox(width: 16.0,),
+              const SizedBox(width: 16.0,),
 
               Text(
                 widget.habit.getFrequency().toString()
@@ -72,17 +65,17 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
             ],
           ),
 
-          SizedBox(height: 16.0,),
+          const SizedBox(height: 16.0,),
 
           Row(
             children: <Widget>[
 
-              Icon(
+              const Icon(
                 Icons.notifications_rounded,
                 color: Colors.white,
               ),
 
-              SizedBox(width: 16.0,),
+              const SizedBox(width: 16.0,),
 
               Text(
                 (widget.habit.getReminder() == null ||
@@ -91,17 +84,17 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
             ],
           ),
 
-          SizedBox(height: 16.0,),
+          const SizedBox(height: 16.0,),
 
           Row(
             children: <Widget>[
 
-              Icon(
+              const Icon(
                 Icons.question_mark,
                 color: Colors.white,
               ),
 
-              SizedBox(width: 16.0,),
+              const SizedBox(width: 16.0,),
 
               Text(
                 (widget.habit.getQuestion() == null ||
@@ -111,17 +104,17 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
             ],
           ),
 
-          SizedBox(height: 16.0,),
+          const SizedBox(height: 16.0,),
 
           Row(
             children: <Widget>[
 
-              Icon(
+              const Icon(
                 Icons.notes,
                 color: Colors.white,
               ),
 
-              SizedBox(width: 16.0,),
+              const SizedBox(width: 16.0,),
 
               Text(
                 (widget.habit.getNotes() == null ||

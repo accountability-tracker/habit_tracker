@@ -143,7 +143,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
               // ),
 
               HabitVariablesOverviewBlock(
-                isar_service: widget.isarService,
+                isarService: widget.isarService,
                 habit: widget.habit,
               ),
 
