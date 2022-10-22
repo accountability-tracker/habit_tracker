@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-typedef void SetValueStringCallback(String? value_arg);
+typedef void SetValueStringCallback(String? valueArg);
 
 class FlatDropdown extends StatefulWidget {
   const FlatDropdown({
@@ -32,7 +32,7 @@ class _FlatDropdown extends State<FlatDropdown> {
   Widget build(BuildContext context) {
 
     return DecoratedBox(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color.fromRGBO(41, 41, 41, 1.0), //background color of dropdown button
         // border: Border.all(color: Colors.black38, width:3), //border of dropdown button
         // borderRadius: BorderRadius.circular(50), //border raiuds of dropdown button
@@ -44,13 +44,13 @@ class _FlatDropdown extends State<FlatDropdown> {
       ),
 
       child:Padding(
-        padding: EdgeInsets.only(left: 16, right: 16),
+        padding: const EdgeInsets.only(left: 16, right: 16),
 
         child: DropdownButton(
           value: widget.value,
           icon: const Icon(Icons.arrow_downward),
-          onChanged: (String? value_arg) {
-            widget.onValueChanged(value_arg);
+          onChanged: (String? valueArg) {
+            widget.onValueChanged(valueArg);
           },
           items: widget.items.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
@@ -60,7 +60,7 @@ class _FlatDropdown extends State<FlatDropdown> {
           }).toList(),
 
           iconEnabledColor: Colors.white, //Icon color
-          style: TextStyle(  //te
+          style: const TextStyle(  //te
             color: Colors.white, //Font color
             fontSize: 16 //font size on dropdown button
           ),

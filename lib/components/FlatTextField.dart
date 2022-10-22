@@ -20,15 +20,15 @@ class _FlatTextField extends State<FlatTextField> {
 
     return TextField(
       controller: widget.textController,
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color.fromRGBO(41, 41, 41, 1.0),
+        fillColor: const Color.fromRGBO(41, 41, 41, 1.0),
 
         border: InputBorder.none,
 
         hintText: widget.hintText,
-        hintStyle: TextStyle(fontSize: 16.0, color: Colors.grey),
+        hintStyle: const TextStyle(fontSize: 16.0, color: Colors.grey),
       ),
     );
   }
