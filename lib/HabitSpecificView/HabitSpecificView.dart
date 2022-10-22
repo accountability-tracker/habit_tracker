@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-import "../s_isar.dart";
-import "../entities/habit.dart";
+import 'package:habit_tracker/s_isar.dart';
 
-import '../habits.dart';
+import 'package:habit_tracker/habits.dart';
 
 import 'package:habit_tracker/habit_enums.dart';
-
-import '../components/FlatTextField.dart';
-// import '../components/FlatDropdown.dart';
 
 import 'package:habit_tracker/CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 import 'package:habit_tracker/CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
@@ -18,23 +13,23 @@ import 'package:habit_tracker/CreateNewHabitMeasurable/CreateNewHabitMeasurable.
 import 'package:habit_tracker/HabitSpecificview/HabitVariablesOverviewBlock.dart';
 import 'package:habit_tracker/HabitSpecificview/HistoryChart.dart';
 
-class Page_HabitSpecificView extends ConsumerStatefulWidget {
-  const Page_HabitSpecificView({
+class PageHabitSpecificView extends ConsumerStatefulWidget {
+  const PageHabitSpecificView({
       super.key,
-      required this.isar_service,
+      required this.isarService,
       required this.habit
   });
 
-  final IsarService isar_service;
+  final IsarService isarService;
 
   // TODO: eventually handle the other habit types besides yes or no
   final dynamic habit;
 
   @override
-  _Page_HabitSpecificView createState() => _Page_HabitSpecificView();
+  _PageHabitSpecificView createState() => _PageHabitSpecificView();
 }
 
-class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
+class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
   @override
   void initState() {
     super.initState();
@@ -70,14 +65,14 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
 
         actions: [
           IconButton(
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
             onPressed: () {
               switch (widget.habit.getType()) {
                 case E_HABITS.YES_OR_NO:
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
-                      isarService: widget.isar_service,
+                      isarService: widget.isarService,
                       fHabit: widget.habit
                   )),
                 );
@@ -87,34 +82,34 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PageCreateNewHabitMeasurable(
-                      isarService: widget.isar_service,
+                      isarService: widget.isarService,
                       fHabit: widget.habit
                   )),
                 );
                 break;
 
-                default:
-                  print("error - habit type isnt yes-or-no or measurable");
-                break;
+                // default:
+                //   print("error - habit type isnt yes-or-no or measurable");
+                // break;
               }
             }
           ),
 
           PopupMenuButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             color: Colors.red,
             itemBuilder: (context) => [
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 value: 0,
                 child: Text("Archive",style: TextStyle(color: Colors.white),),
               ),
 
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 value: 1,
                 child: Text("Export",style: TextStyle(color: Colors.white),),
               ),
 
-              PopupMenuItem<int>(
+              const PopupMenuItem<int>(
                 value: 2,
                 child: Text("Delete",style: TextStyle(color: Colors.white),),
               ),
@@ -122,11 +117,11 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
             onSelected: (item) async {
               // print(item)
               if(item == 0) {
-                await widget.isar_service.changeHabitArchivedState(widget.habit.id, !widget.habit.IsArchived());
+                await widget.isarService.changeHabitArchivedState(widget.habit.id, !widget.habit.IsArchived());
               }
 
               if(item == 2) {
-                await widget.isar_service.deleteHabit(widget.habit.id);
+                await widget.isarService.deleteHabit(widget.habit.id);
                 Navigator.pop(context);
               }
             },
@@ -137,7 +132,7 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
       ),
       body: Center(
         child: Container(
-          margin: EdgeInsets.all(16.0),
+          margin: const EdgeInsets.all(16.0),
           width: MediaQuery.of(context).size.width * 0.9,
 
           child: Column(
@@ -148,14 +143,14 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
               // ),
 
               HabitVariablesOverviewBlock(
-                isar_service: widget.isar_service,
+                isar_service: widget.isarService,
                 habit: widget.habit,
               ),
 
-              SizedBox(height: 16.0,),
+              const SizedBox(height: 16.0,),
 
               HistoryChart(
-                isar_service: widget.isar_service,
+                isar_service: widget.isarService,
                 habit: widget.habit,
               ),
 

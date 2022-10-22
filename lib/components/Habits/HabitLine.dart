@@ -68,8 +68,8 @@ class _HabitLine extends State<HabitLine> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Page_HabitSpecificView(
-                      isar_service: widget.isar_service,
+                  MaterialPageRoute(builder: (context) => PageHabitSpecificView(
+                      isarService: widget.isar_service,
                       habit: widget.habit
                   )),
                 );
