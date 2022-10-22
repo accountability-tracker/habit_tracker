@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
-import "./Interface/ToggleWithShortPress.dart";
-import "./Interface/ExtendDayAFewHoursPastMidnight.dart";
-import "./Interface/EnableSkipDays.dart";
-import "./Interface/ShowQuestionMarksForMissingData.dart";
-import "./Interface/UsePureBlackInDarkTheme.dart";
-import "./Interface/FirstDayOfTheWeek.dart";
+import 'package:habit_tracker/page_settings/interface/toggle_with_short_press.dart';
+import 'package:habit_tracker/page_settings/interface/extend_day_a_few_hours_past_midnight.dart';
+import 'package:habit_tracker/page_settings/interface/enable_skip_days.dart';
+import 'package:habit_tracker/page_settings/interface/show_question_marks_for_missing_data.dart';
+import 'package:habit_tracker/page_settings/interface/use_pure_black_in_dark_theme.dart';
+import 'package:habit_tracker/page_settings/interface/first_day_of_the_week.dart';
 
-import "./Reminder/MakeNotifcationsSticky.dart";
-import "./Reminder/CustomizeNotifcations.dart";
+import 'package:habit_tracker/page_settings/reminder/make_notifcations_sticky.dart';
+import 'package:habit_tracker/page_settings/reminder/customize_notifcations.dart';
 
-import "./Database/ExportFullBackup.dart";
-import "./Database/ExportAsCSV.dart";
-import "./Database/ImportData.dart";
+import 'package:habit_tracker/page_settings/database/export_full_backup.dart';
+import 'package:habit_tracker/page_settings/database/export_as_csv.dart';
+import 'package:habit_tracker/page_settings/database/import_data.dart';
 
-import "./Troubleshooting/GenerateBugReport.dart";
+import 'package:habit_tracker/page_settings/troubleshooting/generate_bug_report.dart';
 
-import "./Links/HelpAndFAQ.dart";
+import 'package:habit_tracker/page_settings/links/help_and_faq.dart';
+import 'package:habit_tracker/page_settings/links/about.dart';
 import 'package:habit_tracker/page_about/page_about.dart';
-import 'package:habit_tracker/SettingsPage/Links/About.dart';
 
 class Page_Settings extends StatefulWidget {
   const Page_Settings({

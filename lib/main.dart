@@ -9,7 +9,7 @@ import 'package:habit_tracker/CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
 import 'package:habit_tracker/CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
 import 'package:habit_tracker/components/HabitListMain.dart';
 import 'package:habit_tracker/page_about/page_about.dart';
-import 'package:habit_tracker/SettingsPage/SettingsPage.dart';
+import 'package:habit_tracker/page_settings/page_settings.dart';
 
 void main() {
   runApp(

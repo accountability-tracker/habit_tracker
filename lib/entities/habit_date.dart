@@ -16,36 +16,36 @@ class HabitDate {
   HabitDate() {}
 
   HabitDate.FullWithId(
-    int id,
-    int habit_id,
-    String date,
-    int value
+    int idArg,
+    int habitIdArg,
+    String dateArg,
+    int valueArg
   ) {
-    this.id = id;
-    this.habit_id = habit_id;
-    this.date = date;
-    this.value = value;
+    id = idArg;
+    habit_id = habitIdArg;
+    date = dateArg;
+    value = valueArg;
   }
 
   HabitDate.Full(
-    int habit_id,
-    String date,
-    int value
+    int habitIdArg,
+    String dateArg,
+    int valueArg
   ) {
-    this.habit_id = habit_id;
-    this.date = date;
-    this.value = value;
+    habit_id = habitIdArg;
+    date = dateArg;
+    value = valueArg;
   }
 
   String getDate() {
-    return this.date;
+    return date;
   }
 
   int getValue() {
-    return this.value;
+    return value;
   }
 
   void setValue(int i) {
-    this.value = i;
+    value = i;
   }
 }
