@@ -1,17 +1,15 @@
-import "dart:async";
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-import "../s_isar.dart";
-import "../entities/habit.dart";
-import "../habit_enums.dart";
+import 'package:habit_tracker/s_isar.dart';
+import 'package:habit_tracker/entities/habit.dart';
+import 'package:habit_tracker/habit_enums.dart';
 
-import '../habits.dart';
+import 'package:habit_tracker/habits.dart';
 
-import '../components/FlatTextField.dart';
-import '../components/FlatDropdown.dart';
+import 'package:habit_tracker/components/FlatTextField.dart';
+import 'package:habit_tracker/components/FlatDropdown.dart';
 
 // TODO(clearfeld): move this into its own file and make it an enum instead
 const List<String> frequencyList = <String>[
@@ -33,22 +31,22 @@ const List<String> targetTypeList = <String>[
   'At most'
 ];
 
-class Page_CreateNewHabitMeasurable extends ConsumerStatefulWidget {
-  const Page_CreateNewHabitMeasurable({
+class PageCreateNewHabitMeasurable extends ConsumerStatefulWidget {
+  const PageCreateNewHabitMeasurable({
       super.key,
-      required this.isar_service,
-      this.f_habit,
+      required this.isarService,
+      this.fHabit,
   });
 
-  final IsarService isar_service;
-  final Habit? f_habit;
+  final IsarService isarService;
+  final Habit? fHabit;
 
   @override
-  _Page_CreateNewHabitMeasurable createState() => _Page_CreateNewHabitMeasurable();
+  _PageCreateNewHabitMeasurable createState() => _PageCreateNewHabitMeasurable();
   // State<Page_CreateNewHabitMeasurable> createState() => _Page_CreateNewHabitMeasurable();
 }
 
-class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMeasurable> {
+class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeasurable> {
   final nameTextController = TextEditingController();
   final questionTextController = TextEditingController();
   final unitTextController = TextEditingController();
@@ -59,8 +57,8 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
   final notesTextController = TextEditingController();
 
   // create some values
-  Color pickerColor = Color(0xff443a49);
-  Color currentColor = Color(0xff443a49);
+  Color pickerColor = const Color(0xff443a49);
+  Color currentColor = const Color(0xff443a49);
   // ValueChanged<Color> callback
   void changeColor(Color color) {
     setState(() => pickerColor = color);
@@ -71,18 +69,18 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
     super.initState();
     ref.read(habitsManagerProvider);
 
-    if(widget.f_habit != null) {
-      nameTextController.text = widget.f_habit?.getTitle() ?? "" ;
-      questionTextController.text = widget.f_habit?.getQuestion() ?? "" ;
-      unitTextController.text = widget.f_habit?.getUnit() ?? "" ;
-      targetTextController.text = widget.f_habit?.getTarget().toString() ?? "" ;
+    if(widget.fHabit != null) {
+      nameTextController.text = widget.fHabit?.getTitle() ?? "" ;
+      questionTextController.text = widget.fHabit?.getQuestion() ?? "" ;
+      unitTextController.text = widget.fHabit?.getUnit() ?? "" ;
+      targetTextController.text = widget.fHabit?.getTarget().toString() ?? "" ;
       // // String frequencyValue = frequencyList.first;
 
       // // String reminderValue = reminderList.first;
-      notesTextController.text = widget.f_habit?.getNotes() ?? "" ;
+      notesTextController.text = widget.fHabit?.getNotes() ?? "" ;
 
-      pickerColor = Color(widget.f_habit?.getColor() ?? 0xff443a49);
-      currentColor = Color(widget.f_habit?.getColor() ?? 0xff443a49);
+      pickerColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
+      currentColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
     }
   }
 
@@ -99,8 +97,8 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
   void addHabit() {
 
 
-    if(widget.f_habit != null) {
-      var h = widget.f_habit;
+    if(widget.fHabit != null) {
+      var h = widget.fHabit;
       h?.title = nameTextController.text;
       h?.question = questionTextController.text;
       h?.unit = unitTextController.text;
@@ -108,9 +106,9 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
       h?.notes = notesTextController.text;
       h?.color = currentColor.toString();
 
-      widget.isar_service.updateHabit(h);
+      widget.isarService.updateHabit(h);
     } else {
-      widget.isar_service.saveHabit(
+      widget.isarService.saveHabit(
         Habit.FullMeasurable(
           E_HABITS.MEASURABLE,
           nameTextController.text,
@@ -165,14 +163,14 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create New Habit (Measurable)"),
+        title: const Text("Create New Habit (Measurable)"),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Container(
             margin: const EdgeInsets.all(16.0),
 
-            constraints: BoxConstraints (
+            constraints: const BoxConstraints (
               minWidth: 320,
               maxWidth: 896, // 16 * 56
             ),
@@ -192,9 +190,9 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Name"),
+                          const Text("Name"),
 
-                          SizedBox(height: 8.0,),
+                          const SizedBox(height: 8.0,),
 
                           FlatTextField(
                             textController: nameTextController,
@@ -204,14 +202,14 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                       ),
                     ),
 
-                    SizedBox(width: 16.0,),
+                    const SizedBox(width: 16.0,),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Color"),
+                        const Text("Color"),
 
-                        SizedBox(height: 8.0,),
+                        const SizedBox(height: 8.0,),
 
                         GestureDetector (
                           onTap: () {
@@ -261,7 +259,7 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
 
                           child:
                           Container(
-                            color: Color.fromRGBO(41, 41, 41, 1.0),
+                            color: const Color.fromRGBO(41, 41, 41, 1.0),
                             width: 48.0,
                             height: 48.0,
 
@@ -286,14 +284,14 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                   ],
                 ),
 
-                SizedBox(height: 32.0,),
+                const SizedBox(height: 32.0,),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Question"),
+                    const Text("Question"),
 
-                    SizedBox(height: 8.0,),
+                    const SizedBox(height: 8.0,),
 
                     FlatTextField(
                       textController: questionTextController,
@@ -302,15 +300,14 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                   ],
                 ),
 
-
-                SizedBox(height: 32.0,),
+                const SizedBox(height: 32.0,),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Unit"),
+                    const Text("Unit"),
 
-                    SizedBox(height: 8.0,),
+                    const SizedBox(height: 8.0,),
 
                     FlatTextField(
                       textController: unitTextController,
@@ -319,7 +316,7 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                   ],
                 ),
 
-                SizedBox(height: 32.0,),
+                const SizedBox(height: 32.0,),
 
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -328,9 +325,9 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Target"),
+                          const Text("Target"),
 
-                          SizedBox(height: 8.0,),
+                          const SizedBox(height: 8.0,),
 
                           FlatTextField(
                             textController: targetTextController,
@@ -340,21 +337,21 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                       ),
                     ),
 
-                    SizedBox(width: 16.0,),
+                    const SizedBox(width: 16.0,),
 
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Frequency"),
+                          const Text("Frequency"),
 
-                          SizedBox(height: 8.0,),
+                          const SizedBox(height: 8.0,),
 
                           FlatDropdown(
                             value: frequencyValue,
-                            onValueChanged: (String? value_arg) {
+                            onValueChanged: (String? valueArg) {
                               setState(() {
-                                  frequencyValue = value_arg!;
+                                  frequencyValue = valueArg!;
                               });
                             },
                             items: frequencyList,
@@ -365,24 +362,24 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                   ],
                 ),
 
-                SizedBox(height: 32.0,),
+                const SizedBox(height: 32.0,),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
-                      children: <Widget> [
-                        Text("Target Type"),
+                      children: <Widget>[
+                        const Text("Target Type"),
                       ],
                     ),
 
-                    SizedBox(height: 8.0,),
+                    const SizedBox(height: 8.0,),
 
                     FlatDropdown(
                       value: targetTypeValue,
-                      onValueChanged: (String? value_arg) {
+                      onValueChanged: (String? valueArg) {
                         setState(() {
-                            targetTypeValue = value_arg!;
+                            targetTypeValue = valueArg!;
                         });
                       },
                       items: targetTypeList,
@@ -391,7 +388,7 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                   ],
                 ),
 
-                SizedBox(height: 32.0,),
+                const SizedBox(height: 32.0,),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,10 +396,10 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
 
                     Row(
                       children: <Widget> [
-                        Text("Reminder"),
+                        const Text("Reminder"),
 
                         TextButton(
-                          child: Text("Test time picker"),
+                          child: const Text("Test time picker"),
                           onPressed: () async {
                             TimeOfDay? selectedTime = await showTimePicker(
                               initialTime: TimeOfDay.now(),
@@ -420,19 +417,19 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
 
                             if(selectedTime == null) return;
 
-                            print("Select time - " + selectedTime.toString());
+                            // print("Select time - " + selectedTime.toString());
                           }
                         ),
                       ],
                     ),
 
-                    SizedBox(height: 8.0,),
+                    const SizedBox(height: 8.0,),
 
                     FlatDropdown(
                       value: reminderValue,
-                      onValueChanged: (String? value_arg) {
+                      onValueChanged: (String? valueArg) {
                         setState(() {
-                            reminderValue = value_arg!;
+                            reminderValue = valueArg!;
                         });
                       },
                       items: reminderList,
@@ -440,14 +437,14 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                   ],
                 ),
 
-                SizedBox(height: 32.0,),
+                const SizedBox(height: 32.0,),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Notes"),
+                    const Text("Notes"),
 
-                    SizedBox(height: 8.0,),
+                    const SizedBox(height: 8.0,),
 
                     FlatTextField(
                       textController: notesTextController,
@@ -456,7 +453,7 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                   ],
                 ),
 
-                SizedBox(height: 48.0,),
+                const SizedBox(height: 48.0,),
 
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -465,31 +462,31 @@ class _Page_CreateNewHabitMeasurable extends ConsumerState<Page_CreateNewHabitMe
                       child:
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue, // background
-                          onPrimary: Colors.white, // foreground
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                         ),
                         onPressed: () {
                           addHabit();
                         },
-                        child: Text('Save'),
+                        child: const Text('Save'),
                       ),
                     ),
 
-                    SizedBox(width: 16.0,),
+                    const SizedBox(width: 16.0,),
 
                     Expanded(
                       child:
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.grey, // background
-                          onPrimary: Colors.white, // foreground
+                          backgroundColor: Colors.grey,
+                          foregroundColor: Colors.white,
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                         ),
                         onPressed: () {
                           leavePage(context);
                         },
-                        child: Text('Cancel'),
+                        child: const Text('Cancel'),
                       ),
                     ),
                   ],

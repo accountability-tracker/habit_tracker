@@ -86,9 +86,9 @@ class _Page_HabitSpecificView extends ConsumerState<Page_HabitSpecificView> {
                 case E_HABITS.MEASURABLE:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Page_CreateNewHabitMeasurable(
-                      isar_service: widget.isar_service,
-                      f_habit: widget.habit
+                  MaterialPageRoute(builder: (context) => PageCreateNewHabitMeasurable(
+                      isarService: widget.isar_service,
+                      fHabit: widget.habit
                   )),
                 );
                 break;
