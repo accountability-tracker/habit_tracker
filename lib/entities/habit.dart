@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 
 import 'package:habit_tracker/habit_enums.dart';
@@ -39,53 +38,53 @@ class Habit {
 
   late bool? archived;
 
-  Habit() {}
+  Habit();
 
   Habit.Full(
-    E_HABITS type_arg,
-    String title_arg,
-    String color_arg,
-    E_HABIT_FREQUENCY frequency_arg,
-    int frequency_amount_arg,
-    String? reminder_arg,
-    String? question_arg,
-    String? notes_arg,
+    E_HABITS typeArg,
+    String titleArg,
+    String colorArg,
+    E_HABIT_FREQUENCY frequencyArg,
+    int frequencyAmountArg,
+    String? reminderArg,
+    String? questionArg,
+    String? notesArg,
   ) {
-    type = type_arg;
-    title = title_arg;
-    color = color_arg;
+    type = typeArg;
+    title = titleArg;
+    color = colorArg;
     unit = null;
     target = null;
-    frequency = frequency_arg;
-    frequency_amount = frequency_amount_arg;
-    reminder = reminder_arg;
-    question = question_arg;
-    notes = notes_arg;
+    frequency = frequencyArg;
+    frequency_amount = frequencyAmountArg;
+    reminder = reminderArg;
+    question = questionArg;
+    notes = notesArg;
     archived = null;
   }
 
   Habit.FullMeasurable(
-    E_HABITS type_arg,
-    String title_arg,
-    String color_arg,
-    String unit_arg,
-    int target_arg,
-    E_HABIT_FREQUENCY frequency_arg,
-    int frequency_amount_arg,
-    String? reminder_arg,
-    String? question_arg,
-    String? notes_arg
+    E_HABITS typeArg,
+    String titleArg,
+    String colorArg,
+    String unitArg,
+    int targetArg,
+    E_HABIT_FREQUENCY frequencyArg,
+    int frequencyAmountArg,
+    String? reminderArg,
+    String? questionArg,
+    String? notesArg
   ) {
-    type = type_arg;
-    title = title_arg;
-    color = color_arg;
-    unit = unit_arg;
-    target = target_arg;
-    frequency = frequency_arg;
-    frequency_amount = frequency_amount_arg;
-    reminder = reminder_arg;
-    question = question_arg;
-    notes = notes_arg;
+    type = typeArg;
+    title = titleArg;
+    color = colorArg;
+    unit = unitArg;
+    target = targetArg;
+    frequency = frequencyArg;
+    frequency_amount = frequencyAmountArg;
+    reminder = reminderArg;
+    question = questionArg;
+    notes = notesArg;
     archived = null;
   }
 
