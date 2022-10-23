@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/theme.dart';
 import 'package:habit_tracker/s_isar.dart';
 
-import 'package:habit_tracker/components/Drawer_Cust.dart';
+import 'package:habit_tracker/components/drawer_cust.dart';
 import 'package:habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
 import 'package:habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
-import 'package:habit_tracker/components/HabitListMain.dart';
+import 'package:habit_tracker/components/habit_list_main.dart';
 import 'package:habit_tracker/page_about/page_about.dart';
 import 'package:habit_tracker/page_settings/page_settings.dart';
 

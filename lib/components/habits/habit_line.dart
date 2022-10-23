@@ -12,8 +12,8 @@ import 'package:habit_tracker/habits.dart';
 
 import 'package:habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
 
-import 'HabitYesOrNoToggle.dart';
-import 'package:habit_tracker/components/habits/HabitMeasurableBlock.dart';
+import 'package:habit_tracker/components/habits/habit_yes_or_no_toggle.dart';
+import 'package:habit_tracker/components/habits/habit_measurable_block.dart';
 
 class HabitLine extends StatefulWidget {
   HabitLine({

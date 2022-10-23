@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../habits.dart';
+import 'package:habit_tracker/habits.dart';
 
-import '../components/FlatTextField.dart';
+import 'package:habit_tracker/components/flat_textfield.dart';
 // import '../components/FlatDropdown.dart';
 
 class Page_About extends StatefulWidget {

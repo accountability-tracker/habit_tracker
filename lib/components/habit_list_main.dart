@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import "../s_isar.dart";
-import "../entities/habit.dart";
+import 'package:habit_tracker/s_isar.dart';
+import 'package:habit_tracker/entities/habit.dart';
 
-import '../habits.dart';
-import './Habits/HabitLine.dart';
-import './FiveDayLine.dart';
+import 'package:habit_tracker/habits.dart';
+import 'package:habit_tracker/components/habits/habit_line.dart';
+import 'package:habit_tracker/components/five_day_line.dart';
 
-import 'package:habit_tracker/components/ProgressBar.dart';
+import 'package:habit_tracker/components/progress_bar.dart';
 
 class HabitListMain extends ConsumerStatefulWidget {
   const HabitListMain({
