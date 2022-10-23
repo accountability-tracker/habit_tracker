@@ -26,8 +26,8 @@ class _FirstDayOfTheWeek extends State<FirstDayOfTheWeek> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "First day of the week",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,18 +35,17 @@ class _FirstDayOfTheWeek extends State<FirstDayOfTheWeek> {
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Sunday (TODO make this a dropdown).",
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey
                 ),
               ),
-
             ],
           ),
         ),

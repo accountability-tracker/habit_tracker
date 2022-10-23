@@ -368,8 +368,8 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
-                      children: <Widget>[
-                        const Text("Target Type"),
+                      children: const <Widget>[
+                        Text("Target Type"),
                       ],
                     ),
 

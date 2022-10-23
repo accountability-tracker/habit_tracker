@@ -27,7 +27,7 @@ class ThemeManager extends StateNotifier<ThemeMode> {
 
 ///
 
-final cust_darkTheme = ThemeData(
+final custDarkTheme = ThemeData(
   primarySwatch: Colors.red,
   scaffoldBackgroundColor: const Color.fromRGBO(26, 26, 26, 1.0),
 
@@ -40,7 +40,7 @@ final cust_darkTheme = ThemeData(
   // background-compliment - Color.fromRGBO(41, 41, 41, 1.0),
 );
 
-final cust_lightTheme = ThemeData(
+final custLightTheme = ThemeData(
   primarySwatch: Colors.blue,
   scaffoldBackgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
 );

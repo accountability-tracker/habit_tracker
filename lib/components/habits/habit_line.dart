@@ -89,7 +89,7 @@ class _HabitLine extends State<HabitLine> {
                 // print(snapshot.data);
 
                 if(snapshot.connectionState == ConnectionState.done) {
-                  if(snapshot.data!.length == 0) {
+                  if(snapshot.data!.isEmpty) {
                     // print("0");
 
                     // TODO(clearfeld): move the date logic outside somewhere in global state

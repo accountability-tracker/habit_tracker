@@ -23,8 +23,8 @@ class _ImportData extends State<ImportData> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Import data",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -32,11 +32,11 @@ class _ImportData extends State<ImportData> {
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Supports full backups exported by this app.",
                 style: TextStyle(
                   fontSize: 16.0,

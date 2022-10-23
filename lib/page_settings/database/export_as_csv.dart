@@ -23,8 +23,8 @@ class _ExportAsCSV extends State<ExportAsCSV> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Export as CSV",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -32,11 +32,11 @@ class _ExportAsCSV extends State<ExportAsCSV> {
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Generates files that be opened by spreadsheet software such as Micorsoft Execel, OpenOffice Calc, (CC), or Google Sheets. This file cannot be imported back.",
                 style: TextStyle(
                   fontSize: 16.0,

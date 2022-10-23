@@ -26,8 +26,8 @@ class _CustomizeNotifcations extends State<CustomizeNotifcations> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Customize notifcations",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,11 +35,11 @@ class _CustomizeNotifcations extends State<CustomizeNotifcations> {
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Change sound, vibration, light and other notifcation settings. (TODO show modal)",
                 style: TextStyle(
                   fontSize: 16.0,
@@ -51,7 +51,7 @@ class _CustomizeNotifcations extends State<CustomizeNotifcations> {
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         Switch(
           // This bool value toggles the switch.

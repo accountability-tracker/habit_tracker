@@ -25,8 +25,8 @@ const List<String> reminderList = <String>[
   'On'
 ];
 
-class Page_CreateNewHabitYesOrNo extends ConsumerStatefulWidget {
-  const Page_CreateNewHabitYesOrNo({
+class PageCreateNewHabitYesOrNo extends ConsumerStatefulWidget {
+  const PageCreateNewHabitYesOrNo({
       super.key,
       required this.isarService,
       this.fHabit,
@@ -36,11 +36,11 @@ class Page_CreateNewHabitYesOrNo extends ConsumerStatefulWidget {
   final Habit? fHabit;
 
   @override
-  _Page_CreateNewHabitYesOrNo createState() => _Page_CreateNewHabitYesOrNo();
+  _PageCreateNewHabitYesOrNo createState() => _PageCreateNewHabitYesOrNo();
   // State<Page_CreateNewHabitYesOrNo> createState() => _Page_CreateNewHabitYesOrNo();
 }
 
-class _Page_CreateNewHabitYesOrNo extends ConsumerState<Page_CreateNewHabitYesOrNo> {
+class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo> {
   final nameTextController = TextEditingController();
   final questionTextController = TextEditingController();
   String frequencyValue = frequencyList.first;

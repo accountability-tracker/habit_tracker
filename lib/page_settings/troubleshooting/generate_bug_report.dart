@@ -23,8 +23,8 @@ class _GenerateBugReport extends State<GenerateBugReport> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Generate bug report",
                 style: TextStyle(
                   fontSize: 20.0,

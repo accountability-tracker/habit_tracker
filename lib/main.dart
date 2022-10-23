@@ -33,8 +33,8 @@ class MyApp extends ConsumerWidget {
 
       debugShowCheckedModeBanner: false,
 
-      theme: cust_lightTheme,
-      darkTheme: cust_darkTheme,
+      theme: custLightTheme,
+      darkTheme: custDarkTheme,
       themeMode: tm,
 
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -112,15 +112,15 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                                MaterialPageRoute(builder: (context) => PageCreateNewHabitYesOrNo(
                                     isarService: isarService
                                 )),
                               );
                             },
                             child: Container(
                               child: Column(
-                                children: <Widget>[
-                                  const Text(
+                                children: const <Widget>[
+                                  Text(
                                     "Yes or No",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -128,9 +128,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                     ),
                                   ),
 
-                                  const SizedBox(height: 8.0,),
+                                  SizedBox(height: 8.0,),
 
-                                  const Text(
+                                  Text(
                                     "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -166,8 +166,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                             },
                             child: Container(
                               child: Column(
-                                children: <Widget>[
-                                  const Text(
+                                children: const <Widget>[
+                                  Text(
                                     "Measurable",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -175,9 +175,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                     ),
                                   ),
 
-                                  const SizedBox(height: 8.0,),
+                                  SizedBox(height: 8.0,),
 
-                                  const Text(
+                                  Text(
                                     "e.g. How many miles did you run today? How many pages did you read?",
                                     style: TextStyle(
                                       color: Colors.white,
@@ -230,7 +230,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Page_Settings()),
+                MaterialPageRoute(builder: (context) => const PageSettings()),
               );
             }
           ),
@@ -263,9 +263,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               PopupMenuItem<int>(
                 value: 0,
                 child: Row(
-                  children: <Widget>[
-                    const Icon(Icons.arrow_upward),
-                    const Text("Manually",style: TextStyle(color: Colors.white),),
+                  children: const <Widget>[
+                    Icon(Icons.arrow_upward),
+                    Text("Manually",style: TextStyle(color: Colors.white),),
                   ],
                 ),
               ),

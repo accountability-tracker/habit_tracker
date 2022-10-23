@@ -26,8 +26,8 @@ class _MakeNotifcationsSticky extends State<MakeNotifcationsSticky> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Make notifcations sticky",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,11 +35,11 @@ class _MakeNotifcationsSticky extends State<MakeNotifcationsSticky> {
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Prevents notifcations from being swiped away.",
                 style: TextStyle(
                   fontSize: 16.0,

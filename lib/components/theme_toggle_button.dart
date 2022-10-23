@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
@@ -50,14 +48,14 @@ class _ThemeToggleButtonState extends ConsumerState<ThemeToggleButton> {
       children: <Widget>[
         if(ref.watch(themeProvider) == ThemeMode.dark) ...[
           IconButton(
-            icon: Icon(Icons.light_mode),
+            icon: const Icon(Icons.light_mode),
             onPressed: (){
               ref.read(themeProvider.notifier).toggleTheme();
             },
           ),
         ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
           IconButton(
-            icon: Icon(Icons.dark_mode),
+            icon: const Icon(Icons.dark_mode),
             onPressed: (){
               ref.read(themeProvider.notifier).toggleTheme();
             },

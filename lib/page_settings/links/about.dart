@@ -24,7 +24,7 @@ class _About extends State<About> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
+            children: <Widget>[
               TextButton(
                 child: const Text(
                   "About",

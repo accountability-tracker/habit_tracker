@@ -23,8 +23,8 @@ class _ExportFullBackup extends State<ExportFullBackup> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Export full backup",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -32,11 +32,11 @@ class _ExportFullBackup extends State<ExportFullBackup> {
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Generates a file that contains all your data. This file can be imported back.",
                 style: TextStyle(
                   fontSize: 16.0,

@@ -26,8 +26,8 @@ class _ShowQuestionMarksForMissingData extends State<ShowQuestionMarksForMissing
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Show question marks for missing data",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,18 +35,17 @@ class _ShowQuestionMarksForMissingData extends State<ShowQuestionMarksForMissing
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Differentiate days without data from actual lapses. To enter a lapse, toggle twice.",
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey
                 ),
               ),
-
             ],
           ),
         ),

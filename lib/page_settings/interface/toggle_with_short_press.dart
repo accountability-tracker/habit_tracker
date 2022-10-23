@@ -26,8 +26,8 @@ class _ToggleWithShortPress extends State<ToggleWithShortPress> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Toggle with short press",
                 style: TextStyle(
                   fontSize: 20.0,
@@ -35,18 +35,17 @@ class _ToggleWithShortPress extends State<ToggleWithShortPress> {
                 ),
               ),
 
-              const SizedBox(
+              SizedBox(
                 height: 4.0,
               ),
 
-              const Text(
+              Text(
                 "Put checkmarks with a single tap isntead of a press and hold.",
                 style: TextStyle(
                   fontSize: 16.0,
                   color: Colors.grey
                 ),
               ),
-
             ],
           ),
         ),

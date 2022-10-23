@@ -23,8 +23,8 @@ class _HelpAndFAQ extends State<HelpAndFAQ> {
 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget> [
-              const Text(
+            children: const <Widget>[
+              Text(
                 "Help & FAQ",
                 style: TextStyle(
                   fontSize: 20.0,

@@ -44,19 +44,18 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: <Widget>[
-
           Row(
-            children: <Widget>[
-              const Text(
+            children: const <Widget>[
+              Text(
                 "History",
                 style: TextStyle(
                   fontSize: 24.0,
                 ),
               ),
 
-              const Spacer(),
+              Spacer(),
 
-              const Text(
+              Text(
                 "Selector - Week",
                 style: TextStyle(
                   fontSize: 20.0,

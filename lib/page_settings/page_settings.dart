@@ -19,16 +19,16 @@ import 'package:habit_tracker/page_settings/troubleshooting/generate_bug_report.
 import 'package:habit_tracker/page_settings/links/help_and_faq.dart';
 import 'package:habit_tracker/page_settings/links/about.dart';
 
-class Page_Settings extends StatefulWidget {
-  const Page_Settings({
+class PageSettings extends StatefulWidget {
+  const PageSettings({
       super.key,
   });
 
   @override
-  _Page_Settings createState() => _Page_Settings();
+  _PageSettings createState() => _PageSettings();
 }
 
-class _Page_Settings extends State<Page_Settings> {
+class _PageSettings extends State<PageSettings> {
 
   bool light = true;
 

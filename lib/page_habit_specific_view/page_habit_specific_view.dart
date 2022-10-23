@@ -71,7 +71,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                 case E_HABITS.YES_OR_NO:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                  MaterialPageRoute(builder: (context) => PageCreateNewHabitYesOrNo(
                       isarService: widget.isarService,
                       fHabit: widget.habit
                   )),
