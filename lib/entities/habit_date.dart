@@ -13,7 +13,7 @@ class HabitDate {
 
   late int value;
 
-  HabitDate() {}
+  HabitDate();
 
   HabitDate.FullWithId(
     int idArg,

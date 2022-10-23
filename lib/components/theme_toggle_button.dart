@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
-import '../theme.dart';
+import 'package:habit_tracker/theme.dart';
 
 class ThemeToggleButton extends ConsumerStatefulWidget {
   const ThemeToggleButton({super.key});
@@ -14,7 +14,7 @@ class ThemeToggleButton extends ConsumerStatefulWidget {
 }
 
 class _ThemeToggleButtonState extends ConsumerState<ThemeToggleButton> {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  // final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   // Future<void> _incrementCounter() async {
   //   final SharedPreferences prefs = await _prefs;
