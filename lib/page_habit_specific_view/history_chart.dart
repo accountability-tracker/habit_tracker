@@ -4,18 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
-import 'package:habit_tracker/HabitSpecificView/HistoryBarChart.dart';
+import 'package:habit_tracker/page_habit_specific_view/history_bar_chart.dart';
 
 // import '../components/FlatDropdown.dart';
 
 class HistoryChart extends ConsumerStatefulWidget {
   const HistoryChart({
       super.key,
-      required this.isar_service,
+      required this.isarService,
       required this.habit
   });
 
-  final IsarService isar_service;
+  final IsarService isarService;
 
   // TODO: eventually handle the other habit types besides yes or no
   final dynamic habit;
@@ -47,18 +47,18 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
 
           Row(
             children: <Widget>[
-              Text(
+              const Text(
                 "History",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 24.0,
                 ),
               ),
 
               const Spacer(),
 
-              Text(
+              const Text(
                 "Selector - Week",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 20.0,
                 ),
               ),
@@ -68,7 +68,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
           const SizedBox(height: 16.0,),
 
           FutureBuilder<List<HabitDate>>(
-            future: widget.isar_service.getHabitsDateLastSeven(widget.habit.id),
+            future: widget.isarService.getHabitsDateLastSeven(widget.habit.id),
 
             builder: (BuildContext context, AsyncSnapshot<List<HabitDate>> snapshot) {
               switch(snapshot.connectionState) {
@@ -87,18 +87,17 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                 ];
                 List<dynamic> xy = [];
 
-                var habit_dates = snapshot.data;
-                if(habit_dates != null) {
+                var habitDates = snapshot.data;
+                if(habitDates != null) {
 
                   // sort by date
-                  habit_dates.sort((a, b) {
+                  habitDates.sort((a, b) {
                       return a.getDate().compareTo(b.getDate());
                   });
 
-                  var i = 0;
                   for(var p in x) {
                     var found = false;
-                    for(var v in habit_dates) {
+                    for(var v in habitDates) {
 
                       if(v.getDate() == p) {
                         xy.add({
@@ -115,17 +114,15 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                           "object": null
                       });
                     }
-
-                    i += 1;
                   }
                 }
 
                 return HistoryBarChart(
-                  habit_dates: xy, // habit_dates
+                  habitDates: xy, // habit_dates
                 );
 
                 default:
-                  return Text("Loading");
+                  return const Text("Loading");
               }
             }
           ),

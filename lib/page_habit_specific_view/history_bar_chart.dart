@@ -4,10 +4,10 @@ import 'package:fl_chart/fl_chart.dart';
 class HistoryBarChart extends StatefulWidget {
   const HistoryBarChart({
       super.key,
-      required this.habit_dates,
+      required this.habitDates,
   });
 
-  final dynamic habit_dates;
+  final dynamic habitDates;
 
   @override
   _HistoryBarChart createState() => _HistoryBarChart();
@@ -52,19 +52,18 @@ class _HistoryBarChart extends State<HistoryBarChart> {
     // print(widget.habit_dates);
 
     return Container(
-      child: Container(
         width: MediaQuery.of(context).size.width,
         height: 260.0,
         child: BarChart(
           BarChartData(
             barGroups: [
-              BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: widget.habit_dates[0]["object"] != null ? widget.habit_dates[0]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: widget.habit_dates[1]["object"] != null ? widget.habit_dates[1]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: widget.habit_dates[2]["object"] != null ? widget.habit_dates[2]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: widget.habit_dates[3]["object"] != null ? widget.habit_dates[3]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: widget.habit_dates[4]["object"] != null ? widget.habit_dates[4]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 5, barRods: [BarChartRodData(toY: widget.habit_dates[5]["object"] != null ? widget.habit_dates[5]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 6, barRods: [BarChartRodData(toY: widget.habit_dates[6]["object"] != null ? widget.habit_dates[6]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: widget.habitDates[0]["object"] != null ? widget.habitDates[0]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: widget.habitDates[1]["object"] != null ? widget.habitDates[1]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: widget.habitDates[2]["object"] != null ? widget.habitDates[2]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: widget.habitDates[3]["object"] != null ? widget.habitDates[3]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: widget.habitDates[4]["object"] != null ? widget.habitDates[4]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 5, barRods: [BarChartRodData(toY: widget.habitDates[5]["object"] != null ? widget.habitDates[5]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 6, barRods: [BarChartRodData(toY: widget.habitDates[6]["object"] != null ? widget.habitDates[6]["object"].getValue().toDouble() : 0 )]),
             ],
 
             titlesData: FlTitlesData(
@@ -84,7 +83,7 @@ class _HistoryBarChart extends State<HistoryBarChart> {
 
                     // print(meta.sideTitles.toString());
 
-                    var x = widget.habit_dates[value.toInt()]["date"].split("-");
+                    var x = widget.habitDates[value.toInt()]["date"].split("-");
 
                     text = Container(
                       height: 32.0,
@@ -153,7 +152,7 @@ class _HistoryBarChart extends State<HistoryBarChart> {
 
             borderData: FlBorderData(
               border: Border.all(
-                color: Color.fromRGBO(41, 41, 41, 1.0),
+                color: const Color.fromRGBO(41, 41, 41, 1.0),
                 width: 1.0,
                 style: BorderStyle.solid
               ),
@@ -165,7 +164,6 @@ class _HistoryBarChart extends State<HistoryBarChart> {
           // swapAnimationDuration: Duration(milliseconds: 150), // Optional
           // swapAnimationCurve: Curves.linear, // Optional
         ),
-      ),
     );
   }
 }

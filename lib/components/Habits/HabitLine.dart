@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 
-import "../../s_isar.dart";
-import "../../entities/habit.dart";
-import "package:habit_tracker/entities/habit_date.dart";
+import 'package:habit_tracker/s_isar.dart';
+import 'package:habit_tracker/entities/habit.dart';
+import 'package:habit_tracker/entities/habit_date.dart';
 
 import 'package:habit_tracker/habit_enums.dart';
 
-import '../../habits.dart';
+import 'package:habit_tracker/habits.dart';
 
-import '../../HabitSpecificview/HabitSpecificview.dart';
+import 'package:habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
 
 import 'HabitYesOrNoToggle.dart';
 import 'package:habit_tracker/components/habits/HabitMeasurableBlock.dart';

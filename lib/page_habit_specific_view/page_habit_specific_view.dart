@@ -7,11 +7,11 @@ import 'package:habit_tracker/habits.dart';
 
 import 'package:habit_tracker/habit_enums.dart';
 
-import 'package:habit_tracker/CreateNewHabitYesOrNo/CreateNewHabitYesOrNo.dart';
-import 'package:habit_tracker/CreateNewHabitMeasurable/CreateNewHabitMeasurable.dart';
+import 'package:habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
+import 'package:habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
 
-import 'package:habit_tracker/HabitSpecificview/HabitVariablesOverviewBlock.dart';
-import 'package:habit_tracker/HabitSpecificview/HistoryChart.dart';
+import 'package:habit_tracker/page_habit_specific_view/habit_variables_overview_block.dart';
+import 'package:habit_tracker/page_habit_specific_view/history_chart.dart';
 
 class PageHabitSpecificView extends ConsumerStatefulWidget {
   const PageHabitSpecificView({
@@ -150,7 +150,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
               const SizedBox(height: 16.0,),
 
               HistoryChart(
-                isar_service: widget.isarService,
+                isarService: widget.isarService,
                 habit: widget.habit,
               ),
 
