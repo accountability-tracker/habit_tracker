@@ -51,7 +51,7 @@ class _UsePureBlackInDarkTheme extends State<UsePureBlackInDarkTheme> {
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         Switch(
           // This bool value toggles the switch.

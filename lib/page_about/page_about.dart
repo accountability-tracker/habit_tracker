@@ -35,24 +35,24 @@ class _Page_About extends State<Page_About> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "About",
         ),
       ),
       body: Container(
-        margin: EdgeInsets.all(16.0),
+        margin: const EdgeInsets.all(16.0),
         // width: MediaQuery.of(context).size.width * 0.9,
 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            Text(
+            const Text(
               "Links",
             ),
 
             TextButton(
-              child: Text("Source code on Github"),
+              child: const Text("Source code on Github"),
               onPressed: () => _openGithubSourceCode(),
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,

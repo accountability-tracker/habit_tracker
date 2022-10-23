@@ -52,7 +52,7 @@ class _EnableSkipDays extends State<EnableSkipDays> {
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         Switch(
           // This bool value toggles the switch.

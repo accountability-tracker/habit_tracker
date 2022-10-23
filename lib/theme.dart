@@ -29,7 +29,7 @@ class ThemeManager extends StateNotifier<ThemeMode> {
 
 final cust_darkTheme = ThemeData(
   primarySwatch: Colors.red,
-  scaffoldBackgroundColor: Color.fromRGBO(26, 26, 26, 1.0),
+  scaffoldBackgroundColor: const Color.fromRGBO(26, 26, 26, 1.0),
 
   textTheme: const TextTheme(
      bodyText1: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)),
@@ -42,7 +42,7 @@ final cust_darkTheme = ThemeData(
 
 final cust_lightTheme = ThemeData(
   primarySwatch: Colors.blue,
-  scaffoldBackgroundColor: Color.fromRGBO(255, 255, 255, 1.0),
+  scaffoldBackgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
 );
 
 ///
@@ -54,11 +54,11 @@ class ThemeToggleButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
       onPressed: () {
-        print("Toggle Theme");
+        // print("Toggle Theme");
         ref.read(themeProvider.notifier).toggleTheme();
       },
 
-      child: Text("Toggle Theme"),
+      child: const Text("Toggle Theme"),
     );
   }
 }

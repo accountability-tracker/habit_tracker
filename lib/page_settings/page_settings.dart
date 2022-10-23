@@ -18,7 +18,6 @@ import 'package:habit_tracker/page_settings/troubleshooting/generate_bug_report.
 
 import 'package:habit_tracker/page_settings/links/help_and_faq.dart';
 import 'package:habit_tracker/page_settings/links/about.dart';
-import 'package:habit_tracker/page_about/page_about.dart';
 
 class Page_Settings extends StatefulWidget {
   const Page_Settings({
@@ -33,21 +32,21 @@ class _Page_Settings extends State<Page_Settings> {
 
   bool light = true;
 
-  var height_spacing = 16.0;
+  final heightSpacing = 16.0;
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Settings",
         ),
       ),
       body: SingleChildScrollView(
 
         child: Container(
-          margin: EdgeInsets.all(16.0),
+          margin: const EdgeInsets.all(16.0),
           // width: MediaQuery.of(context).size.width * 0.9,
 
           child: Column(
@@ -64,31 +63,31 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const ToggleWithShortPress(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const ExtendDayAFewHoursPastMidnight(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const EnableSkipDays(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const ShowQuestionMarksForMissingData(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const UsePureBlackInDarkTheme(),
@@ -100,13 +99,13 @@ class _Page_Settings extends State<Page_Settings> {
               // const Widget Opacity what is this option even for?(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const FirstDayOfTheWeek(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               // reminder options
@@ -119,19 +118,19 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const MakeNotifcationsSticky(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const CustomizeNotifcations(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               // Databse options
@@ -144,25 +143,25 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const ExportFullBackup(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const ExportAsCSV(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const ImportData(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               // Databse options
@@ -175,13 +174,13 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const GenerateBugReport(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               // Databse options
@@ -194,13 +193,13 @@ class _Page_Settings extends State<Page_Settings> {
               ),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const HelpAndFAQ(),
 
               SizedBox(
-                height: height_spacing,
+                height: heightSpacing,
               ),
 
               const About(),

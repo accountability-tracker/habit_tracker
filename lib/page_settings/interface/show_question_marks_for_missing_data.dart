@@ -51,7 +51,7 @@ class _ShowQuestionMarksForMissingData extends State<ShowQuestionMarksForMissing
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         Switch(
           // This bool value toggles the switch.

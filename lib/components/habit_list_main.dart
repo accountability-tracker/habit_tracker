@@ -13,10 +13,10 @@ import 'package:habit_tracker/components/progress_bar.dart';
 class HabitListMain extends ConsumerStatefulWidget {
   const HabitListMain({
       super.key,
-      required this.isar_service
+      required this.isarService
   });
 
-  final IsarService isar_service;
+  final IsarService isarService;
 
   @override
   _HabitListMain createState() => _HabitListMain();
@@ -44,7 +44,7 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
 
       children: <Widget>[
-        FiveDayLine(),
+        const FiveDayLine(),
 
         Expanded(
           child: SingleChildScrollView(
@@ -58,7 +58,7 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
               children: <Widget>[
 
                 FutureBuilder<List<Habit>>(
-                  future: widget.isar_service.getAllHabits(),
+                  future: widget.isarService.getAllHabits(),
                   builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
 
                     if(snapshot.hasData) {
@@ -66,25 +66,25 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                       final habits = snapshot.data!.map((habit) {
                           if(habit.IsArchived()) {
                             // print(" - " + habit.IsArchived().toString());
-                            return SizedBox();
+                            return const SizedBox();
                           }
 
                           return Container(
-                            color: Color.fromRGBO(31, 31, 31, 1.0),
+                            color: const Color.fromRGBO(31, 31, 31, 1.0),
                             width: MediaQuery.of(context).size.width,
                             margin: const EdgeInsets.all(2.0),
                             padding: const EdgeInsets.all(8.0),
                             child: HabitLine(
-                              isar_service: widget.isar_service,
+                              isarService: widget.isarService,
                               habit: habit
                             ),
                           );
                       }).toList();
 
-                      return new Column(children: habits);
+                      return Column(children: habits);
                     }
 
-                    return Text(
+                    return const Text(
                       "Loading indacator..."
                     );
                   },
@@ -108,12 +108,13 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
           ),
         ),
 
-        ProgressBar(
-          habit_name: "Worked on Flutter",
-          full_units: 5,
-          current_units: 2,
+        const ProgressBar(
+          habitName: "Worked on Flutter",
+          fullUnits: 5,
+          currentUnits: 2,
           uom: "Days",
         ),
+
       ],
     );
   }

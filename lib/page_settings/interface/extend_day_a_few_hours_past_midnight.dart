@@ -52,7 +52,7 @@ class _ExtendDayAFewHoursPastMidnight extends State<ExtendDayAFewHoursPastMidnig
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         Switch(
           // This bool value toggles the switch.

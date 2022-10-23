@@ -14,7 +14,7 @@ class IsarService {
   Future<Isar> openDB() async {
     if(Isar.instanceNames.isEmpty) {
       final appDocDir = await getApplicationSupportDirectory();
-      print('App Doc path - ' + appDocDir.path);
+      print('App Doc path - $appDocDir.path');
 
       return await Isar.open(
         [HabitSchema, HabitDateSchema],
@@ -38,23 +38,23 @@ class IsarService {
     return await isar.habits.where().findAll();
   }
 
-  Future<void> updateHabit(Habit? habit_arg) async {
-    if(habit_arg != null) {
+  Future<void> updateHabit(Habit? habitArg) async {
+    if(habitArg != null) {
       final isar = await db;
 
       await isar.writeTxn(() async {
-          await isar.habits.put(habit_arg);
+          await isar.habits.put(habitArg);
       });
     }
   }
 
-  Future<void> changeHabitArchivedState(int habit_id_arg, bool archived_state_arg) async {
+  Future<void> changeHabitArchivedState(int habitIdArg, bool archivedStateArg) async {
     final isar = await db;
 
     await isar.writeTxn(() async {
-        final habit = await isar.habits.get(habit_id_arg);
+        final habit = await isar.habits.get(habitIdArg);
         if(habit != null) {
-          habit.archived = archived_state_arg;
+          habit.archived = archivedStateArg;
           await isar.habits.put(habit);
         }
     });
@@ -62,21 +62,21 @@ class IsarService {
 
   // TODO(clearfeld): return bool and add error state if this isn't true
   // for now assuming true for testing and iteration purposes
-  Future<void> deleteHabit(int habit_id_arg) async {
+  Future<void> deleteHabit(int habitIdArg) async {
     final isar = await db;
     await isar.writeTxn(() async {
-        isar.habits.delete(habit_id_arg);
+        isar.habits.delete(habitIdArg);
     });
   }
 
   // Habit Date Helpers
 
-  Future<List<HabitDate>> getHabitsDateLastSeven(int habit_id_arg) async {
+  Future<List<HabitDate>> getHabitsDateLastSeven(int habitIdArg) async {
     final isar = await db;
     // return await isar.habitDates.where().findAll();
 
     // TODO(clearfeld): make this filter an actual week range on the dates
-    return await isar.habitDates.filter().habit_idEqualTo(habit_id_arg).limit(10).findAll();
+    return await isar.habitDates.filter().habit_idEqualTo(habitIdArg).limit(10).findAll();
   }
 
   Future<int> putHabitDate(HabitDate habitDate) async {

@@ -64,7 +64,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   // TODO: make a riverpod instance that keeps track of the Isar Instance
   final isarService = IsarService();
 
-  void _more_option_selected(int item) {
+  void _moreOptionSelected(int item) {
     // print(item);
     if(item == 0) {
       Navigator.push(
@@ -286,7 +286,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               ),
             ],
             onSelected: (item) => {
-              _more_option_selected(item)
+              _moreOptionSelected(item)
             },
           ),
 
@@ -300,7 +300,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               ),
             ],
             onSelected: (item) => {
-              _more_option_selected(item)
+              _moreOptionSelected(item)
             },
           ),
           //more widgets to place here
@@ -310,7 +310,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: HabitListMain(
-          isar_service: isarService
+          isarService: isarService
         ),
 
         //   // Invoke "debug painting" (press "p" in the console, choose the

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import "../../s_isar.dart";
-import "../../entities/habit.dart";
-import "package:habit_tracker/entities/habit_date.dart";
-import "../../habit_enums.dart";
-
-import '../../habits.dart';
+import 'package:habit_tracker/s_isar.dart';
+import 'package:habit_tracker/entities/habit.dart';
+import 'package:habit_tracker/entities/habit_date.dart';
 
 class HabitYesOrNoToggle extends StatefulWidget {
   HabitYesOrNoToggle({
@@ -14,14 +11,14 @@ class HabitYesOrNoToggle extends StatefulWidget {
       this.habitDate,
       required this.habit,
       required this.date,
-      required this.isar_service
+      required this.isarService
   }) : super(key: key);
 
   // TODO(clearfeld): update this to work with other habit types
   HabitDate? habitDate;
   final Habit habit;
   final DateTime date;
-  final IsarService isar_service;
+  final IsarService isarService;
 
   @override
   _HabitYesOrNoToggle createState() => _HabitYesOrNoToggle();
@@ -29,7 +26,7 @@ class HabitYesOrNoToggle extends StatefulWidget {
 
 class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
 
-  bool toggled_on = false; // habitDate != null ?
+  bool toggledOn = false; // habitDate != null ?
   // (
   //   habitDate?.getValue() == 0 ? false : true
   // )
@@ -39,7 +36,7 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
   Widget build(BuildContext context) {
 
     // TODO(clearfeld): fix this to update on clcik
-    toggled_on = widget.habitDate != null ?
+    toggledOn = widget.habitDate != null ?
     (
       widget.habitDate?.getValue() == 0 ? false : true
     )
@@ -49,13 +46,13 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
       children: <Widget>[
         IconButton(
           icon: (
-            toggled_on ? Icon(Icons.check) : Icon(Icons.close)
+            toggledOn ? const Icon(Icons.check) : const Icon(Icons.close)
           ),
           color: Color(widget.habit.getColor()), // Colors.red,
           onPressed: () async {
-            var x = !toggled_on;
+            var x = !toggledOn;
             setState(() {
-                toggled_on = x;
+                toggledOn = x;
             });
 
             // print(widget.date);
@@ -69,7 +66,7 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
 
 
               // widget.habitDate =
-              var id = await widget.isar_service.putHabitDate(
+              var id = await widget.isarService.putHabitDate(
                 HabitDate.Full(
                   widget.habit.id,
                   '${widget.date.year}-${widget.date.month}-${widget.date.day}',
@@ -87,7 +84,7 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
             } else {
               widget.habitDate?.value = x ? 1 : 0;
               // var hd = widget.habitDate().. value: x ? 1 : 0;
-              print(widget.habitDate);
+              // print(widget.habitDate);
               var i  = widget.habitDate?.id;
               var hi = widget.habitDate?.habit_id;
               var d  = widget.habitDate?.date;
@@ -98,7 +95,7 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
                 d != null &&
                 v != null) {
 
-                widget.isar_service.putHabitDate(
+                widget.isarService.putHabitDate(
                   HabitDate.FullWithId(
                     i, hi, d, v
                   )

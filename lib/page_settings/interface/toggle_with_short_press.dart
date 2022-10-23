@@ -51,7 +51,7 @@ class _ToggleWithShortPress extends State<ToggleWithShortPress> {
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         Switch(
           // This bool value toggles the switch.

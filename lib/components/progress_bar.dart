@@ -4,15 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ProgressBar extends ConsumerStatefulWidget {
   const ProgressBar({
       super.key,
-      required this.habit_name,
-      required this.full_units,
-      required this.current_units,
+      required this.habitName,
+      required this.fullUnits,
+      required this.currentUnits,
       required this.uom,
   });
 
-  final String habit_name;
-  final int full_units;
-  final int current_units;
+  final String habitName;
+  final int fullUnits;
+  final int currentUnits;
   final String uom;
 
   @override
@@ -24,8 +24,7 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
   @override
   void initState() {
     super.initState();
-    String habit_name = widget.habit_name;
-    this.progress = '${widget.current_units} / ${widget.full_units} ${widget.uom}';
+    progress = '${widget.currentUnits} / ${widget.fullUnits} ${widget.uom}';
     // ref.read(habitsManagerProvider);
   }
 
@@ -38,17 +37,33 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(children: [Text(widget.habit_name)],),
-              Column(children: [Text(this.progress,style: TextStyle(color: Colors.grey),)],),
+              Column(
+                children: [
+                  Text(widget.habitName)
+                ],
+              ),
+
+              Column(
+                children: [
+                  Text(
+                    progress,
+                    style: const TextStyle(
+                      color: Colors.grey
+                    ),
+                  )
+                ],
+              ),
             ],
           ),
-          SizedBox(
+
+          const SizedBox(
             height: 10.0,
           ),
+
           LinearProgressIndicator(
             backgroundColor: Colors.black,
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
-            value: widget.current_units/widget.full_units,
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+            value: widget.currentUnits / widget.fullUnits,
           ),
         ],
       ),

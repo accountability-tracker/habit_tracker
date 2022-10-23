@@ -51,7 +51,7 @@ class _FirstDayOfTheWeek extends State<FirstDayOfTheWeek> {
           ),
         ),
 
-        Spacer(),
+        const Spacer(),
 
         Switch(
           // This bool value toggles the switch.
