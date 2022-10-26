@@ -206,7 +206,13 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
           },
         ),
 
-        // Text(widget.date.day.toString())
+        Text(
+          widget.habit.unit.toString(),
+          style: const TextStyle(
+            color: Colors.grey,
+          )
+        ),
+
       ],
     );
   }
