@@ -206,6 +206,7 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
           },
         ),
 
+        if(widget.habit.unit.toString() != "")
         Text(
           widget.habit.unit.toString(),
           style: const TextStyle(
