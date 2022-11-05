@@ -99,9 +99,9 @@ class Habit {
   int getColor() {
     // print(this.color);
     // final c =
-    var c = color.substring(6, color.length - 1);
+    // var c = color.substring(6, color.length - 1);
     // print(c);
-    return int.parse(c);
+    return int.parse(color);
   }
 
   E_HABIT_FREQUENCY getFrequency() {
