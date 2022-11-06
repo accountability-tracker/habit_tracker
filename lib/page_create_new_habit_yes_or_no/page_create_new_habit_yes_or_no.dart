@@ -13,10 +13,11 @@ import 'package:habit_tracker/components/flat_dropdown.dart';
 
 // TODO(clearfeld): move this into its own file and make it an enum instead
 const List<String> frequencyList = <String>[
-  'Every Day',
-  'Every Week',
-  'Every Other Week',
-  'Every Month'
+  'Per Day',
+  'Per Week',
+  'Bi-weekly',
+  'Per Month',
+  'Every # Days'
 ];
 
 // TODO(clearfeld): expend this into its own class
@@ -51,6 +52,8 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
   Color pickerColor = const Color(0xff443a49);
   Color currentColor = const Color(0xff443a49);
 
+  final frequencyAmountController = TextEditingController();
+
   // ValueChanged<Color> callback
   void changeColor(Color color) {
     setState(() => pickerColor = color);
@@ -64,6 +67,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
     if(widget.fHabit != null) {
       nameTextController.text = widget.fHabit?.getTitle() ?? "" ;
       questionTextController.text = widget.fHabit?.getQuestion() ?? "" ;
+      frequencyAmountController.text = widget.fHabit?.getFrequencyAmount().toString() ?? "1" ;
       // // String frequencyValue = frequencyList.first;
 
       // // String reminderValue = reminderList.first;
@@ -71,6 +75,8 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
 
       pickerColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
       currentColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
+    } else {
+      frequencyAmountController.text = "1";
     }
   }
 
@@ -79,6 +85,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
     nameTextController.dispose();
     questionTextController.dispose();
     notesTextController.dispose();
+    frequencyAmountController.dispose();
     super.dispose();
   }
 
@@ -90,6 +97,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
       h?.question = questionTextController.text;
       h?.notes = notesTextController.text;
       h?.color = currentColor.toString();
+      h?.frequency_amount = int.parse(frequencyAmountController.text);
 
       widget.isarService.updateHabit(h);
     } else {
@@ -99,7 +107,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
           nameTextController.text,
           currentColor.toString(),
           E_HABIT_FREQUENCY.EVERY_DAY,
-          1,
+          int.parse(frequencyAmountController.text),
           "",
           questionTextController.text,
           notesTextController.text
@@ -284,21 +292,42 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
 
                 const SizedBox(height: 32.0,),
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: <Widget>[
-                    const Text("Frequency"),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.08,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Frequency"),
+                            const SizedBox(height: 8.0,),
+                            FlatTextField(
+                              textController: frequencyAmountController,
+                            ),
+                          ],
+                        ),
+                    ),
 
-                    const SizedBox(height: 8.0,),
+                    const SizedBox(width: 16.0,),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Text(""),
 
-                    FlatDropdown(
-                      value: frequencyValue,
-                      onValueChanged: (String? valueArg) {
-                        setState(() {
-                            frequencyValue = valueArg!;
-                        });
-                      },
-                      items: frequencyList,
+                            const SizedBox(height: 8.0,),
+
+                          FlatDropdown(
+                            value: frequencyValue,
+                            onValueChanged: (String? valueArg) {
+                              setState(() {
+                                  frequencyValue = valueArg!;
+                              });
+                            },
+                            items: frequencyList,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
