@@ -36,6 +36,18 @@ class _HabitLine extends State<HabitLine> {
   var nd = [4, 3, 2, 1, 0];
   final dss = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+  late Future<List<HabitDate>>? fhabitDates = null;
+
+  @override
+  void initState() {
+    super.initState();
+    // ref.read(habitsManagerProvider);
+
+    setState(() => {
+        fhabitDates = widget.isarService.getHabitsDateLastSeven(widget.habit.id)
+    });
+  }
+
   String printDay(int dn) {
     return dss[dn - 1];
   }
@@ -82,7 +94,7 @@ class _HabitLine extends State<HabitLine> {
             // padding: EdgeInsets.fromLTRB(0, 0, 8.0, 0),
 
             child: FutureBuilder<List<HabitDate>>(
-              future: widget.isarService.getHabitsDateLastSeven(widget.habit.id),
+              future: fhabitDates,
               builder: (context, AsyncSnapshot<List<HabitDate>> snapshot) {
 
                 // print(snapshot);

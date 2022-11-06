@@ -29,7 +29,6 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
     ref.read(habitsManagerProvider);
   }
 
-
   @override
   Widget build(BuildContext context) {
 

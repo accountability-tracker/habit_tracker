@@ -46,7 +46,23 @@ class _Page_About extends State<Page_About> {
           children: <Widget>[
 
             const Text(
+              "Habit Tracker",
+              style: TextStyle(
+                color: Colors.blue
+              ),
+            ),
+
+            const Text(
+              "version 1.0.0",
+            ),
+
+            const SizedBox(height: 16.0,),
+
+            const Text(
               "Links",
+              style: TextStyle(
+                color: Colors.blue
+              ),
             ),
 
             TextButton(
@@ -56,6 +72,22 @@ class _Page_About extends State<Page_About> {
                 padding: EdgeInsets.zero,
                 alignment: Alignment.centerLeft
               ),
+            ),
+
+            const SizedBox(height: 16.0,),
+
+            const Text(
+              "Developers",
+              style: TextStyle(
+                color: Colors.blue
+              ),
+            ),
+
+            const Text(
+              "@clearfeld",
+            ),
+            const Text(
+              "@AaronPatterson1",
             ),
 
           ],

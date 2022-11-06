@@ -108,11 +108,13 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
 
       widget.isarService.updateHabit(h);
     } else {
+      var c = currentColor.toString();
+
       widget.isarService.saveHabit(
         Habit.FullMeasurable(
           E_HABITS.MEASURABLE,
           nameTextController.text,
-          currentColor.toString(),
+          c.substring(6, c.length - 1),
           unitTextController.text,
           int.parse(targetTextController.text),
           E_HABIT_FREQUENCY.EVERY_DAY,

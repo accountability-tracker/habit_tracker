@@ -101,11 +101,13 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
 
       widget.isarService.updateHabit(h);
     } else {
+      var c = currentColor.toString();
+
       widget.isarService.saveHabit(
         Habit.Full(
           E_HABITS.YES_OR_NO,
           nameTextController.text,
-          currentColor.toString(),
+          c.substring(6, c.length - 1),
           E_HABIT_FREQUENCY.EVERY_DAY,
           int.parse(frequencyAmountController.text),
           "",
