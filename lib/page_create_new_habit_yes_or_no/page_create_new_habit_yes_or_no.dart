@@ -68,6 +68,16 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
       nameTextController.text = widget.fHabit?.getTitle() ?? "" ;
       questionTextController.text = widget.fHabit?.getQuestion() ?? "" ;
       frequencyAmountController.text = widget.fHabit?.getFrequencyAmount().toString() ?? "1" ;
+
+      if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
+        this.frequencyValue = 'Per Day';
+      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
+        this.frequencyValue = 'Per Week';
+      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
+        this.frequencyValue = 'Per Month';
+      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.EVERY_X_DAYS) {
+        this.frequencyValue = 'Every # Days';
+      }
       // // String frequencyValue = frequencyList.first;
 
       // // String reminderValue = reminderList.first;
@@ -90,6 +100,16 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
   }
 
   void addHabit() {
+    var freq = E_HABIT_FREQUENCY.EVERY_DAY;
+    if (this.frequencyValue =='Per Day') {
+      freq = E_HABIT_FREQUENCY.EVERY_DAY;
+    } else if (this.frequencyValue == 'Per Week') {
+      freq = E_HABIT_FREQUENCY.X_TIMES_PER_WEEK;
+    } else if (this.frequencyValue == 'Per Month') {
+      freq = E_HABIT_FREQUENCY.X_TIMES_PER_MONTH;
+    } else if (this.frequencyValue == 'Every # Days') {
+      freq = E_HABIT_FREQUENCY.EVERY_X_DAYS;
+    }
 
     if(widget.fHabit != null) {
       var h = widget.fHabit;
@@ -97,6 +117,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
       h?.question = questionTextController.text;
       h?.notes = notesTextController.text;
       h?.color = currentColor.toString();
+      h?.frequency = freq;
       h?.frequency_amount = int.parse(frequencyAmountController.text);
 
       widget.isarService.updateHabit(h);
@@ -108,7 +129,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
           E_HABITS.YES_OR_NO,
           nameTextController.text,
           c.substring(6, c.length - 1),
-          E_HABIT_FREQUENCY.EVERY_DAY,
+          freq,
           int.parse(frequencyAmountController.text),
           "",
           questionTextController.text,
@@ -320,10 +341,10 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                             const SizedBox(height: 8.0,),
 
                           FlatDropdown(
-                            value: frequencyValue,
+                            value: this.frequencyValue,
                             onValueChanged: (String? valueArg) {
                               setState(() {
-                                  frequencyValue = valueArg!;
+                                  this.frequencyValue = valueArg!;
                               });
                             },
                             items: frequencyList,
