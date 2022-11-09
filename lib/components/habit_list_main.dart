@@ -23,10 +23,21 @@ class HabitListMain extends ConsumerStatefulWidget {
 }
 
 class _HabitListMain extends ConsumerState<HabitListMain> {
+
+  late Future<List<Habit>>? fhabits = null;
+
   @override
   void initState() {
     super.initState();
     ref.read(habitsManagerProvider);
+
+    LoadHabits();
+  }
+
+  void LoadHabits() {
+    setState(() => {
+        fhabits = widget.isarService.getAllHabits()
+    });
   }
 
   @override
@@ -57,7 +68,7 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
               children: <Widget>[
 
                 FutureBuilder<List<Habit>>(
-                  future: widget.isarService.getAllHabits(),
+                  future: fhabits,
                   builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
 
                     if(snapshot.hasData) {
