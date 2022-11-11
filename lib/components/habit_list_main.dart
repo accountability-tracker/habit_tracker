@@ -6,6 +6,7 @@ import 'package:habit_tracker/entities/habit.dart';
 
 import 'package:habit_tracker/habits.dart';
 import 'package:habit_tracker/components/habits/habit_line.dart';
+import 'package:habit_tracker/components/habits/habit_progress_bar.dart';
 import 'package:habit_tracker/components/five_day_line.dart';
 
 import 'package:habit_tracker/components/progress_bar.dart';
@@ -13,10 +14,12 @@ import 'package:habit_tracker/components/progress_bar.dart';
 class HabitListMain extends ConsumerStatefulWidget {
   const HabitListMain({
       super.key,
-      required this.isarService
+      required this.isarService,
+      required this.habitView
   });
 
   final IsarService isarService;
+  final String habitView;
 
   @override
   _HabitListMain createState() => _HabitListMain();
@@ -54,7 +57,10 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
 
       children: <Widget>[
-        const FiveDayLine(),
+        Container(
+          child: widget.habitView == 'input' ? const FiveDayLine() : SizedBox( height: 53.0, ),
+        ),
+        //const FiveDayLine(),
 
         Expanded(
           child: SingleChildScrollView(
@@ -72,26 +78,45 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                   builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
 
                     if(snapshot.hasData) {
-                      // print(snapshot.data);
-                      final habits = snapshot.data!.map((habit) {
-                          if(habit.IsArchived()) {
-                            // print(" - " + habit.IsArchived().toString());
-                            return const SizedBox();
-                          }
+                      if (widget.habitView == 'input') {
+                        final habits = snapshot.data!.map((habit) {
+                            if(habit.IsArchived()) {
+                              return const SizedBox();
+                            }
 
-                          return Container(
-                            color: const Color.fromRGBO(31, 31, 31, 1.0),
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.all(2.0),
-                            padding: const EdgeInsets.all(8.0),
-                            child: HabitLine(
-                              isarService: widget.isarService,
-                              habit: habit
-                            ),
-                          );
-                      }).toList();
+                            return Container(
+                              color: const Color.fromRGBO(31, 31, 31, 1.0),
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.all(2.0),
+                              padding: const EdgeInsets.all(8.0),
+                              child: HabitLine(
+                                isarService: widget.isarService,
+                                habit: habit
+                              ),
+                            );
+                        }).toList();
 
-                      return Column(children: habits);
+                        return Column(children: habits);
+                      } else {
+                        final habits = snapshot.data!.map((habit) {
+                            if(habit.IsArchived()) {
+                              return const SizedBox();
+                            }
+
+                            return Container(
+                              color: const Color.fromRGBO(31, 31, 31, 1.0),
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+                              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                              child: HabitBar(
+                                isarService: widget.isarService,
+                                habit: habit
+                              ),
+                            );
+                        }).toList();
+
+                        return Column(children: habits);
+                      }
                     }
 
                     return const Text(
@@ -117,14 +142,6 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
             // );
           ),
         ),
-
-        const ProgressBar(
-          habitName: "Worked on Flutter",
-          fullUnits: 5,
-          currentUnits: 2,
-          uom: "Days",
-        ),
-
       ],
     );
   }

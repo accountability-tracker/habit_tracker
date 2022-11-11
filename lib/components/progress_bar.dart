@@ -8,12 +8,14 @@ class ProgressBar extends ConsumerStatefulWidget {
       required this.fullUnits,
       required this.currentUnits,
       required this.uom,
+      required this.color,
   });
 
   final String habitName;
   final int fullUnits;
   final int currentUnits;
   final String uom;
+  final int color;
 
   @override
   _ProgressBar createState() => _ProgressBar();
@@ -39,7 +41,13 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
             children: <Widget>[
               Column(
                 children: [
-                  Text(widget.habitName)
+                  Text(
+                    widget.habitName,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      //color: Color(widget.color)
+                    ),
+                  )
                 ],
               ),
 
@@ -48,7 +56,8 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
                   Text(
                     progress,
                     style: const TextStyle(
-                      color: Colors.grey
+                      color: Colors.grey,
+                      fontSize: 24.0,
                     ),
                   )
                 ],
@@ -57,13 +66,14 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
           ),
 
           const SizedBox(
-            height: 10.0,
+            height: 15.0,
           ),
 
           LinearProgressIndicator(
             backgroundColor: Colors.black,
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
             value: widget.currentUnits / widget.fullUnits,
+            minHeight: 8.0,
           ),
         ],
       ),

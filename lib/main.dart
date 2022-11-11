@@ -63,6 +63,7 @@ class MyHomePage extends ConsumerStatefulWidget {
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   // TODO: make a riverpod instance that keeps track of the Isar Instance
   final isarService = IsarService();
+  var habitView = 'input';
 
   void _moreOptionSelected(int item) {
     // print(item);
@@ -251,6 +252,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             ),
           ],
 
+          IconButton(
+            icon: Icon(
+              habitView == 'input' ? Icons.bar_chart : Icons.rule,
+            ),
+            onPressed: () {
+              setState(() {
+                habitView == 'input' ? habitView = 'stats' : habitView = 'input';
+              });
+            },
+          ),
+
           PopupMenuButton(
             icon: const Icon(Icons.sort),
             color: Colors.red,
@@ -310,7 +322,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: HabitListMain(
-          isarService: isarService
+          isarService: isarService,
+          habitView: habitView,
         ),
 
         //   // Invoke "debug painting" (press "p" in the console, choose the
