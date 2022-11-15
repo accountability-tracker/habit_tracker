@@ -92,4 +92,13 @@ class IsarService {
     return x;
   }
 
+  Future<List<HabitDate>> getHabitsDateCurrentMonth(String date, [ int habitIdArg = -1]) async {
+    final isar = await db;
+
+    if(habitIdArg == -1) {
+      return await isar.habitDates.filter().dateContains(date).findAll();
+    }
+    return await isar.habitDates.filter().habit_idEqualTo(habitIdArg).dateContains(date).findAll();
+  }
+
 }
