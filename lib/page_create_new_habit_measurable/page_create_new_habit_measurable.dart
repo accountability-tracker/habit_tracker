@@ -74,6 +74,15 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       questionTextController.text = widget.fHabit?.getQuestion() ?? "" ;
       unitTextController.text = widget.fHabit?.getUnit() ?? "" ;
       targetTextController.text = widget.fHabit?.getTarget().toString() ?? "" ;
+
+      if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
+        frequencyValue = 'Every Day';
+      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
+        frequencyValue = 'Every Week';
+      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
+        frequencyValue = 'Every Month';
+      }
+
       // // String frequencyValue = frequencyList.first;
 
       // // String reminderValue = reminderList.first;
@@ -95,7 +104,14 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
   }
 
   void addHabit() {
-
+    var freq = E_HABIT_FREQUENCY.EVERY_DAY;
+    if (frequencyValue =='Every Day') {
+      freq = E_HABIT_FREQUENCY.EVERY_DAY;
+    } else if (frequencyValue == 'Every Week') {
+      freq = E_HABIT_FREQUENCY.X_TIMES_PER_WEEK;
+    } else if (frequencyValue == 'Every Month') {
+      freq = E_HABIT_FREQUENCY.X_TIMES_PER_MONTH;
+    }
 
     if(widget.fHabit != null) {
       var h = widget.fHabit;
@@ -105,6 +121,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       h?.target = int.parse(targetTextController.text);
       h?.notes = notesTextController.text;
       h?.color = currentColor.toString();
+      h?.frequency = freq;
 
       widget.isarService.updateHabit(h);
     } else {
@@ -117,7 +134,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
           c.substring(6, c.length - 1),
           unitTextController.text,
           int.parse(targetTextController.text),
-          E_HABIT_FREQUENCY.EVERY_DAY,
+          freq,
           1,
           "",
           questionTextController.text,

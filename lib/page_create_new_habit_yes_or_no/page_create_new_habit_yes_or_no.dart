@@ -316,29 +316,33 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                 const SizedBox(height: 32.0,),
 
                 Row(
+                  children: [
+                    const Text("Frequency"),
+                  ],
+                ),
+                Row(
                   children: <Widget>[
                     Container(
                       width: MediaQuery.of(context).size.width * 0.08,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text("Frequency"),
-                            const SizedBox(height: 8.0,),
-                            FlatTextField(
-                              textController: frequencyAmountController,
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 25.0,),
+                          FlatTextField(
+                            textController: frequencyAmountController,
+                          ),
+                        ],
+                      ),
                     ),
 
-                    const SizedBox(width: 16.0,),
+                    const SizedBox(width: 8.0,),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           const Text(""),
 
-                            const SizedBox(height: 8.0,),
+                          const SizedBox(height: 8.0,),
 
                           FlatDropdown(
                             value: this.frequencyValue,

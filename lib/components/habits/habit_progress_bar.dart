@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/habit_enums.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/s_isar.dart';
@@ -61,20 +62,30 @@ class _HabitBar extends State<HabitBar> {
                       String uom = "";
 
                       if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
-                        uom = "Days";
-                        maxValue = 7;
+                        if(widget.habit.getType() == E_HABITS.MEASURABLE) {
+                          uom = "Today";
+                          maxValue = widget.habit.getTarget()!;
+                        } else {
+                          uom = "Days";
+                          maxValue = 7;
+                        }
                       } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_X_DAYS) {
                         uom = "Days";
                         maxValue = widget.habit.getFrequencyAmount();
                       } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
                         uom = "This Week";
-                        maxValue = 7;
+                        if(widget.habit.getType() == E_HABITS.MEASURABLE) {
+                          maxValue = widget.habit.getTarget()!;
+                        } else {
+                          maxValue = widget.habit.getFrequencyAmount();
+                        }
                       } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
-                        // Get the number of days in the current month.
                         uom = "This Month";
-                        DateTime now = DateTime.now();
-                        DateTime lastDayOfMonth = DateTime(now.year, now.month+1, 0);
-                        maxValue = lastDayOfMonth.day;
+                        if(widget.habit.getType() == E_HABITS.MEASURABLE) {
+                          maxValue = widget.habit.getTarget()!;
+                        } else {
+                          maxValue = widget.habit.getFrequencyAmount();
+                        }
                       }
 
                       return Row(
@@ -95,11 +106,17 @@ class _HabitBar extends State<HabitBar> {
                       int maxValue = 1;
                       String uom = "";
                       if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
-                        uom = "Days";
-                        maxValue = 7;
-                        for (var i=0; i<7; i++) {
-                          x.add(i);
-                          habitDates.add(date.subtract(Duration(days: (i))));
+                        if(widget.habit.getType() == E_HABITS.MEASURABLE) {
+                          uom = "Today";
+                          maxValue = widget.habit.getTarget()!;
+                          habitDates.add(date);
+                        } else {
+                          uom = "Days";
+                          maxValue = 7;
+                          for (var i=0; i<7; i++) {
+                            x.add(i);
+                            habitDates.add(date.subtract(Duration(days: (i))));
+                          }
                         }
                       } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_X_DAYS) {
                         uom = "Days";
@@ -110,21 +127,26 @@ class _HabitBar extends State<HabitBar> {
                         }
                       } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
                         uom = "This Week";
-                        maxValue = widget.habit.getFrequencyAmount();
+                        if(widget.habit.getType() == E_HABITS.MEASURABLE) {
+                          maxValue = widget.habit.getTarget()!;
+                        } else {
+                          maxValue = widget.habit.getFrequencyAmount();
+                        }
                         for (var i=0; i<date.weekday; i++) {
                           x.add(i);
                           habitDates.add(date.subtract(Duration(days: (i))));
                         }
                       } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
                         uom = "This Month";
+                        if(widget.habit.getType() == E_HABITS.MEASURABLE) {
+                          maxValue = widget.habit.getTarget()!;
+                        } else {
+                          maxValue = widget.habit.getFrequencyAmount();
+                        }
                         for (var i=0; i<date.day; i++) {
                           x.add(i);
                           habitDates.add(date.subtract(Duration(days: (i))));
                         }
-                        // Get the number of days in the current month.
-                        DateTime now = new DateTime.now();
-                        DateTime lastDayOfMonth = new DateTime(now.year, now.month+1, 0);
-                        maxValue = widget.habit.getFrequencyAmount();
                       }
 
                       int completedVal = 0;

@@ -153,6 +153,7 @@ class _PieGraph extends ConsumerState<PieGraph> {
       //final radius = isTouched ? 120.0 : radius;
       final radius = MediaQuery.of(context).size.width * 0.15;
       double percent = (habitDateValues[i] / totalVal) * 100;
+      percent =  double.parse((percent).toStringAsFixed(2));
       String sectionTitle = "$percent%";
       return PieChartSectionData(
         color: Color(widget.habitList[i].getColor()),
