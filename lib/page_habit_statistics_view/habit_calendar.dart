@@ -77,7 +77,10 @@ class _HabitCalendarState extends State<HabitCalendar> {
       selectedDayButtonColor: Color(widget.habit.getColor()),
 
       markedDateShowIcon: true,
-      markedDateIconMaxShown: 2,
+      markedDateIconMaxShown: 1,
+      markedDateMoreCustomTextStyle: TextStyle(
+                              fontSize: 8,
+                              color: Colors.white),
       markedDateIconBuilder: (event) {
         return event.icon;
       },
@@ -171,15 +174,17 @@ class _HabitCalendarState extends State<HabitCalendar> {
                             int year = int.parse(eventDate[0]);
                             int month = int.parse(eventDate[1]);
                             int day = int.parse(eventDate[2]);
-        
-                            _markedDateMap.add(
-                              DateTime(year, month, day),
-                              Event(
-                                date: DateTime(year, month, day),
-                                title: '',
-                                icon: _eventIcon,
-                              )
-                            );
+
+                            for(int i=0; i<h.value; i++) {
+                              _markedDateMap.add(
+                                DateTime(year, month, day),
+                                Event(
+                                  date: DateTime(year, month, day),
+                                  title: '',
+                                  icon: _eventIcon,
+                                )
+                              );
+                            }
                           }
                         }
                       }
