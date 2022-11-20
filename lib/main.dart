@@ -29,7 +29,7 @@ class MyApp extends ConsumerWidget {
     final ThemeMode tm = ref.watch(themeProvider);
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Habit App',
 
       debugShowCheckedModeBanner: false,
 
@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
       darkTheme: custDarkTheme,
       themeMode: tm,
 
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Habits view'),
     );
   }
 }
@@ -87,258 +87,260 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
 
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Scaffold(
-                    body: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        children: <Widget>[
-                          const Spacer(),
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Scaffold(
+                      body: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          children: <Widget>[
+                            const Spacer(),
 
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => PageCreateNewHabitYesOrNo(
-                                    isarService: isarService
-                                )),
-                              );
-                            },
-                            child: Container(
-                              child: Column(
-                                children: const <Widget>[
-                                  Text(
-                                    "Yes or No",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24.0,
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => PageCreateNewHabitYesOrNo(
+                                      isarService: isarService
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                child: Column(
+                                  children: const <Widget>[
+                                    Text(
+                                      "Yes or No",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24.0,
+                                      ),
                                     ),
-                                  ),
 
-                                  SizedBox(height: 8.0,),
+                                    SizedBox(height: 8.0,),
 
-                                  Text(
-                                    "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.0,
+                                    Text(
+                                      "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-
-                              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                              decoration: BoxDecoration(
-                                color: const Color(0xff7c94b6),
-                                border: Border.all(
-                                  width: 2,
+                                  ],
                                 ),
-                                borderRadius: BorderRadius.circular(4),
+
+                                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff7c94b6),
+                                  border: Border.all(
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
                               ),
                             ),
-                          ),
 
-                          const SizedBox(height: 4.0,),
+                            const SizedBox(height: 4.0,),
 
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => PageCreateNewHabitMeasurable(
-                                    isarService: isarService
-                                )),
-                              );
-                            },
-                            child: Container(
-                              child: Column(
-                                children: const <Widget>[
-                                  Text(
-                                    "Measurable",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24.0,
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => PageCreateNewHabitMeasurable(
+                                      isarService: isarService
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                child: Column(
+                                  children: const <Widget>[
+                                    Text(
+                                      "Measurable",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24.0,
+                                      ),
                                     ),
-                                  ),
 
-                                  SizedBox(height: 8.0,),
+                                    SizedBox(height: 8.0,),
 
-                                  Text(
-                                    "e.g. How many miles did you run today? How many pages did you read?",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.0,
+                                    Text(
+                                      "e.g. How many miles did you run today? How many pages did you read?",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-
-                              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                              decoration: BoxDecoration(
-                                color: const Color(0xff7c94b6),
-                                border: Border.all(
-                                  width: 2,
+                                  ],
                                 ),
-                                borderRadius: BorderRadius.circular(4),
+
+                                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xff7c94b6),
+                                  border: Border.all(
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
                               ),
                             ),
-                          ),
 
-                          const SizedBox(height: 4.0,),
+                            const SizedBox(height: 4.0,),
 
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text("Close"),
-                          ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Close"),
+                            ),
 
-                          const Spacer(),
-                        ],
+                            const Spacer(),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                  //     Navigator.of(context).pop();
-                }
-              );
+                    );
+                    //     Navigator.of(context).pop();
+                  }
+                );
 
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
-              //       isar_service: isar_service
-              //   )),
-              // );
-            }
-          ),
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                //       isar_service: isar_service
+                //   )),
+                // );
+              }
+            ),
 
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PageSettings()),
-              );
-            }
-          ),
+            // IconButton(
+            //   icon: const Icon(Icons.settings),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const PageSettings()),
+            //     );
+            //   }
+            // ),
 
-          if(ref.watch(themeProvider) == ThemeMode.dark) ...[
+            if(ref.watch(themeProvider) == ThemeMode.dark) ...[
+              IconButton(
+                icon: const Icon(Icons.light_mode),
+                onPressed: () {
+                  ref.read(themeProvider.notifier).toggleTheme();
+                },
+              ),
+            ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
+              IconButton(
+                icon: const Icon(Icons.dark_mode),
+                onPressed: () {
+                  ref.read(themeProvider.notifier).toggleTheme();
+                },
+              ),
+            ],
+
             IconButton(
-              icon: const Icon(Icons.light_mode),
+              icon: Icon(
+                habitView == 'input' ? Icons.bar_chart : Icons.rule,
+              ),
               onPressed: () {
-                ref.read(themeProvider.notifier).toggleTheme();
+                setState(() {
+                    habitView == 'input' ? habitView = 'stats' : habitView = 'input';
+                });
               },
             ),
-          ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
-            IconButton(
-              icon: const Icon(Icons.dark_mode),
-              onPressed: () {
-                ref.read(themeProvider.notifier).toggleTheme();
-              },
-            ),
-          ],
 
-          IconButton(
-            icon: Icon(
-              habitView == 'input' ? Icons.bar_chart : Icons.rule,
-            ),
-            onPressed: () {
-              setState(() {
-                habitView == 'input' ? habitView = 'stats' : habitView = 'input';
-              });
-            },
-          ),
+            // PopupMenuButton(
+            //   icon: const Icon(Icons.sort),
+            //   color: Colors.red,
+            //   itemBuilder: (context) => [
+            //     // Text(
+            //     //   "Sort",
+            //     //   style: TextStyle(color: Colors.white),
+            //     // ),
 
-          PopupMenuButton(
-            icon: const Icon(Icons.sort),
-            color: Colors.red,
-            itemBuilder: (context) => [
-              // Text(
-              //   "Sort",
-              //   style: TextStyle(color: Colors.white),
-              // ),
+            //     PopupMenuItem<int>(
+            //       value: 0,
+            //       child: Row(
+            //         children: const <Widget>[
+            //           Icon(Icons.arrow_upward),
+            //           Text("Manually",style: TextStyle(color: Colors.white),),
+            //         ],
+            //       ),
+            //     ),
 
-              PopupMenuItem<int>(
-                value: 0,
-                child: Row(
-                  children: const <Widget>[
-                    Icon(Icons.arrow_upward),
-                    Text("Manually",style: TextStyle(color: Colors.white),),
-                  ],
+            //     const PopupMenuItem<int>(
+            //       value: 1,
+            //       child: Text("By name",style: TextStyle(color: Colors.white),),
+            //     ),
+
+            //     const PopupMenuItem<int>(
+            //       value: 2,
+            //       child: Text("By color",style: TextStyle(color: Colors.white),),
+            //     ),
+
+            //     const PopupMenuItem<int>(
+            //       value: 3,
+            //       child: Text("By status",style: TextStyle(color: Colors.white),),
+            //     ),
+            //   ],
+            //   onSelected: (item) => {
+            //     _moreOptionSelected(item)
+            //   },
+            // ),
+
+            PopupMenuButton(
+              icon: const Icon(Icons.more_vert),
+              color: Colors.red,
+              itemBuilder: (context) => [
+                const PopupMenuItem<int>(
+                  value: 0,
+                  child: Text("About",style: TextStyle(color: Colors.white),),
                 ),
-              ),
-
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text("By name",style: TextStyle(color: Colors.white),),
-              ),
-
-              const PopupMenuItem<int>(
-                value: 2,
-                child: Text("By color",style: TextStyle(color: Colors.white),),
-              ),
-
-              const PopupMenuItem<int>(
-                value: 3,
-                child: Text("By status",style: TextStyle(color: Colors.white),),
-              ),
-            ],
-            onSelected: (item) => {
-              _moreOptionSelected(item)
-            },
+              ],
+              onSelected: (item) => {
+                _moreOptionSelected(item)
+              },
+            ),
+            //more widgets to place here
+          ],
+        ),
+        body: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: HabitListMain(
+            isarService: isarService,
+            habitView: habitView,
           ),
 
-          PopupMenuButton(
-            icon: const Icon(Icons.more_vert),
-            color: Colors.red,
-            itemBuilder: (context) => [
-              const PopupMenuItem<int>(
-                value: 0,
-                child: Text("About",style: TextStyle(color: Colors.white),),
-              ),
-            ],
-            onSelected: (item) => {
-              _moreOptionSelected(item)
-            },
-          ),
-          //more widgets to place here
-        ],
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: HabitListMain(
-          isarService: isarService,
-          habitView: habitView,
+          //   // Invoke "debug painting" (press "p" in the console, choose the
+          //   // "Toggle Debug Paint" action from the Flutter Inspector in Android
+          //   // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+          //   // to see the wireframe for each widget.
         ),
 
-        //   // Invoke "debug painting" (press "p" in the console, choose the
-        //   // "Toggle Debug Paint" action from the Flutter Inspector in Android
-        //   // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-        //   // to see the wireframe for each widget.
+        // drawer: const DrawerCust(),
+
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: _incrementCounter,
+        //   tooltip: 'Increment',
+        //   child: const Icon(Icons.add),
+        // ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-
-      drawer: const DrawerCust(),
-
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
