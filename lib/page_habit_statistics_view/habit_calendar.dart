@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/entities/habit.dart';
 
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
@@ -8,6 +11,8 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart';
+
+import '../habit_enums.dart';
 class HabitCalendar extends StatefulWidget {
   const HabitCalendar({
       super.key,
@@ -17,8 +22,7 @@ class HabitCalendar extends StatefulWidget {
 
   final IsarService isarService;
 
-  // TODO: eventually handle the other habit types besides yes or no
-  final dynamic habit;
+  final Habit habit;
 
   @override
   _HabitCalendarState createState() => new _HabitCalendarState();
@@ -31,6 +35,9 @@ class _HabitCalendarState extends State<HabitCalendar> {
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   String _currentMonthNum = DateFormat('y-M').format(DateTime.now());
   DateTime _targetDateTime = DateTime.now();
+  List<String> _months_processed = [];
+  bool _modifyDate = false;
+  var inputNumber;
   final Widget _eventIcon = Container(
     alignment: Alignment.bottomCenter,
     margin: EdgeInsets.only(
@@ -51,9 +58,84 @@ class _HabitCalendarState extends State<HabitCalendar> {
       daysTextStyle: const TextStyle(
         color: Colors.white,
       ),
-      onDayPressed: (date, events) {
-        //setState(() => _selectedDate = date);
-        events.forEach((event) => print(event.title));
+      onDayPressed: (date, events) async {
+        if (widget.habit.getType() == E_HABITS.YES_OR_NO) {
+          _modifyDate = true;
+        }
+        setState(() => _selectedDate = DateTime(date.year, date.month, date.day));
+        //events.forEach((event) => print(event.title));
+
+        if (widget.habit.getType() == E_HABITS.MEASURABLE) {
+            var res = await showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Set a value!'),
+                  content: SingleChildScrollView(
+
+                    child: Column(
+                      children: <Widget>[
+                        // Text("test"),
+                        TextFormField(
+                          initialValue: events.length.toString(),
+                          onChanged: (value) {
+                            inputNumber = value;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    ElevatedButton(
+                      child: const Text('Got it'),
+                      onPressed: () {
+                        if (inputNumber != null && (inputNumber == '' || int.tryParse(inputNumber) == null)) {
+                          var res = showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Please enter a valid number.'),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    children: <Widget>[
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    child: const Text('Okay'),
+                                    onPressed: () {
+                                      // setState(() => currentValue = initialValue);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            }
+                          );
+                        }
+                        else {
+                          if (widget.habit.getType() == E_HABITS.MEASURABLE) {
+                            _modifyDate = true;
+                          }
+                          Navigator.of(context).pop();
+                        }
+                        // setState(() => currentValue = currentValue);
+                      },
+                    ),
+                    ElevatedButton(
+                      child: const Text('Cancel'),
+                      onPressed: () {
+                        inputNumber = null;
+                        // setState(() => currentValue = initialValue);
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              }
+            );
+        }
       },
       showOnlyCurrentMonthDate: true,
       weekendTextStyle: const TextStyle(
@@ -63,7 +145,7 @@ class _HabitCalendarState extends State<HabitCalendar> {
       markedDatesMap: _markedDateMap,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width * 0.65,
-      //selectedDateTime: _selectedDate,
+      selectedDateTime: _selectedDate,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: NeverScrollableScrollPhysics(),
       markedDateCustomTextStyle: const TextStyle(
@@ -167,7 +249,7 @@ class _HabitCalendarState extends State<HabitCalendar> {
                   builder: (context, AsyncSnapshot<List<HabitDate>> snapshot) {
 
                     if(snapshot.connectionState == ConnectionState.done) {
-                      if (_markedDateMap.events.isEmpty) {
+                      if (!_months_processed.contains(_currentMonthNum)) {
                         for(var h in snapshot.data!) {
                           if(h.value > 0) {
                             var eventDate = h.getDate().split('-');
@@ -187,6 +269,146 @@ class _HabitCalendarState extends State<HabitCalendar> {
                             }
                           }
                         }
+                        _months_processed.add(_currentMonthNum);
+                      }
+                      if (_modifyDate) {
+                        //Date was selected.
+                        if (widget.habit.getType() == E_HABITS.YES_OR_NO) {
+                          var dateFound = false;
+                          for(var h in snapshot.data!) {
+                            if (DateFormat('y-M-dd').format(_selectedDate) == h.date) {
+                              var i  = h.id;
+                              var hi = h.habit_id;
+                              var d  = h.date;
+                              var v  = h.value == 0 ? 1 : 0;
+
+                              if (v == 1) {
+                                _markedDateMap.add(
+                                  DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                  Event(
+                                    date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                    title: '',
+                                    icon: _eventIcon,
+                                  )
+                                );
+                              }
+                              else {
+                                _markedDateMap.removeAll(_selectedDate);
+                              }
+
+                              widget.isarService.putHabitDate(
+                                HabitDate.FullWithId(
+                                  i, hi, d, v
+                                )
+                              );
+
+                              dateFound = true;
+                              break;
+                            }
+                          }
+
+                          if (!dateFound) {
+                            String day = _selectedDate.day.toString();
+                            String month = _selectedDate.month.toString();
+                            if (_selectedDate.day < 10) {
+                              day = '0' + _selectedDate.day.toString();
+                            }
+                            if (_selectedDate.month < 10) {
+                              month = '0' + _selectedDate.month.toString();
+                            }
+                            widget.isarService.putHabitDate(
+                              HabitDate.Full(
+                                widget.habit.id,
+                                '${_selectedDate.year}-$month-$day',
+                                1
+                              )
+                            );
+                            _markedDateMap.add(
+                              DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                              Event(
+                                date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                title: '',
+                                icon: _eventIcon,
+                              )
+                            );
+                          }
+                        }
+                        else if (widget.habit.getType() == E_HABITS.MEASURABLE && inputNumber != null) {
+                          var dateFound = false;
+                          for(var h in snapshot.data!) {
+                            if (DateFormat('y-M-dd').format(_selectedDate) == h.date) {
+                              var id  = h.id;
+                              var hi = h.habit_id;
+                              var d  = h.date;
+                              var v  = int.parse(inputNumber);
+
+                              if (v == h.getValue()) {
+                                dateFound = true;
+                                break;
+                              }
+
+                              if (v > 0) {
+                                _markedDateMap.removeAll(DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day));
+                                for (int i=0; i<v; i++) {
+                                  _markedDateMap.add(
+                                    DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                    Event(
+                                      date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                      title: '',
+                                      icon: _eventIcon,
+                                    )
+                                  );
+                                }
+                                widget.isarService.putHabitDate(
+                                  HabitDate.FullWithId(
+                                    id, hi, d, v
+                                  )
+                                );
+                              }
+                              else {
+                                _markedDateMap.removeAll(_selectedDate);
+                              }
+
+                              widget.isarService.putHabitDate(
+                                HabitDate.FullWithId(
+                                  id, hi, d, v
+                                )
+                              );
+
+                              dateFound = true;
+                              break;
+                            }
+                          }
+                          if (!dateFound) {
+                            String day = _selectedDate.day.toString();
+                            String month = _selectedDate.month.toString();
+                            if (_selectedDate.day < 10) {
+                              day = '0' + _selectedDate.day.toString();
+                            }
+                            if (_selectedDate.month < 10) {
+                              month = '0' + _selectedDate.month.toString();
+                            }
+
+                            widget.isarService.putHabitDate(
+                              HabitDate.Full(
+                                widget.habit.id,
+                                '${_selectedDate.year}-$month-$day',
+                                int.parse(inputNumber)
+                              )
+                            );
+                            for (int i=0; i<int.parse(inputNumber); i++) {
+                              _markedDateMap.add(
+                                DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                Event(
+                                  date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                  title: '',
+                                  icon: _eventIcon,
+                                )
+                              );
+                            }
+                          }
+                        }
+                        _modifyDate = false;
                       }
                       return _calendarCarouselNoHeader;
                     }
