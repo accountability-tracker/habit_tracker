@@ -101,38 +101,9 @@ class IsarService {
     return await isar.habitDates.filter().habit_idEqualTo(habitIdArg).dateContains(date).findAll();
   }
 
-  Future<List<HabitDate>> getHabitsDateLastSelectedPeriod(int habitIdArg, String selector) async {
+  Future<List<HabitDate>> getHabitsDateLastSelectedPeriod(int habitIdArg, String dateString) async {
     final isar = await db;
-
-    int amount = 42;
-
-    switch(selector) {
-      case 'Week':
-        amount = 35;
-        break;
-      case 'Month':
-        amount = 155;
-        break;
-      case 'Quarter':
-        amount = 458;
-        break;
-      case 'Year':
-        amount = 1830;
-        break;
-    }
-    DateTime earliestDay = (DateTime.now().subtract(Duration(days: amount)));
-
-    List<HabitDate> habitHistory = await isar.habitDates.filter().habit_idEqualTo(habitIdArg).findAll();
-    var habitHistoryList = habitHistory;
-
-    for (int i=0; i < habitHistory.length; i++) {
-      if (DateTime.parse(habitHistory[i].getDate()).isBefore(earliestDay)) {
-        habitHistory.remove(habitHistory[i]);
-      }
-    }
-
-    return habitHistory;
-
+    return await isar.habitDates.filter().dateGreaterThan(dateString).findAll();
   }
 
 }

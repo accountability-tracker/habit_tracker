@@ -57,11 +57,11 @@ class _HistoryBarChart extends State<HistoryBarChart> {
         child: BarChart(
           BarChartData(
             barGroups: [
-              BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: widget.habitDates[0]["value"].toDouble())]),
-              BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: widget.habitDates[1]["value"].toDouble())]),
-              BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: widget.habitDates[2]["value"].toDouble())]),
-              BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: widget.habitDates[3]["value"].toDouble())]),
-              BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: widget.habitDates[4]["value"].toDouble())]),
+              BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: widget.habitDates[0] != null ? widget.habitDates[0]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: widget.habitDates[1] != null ? widget.habitDates[1]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: widget.habitDates[2] != null ? widget.habitDates[2]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: widget.habitDates[3] != null ? widget.habitDates[3]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: widget.habitDates[4] != null ? widget.habitDates[4]["value"].toDouble() : 0 )]),
             ],
 
             titlesData: FlTitlesData(
