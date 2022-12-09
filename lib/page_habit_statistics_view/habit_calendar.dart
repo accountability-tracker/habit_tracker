@@ -12,7 +12,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart';
 
-import '../habit_enums.dart';
+import 'package:habit_tracker/habit_enums.dart';
 class HabitCalendar extends StatefulWidget {
   const HabitCalendar({
       super.key,
