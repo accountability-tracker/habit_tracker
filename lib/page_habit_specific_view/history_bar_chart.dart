@@ -57,13 +57,11 @@ class _HistoryBarChart extends State<HistoryBarChart> {
         child: BarChart(
           BarChartData(
             barGroups: [
-              BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: widget.habitDates[0]["object"] != null ? widget.habitDates[0]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: widget.habitDates[1]["object"] != null ? widget.habitDates[1]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: widget.habitDates[2]["object"] != null ? widget.habitDates[2]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: widget.habitDates[3]["object"] != null ? widget.habitDates[3]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: widget.habitDates[4]["object"] != null ? widget.habitDates[4]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 5, barRods: [BarChartRodData(toY: widget.habitDates[5]["object"] != null ? widget.habitDates[5]["object"].getValue().toDouble() : 0 )]),
-              BarChartGroupData(x: 6, barRods: [BarChartRodData(toY: widget.habitDates[6]["object"] != null ? widget.habitDates[6]["object"].getValue().toDouble() : 0 )]),
+              BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: widget.habitDates[0] != null ? widget.habitDates[0]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: widget.habitDates[1] != null ? widget.habitDates[1]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: widget.habitDates[2] != null ? widget.habitDates[2]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: widget.habitDates[3] != null ? widget.habitDates[3]["value"].toDouble() : 0 )]),
+              BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: widget.habitDates[4] != null ? widget.habitDates[4]["value"].toDouble() : 0 )]),
             ],
 
             titlesData: FlTitlesData(
@@ -84,18 +82,14 @@ class _HistoryBarChart extends State<HistoryBarChart> {
                     // print(meta.sideTitles.toString());
 
                     var x = widget.habitDates[value.toInt()]["date"].split("-");
+                    String range = widget.habitDates[value.toInt()]["date"];
 
                     text = Container(
                       height: 32.0,
                       child: Row(
                         children: <Widget>[
                           Text(
-                            x[1] + "-",
-                            style: style
-                          ),
-
-                          Text(
-                            x[2],
+                            range,
                             style: style
                           )
                         ],
