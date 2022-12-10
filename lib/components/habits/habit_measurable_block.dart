@@ -119,11 +119,38 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
                     ElevatedButton(
                       child: const Text('Got it'),
                       onPressed: () {
+                        if (textController.text != null && (textController.text == '' || int.tryParse(textController.text) == null)) {
+                          var res = showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Please enter a valid number.'),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    children: <Widget>[
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    child: const Text('Okay'),
+                                    onPressed: () {
+                                      // setState(() => currentValue = initialValue);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            }
+                          );
+                        }
+                        else {
                         // setState(() => currentValue = currentValue);
-                        Navigator.of(context).pop({
-                            "set": true,
-                            "value": textController.text
-                        });
+                          Navigator.of(context).pop({
+                              "set": true,
+                              "value": textController.text
+                          });
+                        }
                       },
                     ),
                     ElevatedButton(
