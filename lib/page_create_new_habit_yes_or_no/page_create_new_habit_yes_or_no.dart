@@ -438,7 +438,28 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                         ),
                         onPressed: () {
-                          addHabit();
+                          if (nameTextController.text == '') {
+                            var res = showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Please enter a valid title.'),
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      child: const Text('Okay'),
+                                      onPressed: () {
+                                        // setState(() => currentValue = initialValue);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }
+                            );
+                          }
+                          else {
+                            addHabit();
+                          }
                         },
                         child: const Text('Save'),
                       ),

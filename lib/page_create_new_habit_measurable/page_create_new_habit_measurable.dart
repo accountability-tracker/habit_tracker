@@ -486,7 +486,38 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                           padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                         ),
                         onPressed: () {
-                          addHabit();
+                          String errorText = '';
+
+                          if (nameTextController.text == '') {
+                            errorText = 'Please enter a valid title.';
+                          }
+                          else if (targetTextController.text == '' || int.tryParse(targetTextController.text) == null) {
+                            errorText = 'Please enter a valid number for target amount.';
+                          }
+
+                          if (errorText != '') {
+                            var res = showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text(errorText),
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      child: const Text('Okay'),
+                                      onPressed: () {
+                                        // setState(() => currentValue = initialValue);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }
+                            );
+                          }
+                          else {
+                            addHabit();
+                            leavePage(context);
+                          }
                         },
                         child: const Text('Save'),
                       ),
