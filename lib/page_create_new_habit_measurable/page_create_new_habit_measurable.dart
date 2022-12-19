@@ -11,6 +11,8 @@ import 'package:habit_tracker/habits.dart';
 import 'package:habit_tracker/components/flat_textfield.dart';
 import 'package:habit_tracker/components/flat_dropdown.dart';
 
+import 'package:habit_tracker/data_notifier.dart';
+
 // TODO(clearfeld): move this into its own file and make it an enum instead
 const List<String> frequencyList = <String>[
   'Every Day',
@@ -516,6 +518,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                           }
                           else {
                             addHabit();
+                            ref.read(dataUpdate.notifier).setUpdate();
                             leavePage(context);
                           }
                         },

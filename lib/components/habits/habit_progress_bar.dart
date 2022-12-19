@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker/data_notifier.dart';
 import 'package:habit_tracker/habit_enums.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,11 +14,12 @@ import 'package:habit_tracker/page_habit_statistics_view/page_habit_statistics_v
 import 'package:habit_tracker/components/progress_bar.dart';
 import 'package:intl/intl.dart';
 
-class HabitBar extends StatefulWidget {
+class HabitBar extends ConsumerStatefulWidget {
   HabitBar({
       Key? key,
       required this.isarService,
-      required this.habit
+      required this.habit,
+      required this.updateFunction
   }) : super(key: key);
 
   final IsarService isarService;
@@ -22,12 +27,13 @@ class HabitBar extends StatefulWidget {
   // TODO(clearfeld): update this to work with other habit types
   // final Habit_YesOrNo habit;
   final Habit habit;
+  final Function(dynamic) updateFunction;
 
   @override
   _HabitBar createState() => _HabitBar();
 }
 
-class _HabitBar extends State<HabitBar> {
+class _HabitBar extends ConsumerState<HabitBar> {
 
   var date = DateTime.now();
   var nd = [4, 3, 2, 1, 0];
@@ -200,7 +206,7 @@ class _HabitBar extends State<HabitBar> {
                       isarService: widget.isarService,
                       habit: widget.habit
                   )),
-                );
+                ).then(widget.updateFunction);
             },
           ),
         ],

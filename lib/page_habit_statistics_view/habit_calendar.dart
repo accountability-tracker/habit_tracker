@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/entities/habit.dart';
 
 import 'package:habit_tracker/s_isar.dart';
@@ -13,7 +14,9 @@ import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart';
 
 import 'package:habit_tracker/habit_enums.dart';
-class HabitCalendar extends StatefulWidget {
+import 'package:habit_tracker/data_notifier.dart';
+
+class HabitCalendar extends ConsumerStatefulWidget {
   const HabitCalendar({
       super.key,
       required this.isarService,
@@ -28,7 +31,7 @@ class HabitCalendar extends StatefulWidget {
   _HabitCalendarState createState() => new _HabitCalendarState();
 }
 
-class _HabitCalendarState extends State<HabitCalendar> {
+class _HabitCalendarState extends ConsumerState<HabitCalendar> {
   var now = DateTime.now();
   DateTime _currentDate = DateTime.now();
   DateTime _selectedDate = DateTime.now();
@@ -61,6 +64,10 @@ class _HabitCalendarState extends State<HabitCalendar> {
       onDayPressed: (date, events) async {
         if (widget.habit.getType() == E_HABITS.YES_OR_NO) {
           _modifyDate = true;
+
+          if (!ref.watch(dataUpdate)) {
+            ref.read(dataUpdate.notifier).setUpdate();
+          }
         }
         setState(() => _selectedDate = DateTime(date.year, date.month, date.day));
         //events.forEach((event) => print(event.title));
@@ -117,6 +124,9 @@ class _HabitCalendarState extends State<HabitCalendar> {
                         else {
                           if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                             _modifyDate = true;
+                          }
+                          if (!ref.watch(dataUpdate)) {
+                            ref.read(dataUpdate.notifier).setUpdate();
                           }
                           Navigator.of(context).pop();
                         }
