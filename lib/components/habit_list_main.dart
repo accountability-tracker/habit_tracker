@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker/data_notifier.dart';
 
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
@@ -15,11 +18,13 @@ class HabitListMain extends ConsumerStatefulWidget {
   const HabitListMain({
       super.key,
       required this.isarService,
-      required this.habitView
+      required this.habitView,
+      required this.updateFunction
   });
 
   final IsarService isarService;
   final String habitView;
+  final Function(dynamic) updateFunction;
 
   @override
   _HabitListMain createState() => _HabitListMain();
@@ -37,6 +42,14 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
     LoadHabits();
   }
 
+  @override
+  void didUpdateWidget(HabitListMain oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (ref.watch(dataUpdate)) {
+      LoadHabits();
+      Future(() {ref.read(dataUpdate.notifier).setUpdate();});
+    }
+  }
   void LoadHabits() {
     setState(() => {
         fhabits = widget.isarService.getAllHabits()
@@ -91,7 +104,8 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                               padding: const EdgeInsets.all(8.0),
                               child: HabitLine(
                                 isarService: widget.isarService,
-                                habit: habit
+                                habit: habit,
+                                updateFunction: widget.updateFunction
                               ),
                             );
                         }).toList();
@@ -110,7 +124,8 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                               padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                               child: HabitBar(
                                 isarService: widget.isarService,
-                                habit: habit
+                                habit: habit,
+                                updateFunction: widget.updateFunction
                               ),
                             );
                         }).toList();

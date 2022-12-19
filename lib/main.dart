@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/theme.dart';
+import 'package:habit_tracker/data_notifier.dart';
 import 'package:habit_tracker/s_isar.dart';
 
 import 'package:habit_tracker/components/drawer_cust.dart';
@@ -76,6 +79,12 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     // if i == 1 delete TODO
   }
 
+  FutureOr refreshHabitList(dynamic value) {
+    if (ref.watch(dataUpdate)) {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -117,7 +126,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                   MaterialPageRoute(builder: (context) => PageCreateNewHabitYesOrNo(
                                       isarService: isarService
                                   )),
-                                );
+                                ).then(refreshHabitList);
                               },
                               child: Container(
                                 child: Column(
@@ -164,7 +173,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                   MaterialPageRoute(builder: (context) => PageCreateNewHabitMeasurable(
                                       isarService: isarService
                                   )),
-                                );
+                                ).then(refreshHabitList);
                               },
                               child: Container(
                                 child: Column(
@@ -325,6 +334,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           child: HabitListMain(
             isarService: isarService,
             habitView: habitView,
+            updateFunction: refreshHabitList,
           ),
 
           //   // Invoke "debug painting" (press "p" in the console, choose the

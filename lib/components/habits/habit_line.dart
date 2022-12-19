@@ -17,7 +17,8 @@ class HabitLine extends StatefulWidget {
   HabitLine({
       Key? key,
       required this.isarService,
-      required this.habit
+      required this.habit,
+      required this.updateFunction
   }) : super(key: key);
 
   final IsarService isarService;
@@ -25,6 +26,7 @@ class HabitLine extends StatefulWidget {
   // TODO(clearfeld): update this to work with other habit types
   // final Habit_YesOrNo habit;
   final Habit habit;
+  final Function(dynamic) updateFunction;
 
   @override
   _HabitLine createState() => _HabitLine();
@@ -81,7 +83,7 @@ class _HabitLine extends State<HabitLine> {
                       isarService: widget.isarService,
                       habit: widget.habit
                   )),
-                );
+                ).then(widget.updateFunction);
               },
             ),
           ),

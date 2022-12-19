@@ -12,6 +12,7 @@ import 'package:habit_tracker/page_create_new_habit_measurable/page_create_new_h
 
 import 'package:habit_tracker/page_habit_specific_view/habit_variables_overview_block.dart';
 import 'package:habit_tracker/page_habit_specific_view/history_chart.dart';
+import 'package:habit_tracker/data_notifier.dart';
 
 class PageHabitSpecificView extends ConsumerStatefulWidget {
   const PageHabitSpecificView({
@@ -123,6 +124,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
               if(item == 2) {
                 await widget.isarService.deleteHabit(widget.habit.id);
                 Navigator.pop(context);
+                ref.read(dataUpdate.notifier).setUpdate();
               }
             },
           ),
