@@ -42,7 +42,9 @@ class CustomColors extends ThemeExtension<CustomColors> {
     //
     required this.button_affirmative,
     required this.button_negative,
-    //
+    // progress bars
+    required this.progressBar_background,
+    required this.progressBar_foreground,
   });
   final Color? background;
   final Color? background_compliment;
@@ -52,6 +54,9 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? button_affirmative;
   final Color? button_negative;
 
+  final Color? progressBar_background;
+  final Color? progressBar_foreground;
+
   @override
   CustomColors copyWith({
     Color? background,
@@ -59,14 +64,17 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? navbar_background,
     Color? button_affirmative,
     Color? button_negative,
+    Color? progressBar_background,
+    Color? progressBar_foreground,
   }) {
     return CustomColors(
       background: background ?? this.background,
-      background_compliment:
-          background_compliment ?? this.background_compliment,
+      background_compliment: background_compliment ?? this.background_compliment,
       navbar_background: navbar_background ?? this.navbar_background,
       button_affirmative: button_affirmative ?? this.button_affirmative,
       button_negative: button_negative ?? this.button_negative,
+      progressBar_background: progressBar_background ?? this.progressBar_background,
+      progressBar_foreground: progressBar_foreground ?? this.progressBar_foreground,
     );
   }
 
@@ -78,13 +86,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
     }
     return CustomColors(
       background: Color.lerp(background, other.background, t),
-      background_compliment:
-          Color.lerp(background_compliment, other.background_compliment, t),
-      navbar_background:
-          Color.lerp(navbar_background, other.navbar_background, t),
-      button_affirmative:
-          Color.lerp(button_affirmative, other.button_affirmative, t),
+      background_compliment: Color.lerp(background_compliment, other.background_compliment, t),
+      navbar_background: Color.lerp(navbar_background, other.navbar_background, t),
+      button_affirmative: Color.lerp(button_affirmative, other.button_affirmative, t),
       button_negative: Color.lerp(button_negative, other.button_negative, t),
+      progressBar_background: Color.lerp(progressBar_background, other.progressBar_background, t),
+      progressBar_foreground: Color.lerp(progressBar_foreground, other.progressBar_foreground, t),
     );
   }
 
@@ -100,13 +107,16 @@ final custDarkTheme = ThemeData.dark().copyWith(
   extensions: <ThemeExtension<dynamic>>[
     const CustomColors(
       // general
-      background: Color(0xFF201f1E), // .fromRGBO(26, 26, 26, 1.0),
-      background_compliment: Color(0xFF252525), //, ff17a2b8),
+      background: Color(0xFF111111),
+      background_compliment: Color(0xFF1E1E1E),
       // navabar
-      navbar_background: Colors.red,
+      navbar_background: Color(0xFF1E1E1E),
       //
       button_affirmative: Color(0xfff39c12),
       button_negative: Color(0xffe74c3c),
+      // progress_bar
+      progressBar_background: Color.fromARGB(255, 27, 20, 20),
+      progressBar_foreground: Color.fromARGB(255, 83, 109, 209),
     )
   ],
   useMaterial3: true,
@@ -127,10 +137,13 @@ final custLightTheme = ThemeData.light().copyWith(
       background: Color(0xFFF8F8F8),
       background_compliment: Color.fromRGBO(255, 255, 255, 1.0),
       // navabar
-      navbar_background: Colors.blue,
+      navbar_background: Color(0xFF053a7a),
       //
       button_affirmative: Color(0xfff39c12),
       button_negative: Color(0xffe74c3c),
+      // progress_bar
+      progressBar_background: Color(0xFFF1F1F1),
+      progressBar_foreground: Color(0xFF254CFF),
     )
   ],
   useMaterial3: true,

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker/theme.dart';
 
 class ProgressBar extends ConsumerStatefulWidget {
   const ProgressBar({
-      super.key,
-      required this.habitName,
-      required this.fullUnits,
-      required this.currentUnits,
-      required this.uom,
-      required this.color,
+    super.key,
+    required this.habitName,
+    required this.fullUnits,
+    required this.currentUnits,
+    required this.uom,
+    required this.color,
   });
 
   final String habitName;
@@ -32,6 +33,8 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       child: Column(
@@ -50,7 +53,6 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
                   )
                 ],
               ),
-
               Column(
                 children: [
                   Text(
@@ -64,14 +66,12 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
               ),
             ],
           ),
-
           const SizedBox(
             height: 15.0,
           ),
-
           LinearProgressIndicator(
-            backgroundColor: Colors.black,
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+            backgroundColor: customColors.progressBar_background,
+            valueColor: AlwaysStoppedAnimation<Color>(customColors.progressBar_foreground!),
             value: widget.currentUnits / widget.fullUnits,
             minHeight: 8.0,
           ),

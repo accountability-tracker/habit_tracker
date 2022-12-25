@@ -15,10 +15,7 @@ import 'package:habit_tracker/components/habits/habit_measurable_block.dart';
 
 class HabitLine extends StatefulWidget {
   HabitLine(
-      {Key? key,
-      required this.isarService,
-      required this.habit,
-      required this.updateFunction})
+      {Key? key, required this.isarService, required this.habit, required this.updateFunction})
       : super(key: key);
 
   final IsarService isarService;
@@ -44,10 +41,7 @@ class _HabitLine extends State<HabitLine> {
     super.initState();
     // ref.read(habitsManagerProvider);
 
-    setState(() => {
-          fhabitDates =
-              widget.isarService.getHabitsDateLastSeven(widget.habit.id)
-        });
+    setState(() => {fhabitDates = widget.isarService.getHabitsDateLastSeven(widget.habit.id)});
   }
 
   String printDay(int dn) {
@@ -69,15 +63,20 @@ class _HabitLine extends State<HabitLine> {
           child: TextButton(
             child: Text(
               widget.habit.getTitle(),
-              style: TextStyle(
-                  fontSize: 24.0, color: Color(widget.habit.getColor())),
+              style: TextStyle(fontSize: 24.0, color: Color(widget.habit.getColor())),
             ),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => PageHabitSpecificView(
-                        isarService: widget.isarService, habit: widget.habit)),
+                PageRouteBuilder(
+                  pageBuilder: (BuildContext context, Animation<double> animation1,
+                      Animation<double> animation2) {
+                    return PageHabitSpecificView(
+                        isarService: widget.isarService, habit: widget.habit);
+                  },
+                  transitionDuration: Duration.zero,
+                  reverseTransitionDuration: Duration.zero,
+                ),
               ).then(widget.updateFunction);
             },
           ),
@@ -111,28 +110,23 @@ class _HabitLine extends State<HabitLine> {
                     if (widget.habit.type == E_HABITS.YES_OR_NO) {
                       return HabitYesOrNoToggle(
                           habit: widget.habit,
-                          date: date.subtract(Duration(
-                              days: (4 - x[index]))), // - date.weekday + 1
+                          date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                           isarService: widget.isarService);
                     } else if (widget.habit.type == E_HABITS.MEASURABLE) {
                       return HabitMeasurableBlock(
                           habit: widget.habit,
-                          date: date.subtract(Duration(
-                              days: (4 - x[index]))), // - date.weekday + 1
+                          date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                           isarService: widget.isarService);
                     } else {
                       // TODO: allow nulls and check and display an error if this is reached
                       return HabitYesOrNoToggle(
                           habit: widget.habit,
-                          date: date.subtract(Duration(
-                              days: (4 - x[index]))), // - date.weekday + 1
+                          date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                           isarService: widget.isarService);
                     }
                   }).toList();
 
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: habits);
+                  return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: habits);
 
                   // return HabitYesOrNoToggle(
                   //   habit: widget.habit
@@ -201,30 +195,25 @@ class _HabitLine extends State<HabitLine> {
                       return HabitYesOrNoToggle(
                           habitDate: habitDates[index],
                           habit: widget.habit,
-                          date: date.subtract(Duration(
-                              days:
-                                  (4 - x[index]))), // index - date.weekday + 1
+                          date: date
+                              .subtract(Duration(days: (4 - x[index]))), // index - date.weekday + 1
                           isarService: widget.isarService);
                     } else if (widget.habit.type == E_HABITS.MEASURABLE) {
                       return HabitMeasurableBlock(
                           habitDate: habitDates[index],
                           habit: widget.habit,
-                          date: date.subtract(Duration(
-                              days: (4 - x[index]))), // - date.weekday + 1
+                          date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                           isarService: widget.isarService);
                     } else {
                       // TODO: allow nulls and check and display an error if this is reached
                       return HabitYesOrNoToggle(
                           habit: widget.habit,
-                          date: date.subtract(Duration(
-                              days: (4 - x[index]))), // - date.weekday + 1
+                          date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                           isarService: widget.isarService);
                     }
                   }).toList();
 
-                  return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: habits);
+                  return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: habits);
 
                   // return new Row(
                   //   children: <Widget>[

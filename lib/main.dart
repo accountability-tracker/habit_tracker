@@ -68,8 +68,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       Navigator.push(
         context,
         PageRouteBuilder(
-          pageBuilder: (BuildContext context, Animation<double> animation1,
-              Animation<double> animation2) {
+          pageBuilder:
+              (BuildContext context, Animation<double> animation1, Animation<double> animation2) {
             return const Page_About();
           },
           transitionDuration: Duration.zero,
@@ -96,9 +96,13 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
           backgroundColor: customColors.navbar_background,
+          foregroundColor: Colors.white,
           actions: [
             IconButton(
-                icon: const Icon(Icons.add),
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -123,8 +127,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                               isarService: isarService);
                                         },
                                         transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
+                                        reverseTransitionDuration: Duration.zero,
                                       ),
                                     ).then(refreshHabitList);
                                   },
@@ -150,8 +153,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                         ),
                                       ],
                                     ),
-                                    padding: const EdgeInsets.fromLTRB(
-                                        16.0, 16.0, 16.0, 16.0),
+                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                                     decoration: BoxDecoration(
                                       color: const Color(0xff7c94b6),
                                       border: Border.all(
@@ -178,8 +180,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                               isarService: isarService);
                                         },
                                         transitionDuration: Duration.zero,
-                                        reverseTransitionDuration:
-                                            Duration.zero,
+                                        reverseTransitionDuration: Duration.zero,
                                       ),
                                     ).then(refreshHabitList);
                                   },
@@ -205,8 +206,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                         ),
                                       ],
                                     ),
-                                    padding: const EdgeInsets.fromLTRB(
-                                        16.0, 16.0, 16.0, 16.0),
+                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
                                     decoration: BoxDecoration(
                                       color: const Color(0xff7c94b6),
                                       border: Border.all(
@@ -253,14 +253,20 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
             if (ref.watch(themeProvider) == ThemeMode.dark) ...[
               IconButton(
-                icon: const Icon(Icons.light_mode),
+                icon: const Icon(
+                  Icons.light_mode,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   ref.read(themeProvider.notifier).toggleTheme();
                 },
               ),
             ] else if (ref.watch(themeProvider) == ThemeMode.light) ...[
               IconButton(
-                icon: const Icon(Icons.dark_mode),
+                icon: const Icon(
+                  Icons.dark_mode,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   ref.read(themeProvider.notifier).toggleTheme();
                 },
@@ -270,12 +276,11 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             IconButton(
               icon: Icon(
                 habitView == 'input' ? Icons.bar_chart : Icons.rule,
+                color: Colors.white,
               ),
               onPressed: () {
                 setState(() {
-                  habitView == 'input'
-                      ? habitView = 'stats'
-                      : habitView = 'input';
+                  habitView == 'input' ? habitView = 'stats' : habitView = 'input';
                 });
               },
             ),
@@ -320,7 +325,10 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             // ),
 
             PopupMenuButton(
-              icon: const Icon(Icons.more_vert),
+              icon: const Icon(
+                Icons.more_vert,
+                color: Colors.white,
+              ),
               color: Colors.red,
               itemBuilder: (context) => [
                 const PopupMenuItem<int>(

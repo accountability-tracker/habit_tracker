@@ -121,10 +121,8 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                           return Container(
                             color: customColors.background_compliment,
                             width: MediaQuery.of(context).size.width,
-                            margin:
-                                const EdgeInsets.only(top: 2.0, bottom: 2.0),
-                            padding:
-                                const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+                            padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                             child: HabitBar(
                                 isarService: widget.isarService,
                                 habit: habit,
