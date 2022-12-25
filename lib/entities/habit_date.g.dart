@@ -44,7 +44,7 @@ const HabitDateSchema = CollectionSchema(
   getId: _habitDateGetId,
   getLinks: _habitDateGetLinks,
   attach: _habitDateAttach,
-  version: '3.0.0',
+  version: '3.0.5',
 );
 
 int _habitDateEstimateSize(
