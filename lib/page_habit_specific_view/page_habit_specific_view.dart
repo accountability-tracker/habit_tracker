@@ -15,15 +15,11 @@ import 'package:habit_tracker/page_habit_specific_view/history_chart.dart';
 import 'package:habit_tracker/data_notifier.dart';
 
 class PageHabitSpecificView extends ConsumerStatefulWidget {
-  const PageHabitSpecificView({
-      super.key,
-      required this.isarService,
-      required this.habit
-  });
+  const PageHabitSpecificView(
+      {super.key, required this.isarService, required this.habit});
 
   final IsarService isarService;
 
-  // TODO: eventually handle the other habit types besides yes or no
   final dynamic habit;
 
   @override
@@ -57,89 +53,89 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.habit.getTitle(),
         ),
-
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              switch (widget.habit.getType()) {
-                case E_HABITS.YES_OR_NO:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageCreateNewHabitYesOrNo(
-                      isarService: widget.isarService,
-                      fHabit: widget.habit
-                  )),
-                );
-                break;
+              icon: const Icon(Icons.edit),
+              onPressed: () {
+                switch (widget.habit.getType()) {
+                  case E_HABITS.YES_OR_NO:
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PageCreateNewHabitYesOrNo(
+                              isarService: widget.isarService,
+                              fHabit: widget.habit)),
+                    );
+                    break;
 
-                case E_HABITS.MEASURABLE:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PageCreateNewHabitMeasurable(
-                      isarService: widget.isarService,
-                      fHabit: widget.habit
-                  )),
-                );
-                break;
+                  case E_HABITS.MEASURABLE:
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PageCreateNewHabitMeasurable(
+                              isarService: widget.isarService,
+                              fHabit: widget.habit)),
+                    );
+                    break;
 
-                // default:
-                //   print("error - habit type isnt yes-or-no or measurable");
-                // break;
-              }
-            }
-          ),
-
+                  // default:
+                  //   print("error - habit type isnt yes-or-no or measurable");
+                  // break;
+                }
+              }),
           PopupMenuButton(
             icon: const Icon(Icons.more_vert),
             color: Colors.red,
             itemBuilder: (context) => [
               const PopupMenuItem<int>(
                 value: 0,
-                child: Text("Archive",style: TextStyle(color: Colors.white),),
+                child: Text(
+                  "Archive",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-
               const PopupMenuItem<int>(
                 value: 1,
-                child: Text("Export",style: TextStyle(color: Colors.white),),
+                child: Text(
+                  "Export",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-
               const PopupMenuItem<int>(
                 value: 2,
-                child: Text("Delete",style: TextStyle(color: Colors.white),),
+                child: Text(
+                  "Delete",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
             onSelected: (item) async {
               // print(item)
-              if(item == 0) {
-                await widget.isarService.changeHabitArchivedState(widget.habit.id, !widget.habit.IsArchived());
+              if (item == 0) {
+                await widget.isarService.changeHabitArchivedState(
+                    widget.habit.id, !widget.habit.IsArchived());
               }
 
-              if(item == 2) {
+              if (item == 2) {
                 await widget.isarService.deleteHabit(widget.habit.id);
                 Navigator.pop(context);
                 ref.read(dataUpdate.notifier).setUpdate();
               }
             },
           ),
-
         ],
-
       ),
       body: Center(
         child: Container(
           margin: const EdgeInsets.all(16.0),
           width: MediaQuery.of(context).size.width * 0.9,
-
           child: Column(
             children: <Widget>[
-
               // Text(
               //   widget.habit.getTitle(),
               // ),
@@ -149,17 +145,17 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                 habit: widget.habit,
               ),
 
-              const SizedBox(height: 16.0,),
+              const SizedBox(
+                height: 16.0,
+              ),
 
               HistoryChart(
                 isarService: widget.isarService,
                 habit: widget.habit,
               ),
-
             ],
           ),
         ),
-
       ),
     );
   }

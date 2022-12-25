@@ -15,11 +15,9 @@ import 'package:habit_tracker/page_about/page_about.dart';
 import 'package:habit_tracker/page_settings/page_settings.dart';
 
 void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    )
-  );
+  runApp(const ProviderScope(
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends ConsumerWidget {
@@ -28,18 +26,14 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final ThemeMode tm = ref.watch(themeProvider);
 
     return MaterialApp(
       title: 'Habit App',
-
       debugShowCheckedModeBanner: false,
-
       theme: custLightTheme,
       darkTheme: custDarkTheme,
       themeMode: tm,
-
       home: const MyHomePage(title: 'Habits view'),
     );
   }
@@ -70,10 +64,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   void _moreOptionSelected(int item) {
     // print(item);
-    if(item == 0) {
+    if (item == 0) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const Page_About()),
+        PageRouteBuilder(
+          pageBuilder:
+              (BuildContext context, Animation<double> animation1, Animation<double> animation2) {
+            return const Page_About();
+          },
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
       );
     }
     // if i == 1 delete TODO
@@ -87,154 +88,158 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
 
-    // final ThemeMode tm = ref.watch(themeProvider);
-
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return SafeArea(
       child: Scaffold(
+        backgroundColor: customColors.background,
         appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+          backgroundColor: customColors.navbar_background,
+          foregroundColor: Colors.white,
           actions: [
             IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () {
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Scaffold(
+                          body: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              children: <Widget>[
+                                const Spacer(),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
 
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return Scaffold(
-                      body: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          children: <Widget>[
-                            const Spacer(),
-
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PageCreateNewHabitYesOrNo(
-                                      isarService: isarService
-                                  )),
-                                ).then(refreshHabitList);
-                              },
-                              child: Container(
-                                child: Column(
-                                  children: const <Widget>[
-                                    Text(
-                                      "Yes or No",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24.0,
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (BuildContext context,
+                                            Animation<double> animation1,
+                                            Animation<double> animation2) {
+                                          return PageCreateNewHabitYesOrNo(
+                                              isarService: isarService);
+                                        },
+                                        transitionDuration: Duration.zero,
+                                        reverseTransitionDuration: Duration.zero,
                                       ),
+                                    ).then(refreshHabitList);
+                                  },
+                                  child: Container(
+                                    child: Column(
+                                      children: const <Widget>[
+                                        Text(
+                                          "Yes or No",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24.0,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 8.0,
+                                        ),
+                                        Text(
+                                          "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-
-                                    SizedBox(height: 8.0,),
-
-                                    Text(
-                                      "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
+                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff7c94b6),
+                                      border: Border.all(
+                                        width: 2,
                                       ),
+                                      borderRadius: BorderRadius.circular(4),
                                     ),
-                                  ],
-                                ),
-
-                                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff7c94b6),
-                                  border: Border.all(
-                                    width: 2,
                                   ),
-                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                              ),
-                            ),
-
-                            const SizedBox(height: 4.0,),
-
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PageCreateNewHabitMeasurable(
-                                      isarService: isarService
-                                  )),
-                                ).then(refreshHabitList);
-                              },
-                              child: Container(
-                                child: Column(
-                                  children: const <Widget>[
-                                    Text(
-                                      "Measurable",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24.0,
-                                      ),
-                                    ),
-
-                                    SizedBox(height: 8.0,),
-
-                                    Text(
-                                      "e.g. How many miles did you run today? How many pages did you read?",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                      ),
-                                    ),
-                                  ],
+                                const SizedBox(
+                                  height: 4.0,
                                 ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
 
-                                padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff7c94b6),
-                                  border: Border.all(
-                                    width: 2,
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (BuildContext context,
+                                            Animation<double> animation1,
+                                            Animation<double> animation2) {
+                                          return PageCreateNewHabitMeasurable(
+                                              isarService: isarService);
+                                        },
+                                        transitionDuration: Duration.zero,
+                                        reverseTransitionDuration: Duration.zero,
+                                      ),
+                                    ).then(refreshHabitList);
+                                  },
+                                  child: Container(
+                                    child: Column(
+                                      children: const <Widget>[
+                                        Text(
+                                          "Measurable",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24.0,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 8.0,
+                                        ),
+                                        Text(
+                                          "e.g. How many miles did you run today? How many pages did you read?",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff7c94b6),
+                                      border: Border.all(
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                              ),
+                                const SizedBox(
+                                  height: 4.0,
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text("Close"),
+                                ),
+                                const Spacer(),
+                              ],
                             ),
+                          ),
+                        );
+                        //     Navigator.of(context).pop();
+                      });
 
-                            const SizedBox(height: 4.0,),
-
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text("Close"),
-                            ),
-
-                            const Spacer(),
-                          ],
-                        ),
-                      ),
-                    );
-                    //     Navigator.of(context).pop();
-                  }
-                );
-
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
-                //       isar_service: isar_service
-                //   )),
-                // );
-              }
-            ),
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
+                  //       isar_service: isar_service
+                  //   )),
+                  // );
+                }),
 
             // IconButton(
             //   icon: const Icon(Icons.settings),
@@ -246,16 +251,22 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             //   }
             // ),
 
-            if(ref.watch(themeProvider) == ThemeMode.dark) ...[
+            if (ref.watch(themeProvider) == ThemeMode.dark) ...[
               IconButton(
-                icon: const Icon(Icons.light_mode),
+                icon: const Icon(
+                  Icons.light_mode,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   ref.read(themeProvider.notifier).toggleTheme();
                 },
               ),
-            ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
+            ] else if (ref.watch(themeProvider) == ThemeMode.light) ...[
               IconButton(
-                icon: const Icon(Icons.dark_mode),
+                icon: const Icon(
+                  Icons.dark_mode,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   ref.read(themeProvider.notifier).toggleTheme();
                 },
@@ -265,10 +276,11 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             IconButton(
               icon: Icon(
                 habitView == 'input' ? Icons.bar_chart : Icons.rule,
+                color: Colors.white,
               ),
               onPressed: () {
                 setState(() {
-                    habitView == 'input' ? habitView = 'stats' : habitView = 'input';
+                  habitView == 'input' ? habitView = 'stats' : habitView = 'input';
                 });
               },
             ),
@@ -313,17 +325,21 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             // ),
 
             PopupMenuButton(
-              icon: const Icon(Icons.more_vert),
+              icon: const Icon(
+                Icons.more_vert,
+                color: Colors.white,
+              ),
               color: Colors.red,
               itemBuilder: (context) => [
                 const PopupMenuItem<int>(
                   value: 0,
-                  child: Text("About",style: TextStyle(color: Colors.white),),
+                  child: Text(
+                    "About",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
-              onSelected: (item) => {
-                _moreOptionSelected(item)
-              },
+              onSelected: (item) => {_moreOptionSelected(item)},
             ),
             //more widgets to place here
           ],

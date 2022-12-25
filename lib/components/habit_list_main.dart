@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/data_notifier.dart';
 
+import 'package:habit_tracker/theme.dart';
+
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
 
@@ -15,12 +17,11 @@ import 'package:habit_tracker/components/five_day_line.dart';
 import 'package:habit_tracker/components/progress_bar.dart';
 
 class HabitListMain extends ConsumerStatefulWidget {
-  const HabitListMain({
-      super.key,
+  const HabitListMain(
+      {super.key,
       required this.isarService,
       required this.habitView,
-      required this.updateFunction
-  });
+      required this.updateFunction});
 
   final IsarService isarService;
   final String habitView;
@@ -31,7 +32,6 @@ class HabitListMain extends ConsumerStatefulWidget {
 }
 
 class _HabitListMain extends ConsumerState<HabitListMain> {
-
   late Future<List<Habit>>? fhabits = null;
 
   @override
@@ -47,17 +47,19 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
     super.didUpdateWidget(oldWidget);
     if (ref.watch(dataUpdate)) {
       LoadHabits();
-      Future(() {ref.read(dataUpdate.notifier).setUpdate();});
+      Future(() {
+        ref.read(dataUpdate.notifier).setUpdate();
+      });
     }
   }
+
   void LoadHabits() {
-    setState(() => {
-        fhabits = widget.isarService.getAllHabits()
-    });
+    setState(() => {fhabits = widget.isarService.getAllHabits()});
   }
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
 
     // final habits = await widget.isar_service.getAllHabits();
 
@@ -68,10 +70,13 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-
       children: <Widget>[
         Container(
-          child: widget.habitView == 'input' ? const FiveDayLine() : SizedBox( height: 53.0, ),
+          child: widget.habitView == 'input'
+              ? const FiveDayLine()
+              : SizedBox(
+                  height: 53.0,
+                ),
         ),
         //const FiveDayLine(),
 
@@ -79,64 +84,57 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
           child: SingleChildScrollView(
             // onReorder: (int oldIndex, int newIndex) {},
 
-            child:
-            Column(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-
               children: <Widget>[
-
                 FutureBuilder<List<Habit>>(
                   future: fhabits,
                   builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
-
-                    if(snapshot.hasData) {
+                    if (snapshot.hasData) {
                       if (widget.habitView == 'input') {
                         final habits = snapshot.data!.map((habit) {
-                            if(habit.IsArchived()) {
-                              return const SizedBox();
-                            }
+                          if (habit.IsArchived()) {
+                            return const SizedBox();
+                          }
 
-                            return Container(
-                              color: const Color.fromRGBO(31, 31, 31, 1.0),
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.all(2.0),
-                              padding: const EdgeInsets.all(8.0),
-                              child: HabitLine(
+                          return Container(
+                            color: customColors.background_compliment,
+                            // const Color.fromRGBO(31, 31, 31, 1.0),
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.all(2.0),
+                            padding: const EdgeInsets.all(8.0),
+                            child: HabitLine(
                                 isarService: widget.isarService,
                                 habit: habit,
-                                updateFunction: widget.updateFunction
-                              ),
-                            );
+                                updateFunction: widget.updateFunction),
+                          );
                         }).toList();
 
                         return Column(children: habits);
                       } else {
                         final habits = snapshot.data!.map((habit) {
-                            if(habit.IsArchived()) {
-                              return const SizedBox();
-                            }
+                          if (habit.IsArchived()) {
+                            return const SizedBox();
+                          }
 
-                            return Container(
-                              color: const Color.fromRGBO(31, 31, 31, 1.0),
-                              width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
-                              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                              child: HabitBar(
+                          return Container(
+                            color: customColors.background_compliment,
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+                            padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            child: HabitBar(
                                 isarService: widget.isarService,
                                 habit: habit,
-                                updateFunction: widget.updateFunction
-                              ),
-                            );
+                                updateFunction: widget.updateFunction),
+                          );
                         }).toList();
 
                         return Column(children: habits);
                       }
                     }
 
-                    return const Text(
-                      "Loading indacator..."
-                    );
+                    return const Text("Loading indacator...");
                   },
                 ),
                 // for(var habit in habits)
