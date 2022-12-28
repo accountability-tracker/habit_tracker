@@ -5,6 +5,7 @@ import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
 import 'package:habit_tracker/page_habit_specific_view/history_bar_chart.dart';
+import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';
 
 // import '../components/FlatDropdown.dart';
@@ -42,6 +43,8 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+
     return Container(
       padding: const EdgeInsets.fromLTRB(
         8.0,
@@ -51,7 +54,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: Colors.grey[800],
+        color: customColors.background_compliment,
         // boxShadow: [
         //   BoxShadow(color: Colors.green, spreadRadius: 3),
         // ],
@@ -78,14 +81,15 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                 children: [
                   DropdownButton(
                     // Initial Value
-                    dropdownColor: Color.fromRGBO(41, 41, 41, 1.0),
+                    dropdownColor: customColors.background,
                     value: periodSelected,
 
                     // Down Arrow Icon
                     icon: const Icon(Icons.keyboard_arrow_down),
 
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20.0,
+                      color: customColors.text_color,
                     ),
 
                     // Array list of items
@@ -176,31 +180,39 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                           'start': DateTime(d.year, d.month - 4, 1),
                           'end': DateTime(d.year, d.month - 3, 1),
                           'value': 0,
-                          'dateString': DateFormat('yMMMM').format(DateTime(d.year, d.month - 4, 1))
+                          'dateString': DateFormat('yMMMM')
+                              .format(DateTime(d.year, d.month - 4, 1))
+                              .substring(0, 3)
                         },
                         {
                           'start': DateTime(d.year, d.month - 3, 1),
                           'end': DateTime(d.year, d.month - 2, 1),
                           'value': 0,
-                          'dateString': DateFormat('yMMMM').format(DateTime(d.year, d.month - 3, 1))
+                          'dateString': DateFormat('yMMMM')
+                              .format(DateTime(d.year, d.month - 3, 1))
+                              .substring(0, 3)
                         },
                         {
                           'start': DateTime(d.year, d.month - 2, 1),
                           'end': DateTime(d.year, d.month - 1, 1),
                           'value': 0,
-                          'dateString': DateFormat('yMMMM').format(DateTime(d.year, d.month - 2, 1))
+                          'dateString': DateFormat('yMMMM')
+                              .format(DateTime(d.year, d.month - 2, 1))
+                              .substring(0, 3)
                         },
                         {
                           'start': DateTime(d.year, d.month - 1, 1),
                           'end': DateTime(d.year, d.month, 1),
                           'value': 0,
-                          'dateString': DateFormat('yMMMM').format(DateTime(d.year, d.month - 1, 1))
+                          'dateString': DateFormat('yMMMM')
+                              .format(DateTime(d.year, d.month - 1, 1))
+                              .substring(0, 3)
                         },
                         {
                           'start': DateTime(d.year, d.month, 1),
                           'end': DateTime(d.year, d.month + 1, 1),
                           'value': 0,
-                          'dateString': DateFormat('yMMMM').format(d)
+                          'dateString': DateFormat('yMMMM').format(d).substring(0, 3)
                         },
                       ];
                     } else if (periodSelected == Items.Quarter) {

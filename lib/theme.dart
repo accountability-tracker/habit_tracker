@@ -37,6 +37,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     // general
     required this.background,
     required this.background_compliment,
+    required this.text_color,
     // navbar
     required this.navbar_background,
     //
@@ -48,6 +49,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
   });
   final Color? background;
   final Color? background_compliment;
+  final Color? text_color;
 
   final Color? navbar_background;
 
@@ -61,6 +63,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
   CustomColors copyWith({
     Color? background,
     Color? background_compliment,
+    Color? text_color,
     Color? navbar_background,
     Color? button_affirmative,
     Color? button_negative,
@@ -70,6 +73,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     return CustomColors(
       background: background ?? this.background,
       background_compliment: background_compliment ?? this.background_compliment,
+      text_color: text_color ?? this.text_color,
       navbar_background: navbar_background ?? this.navbar_background,
       button_affirmative: button_affirmative ?? this.button_affirmative,
       button_negative: button_negative ?? this.button_negative,
@@ -87,6 +91,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     return CustomColors(
       background: Color.lerp(background, other.background, t),
       background_compliment: Color.lerp(background_compliment, other.background_compliment, t),
+      text_color: Color.lerp(text_color, other.text_color, t),
       navbar_background: Color.lerp(navbar_background, other.navbar_background, t),
       button_affirmative: Color.lerp(button_affirmative, other.button_affirmative, t),
       button_negative: Color.lerp(button_negative, other.button_negative, t),
@@ -109,6 +114,7 @@ final custDarkTheme = ThemeData.dark().copyWith(
       // general
       background: Color(0xFF111111),
       background_compliment: Color(0xFF1E1E1E),
+      text_color: Color(0xFFFFFFFF),
       // navabar
       navbar_background: Color(0xFF1E1E1E),
       //
@@ -136,6 +142,7 @@ final custLightTheme = ThemeData.light().copyWith(
       // general
       background: Color(0xFFF8F8F8),
       background_compliment: Color.fromRGBO(255, 255, 255, 1.0),
+      text_color: Color(0xFF000000),
       // navabar
       navbar_background: Color(0xFF053a7a),
       //
