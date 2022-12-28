@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/s_isar.dart';
+import 'package:habit_tracker/theme.dart';
 
 class HabitVariablesOverviewBlock extends ConsumerStatefulWidget {
-  const HabitVariablesOverviewBlock(
-      {super.key, required this.isarService, required this.habit});
+  const HabitVariablesOverviewBlock({super.key, required this.isarService, required this.habit});
 
   final IsarService isarService;
 
@@ -15,10 +15,11 @@ class HabitVariablesOverviewBlock extends ConsumerStatefulWidget {
   _HabitVariablesOverviewBlock createState() => _HabitVariablesOverviewBlock();
 }
 
-class _HabitVariablesOverviewBlock
-    extends ConsumerState<HabitVariablesOverviewBlock> {
+class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewBlock> {
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+
     return Container(
       padding: const EdgeInsets.fromLTRB(
         8.0,
@@ -28,7 +29,7 @@ class _HabitVariablesOverviewBlock
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: Colors.grey[800],
+        color: customColors.background_compliment,
         // boxShadow: [
         //   BoxShadow(color: Colors.green, spreadRadius: 3),
         // ],
@@ -47,9 +48,9 @@ class _HabitVariablesOverviewBlock
           ),
           Row(
             children: <Widget>[
-              const Icon(
+              Icon(
                 Icons.calendar_month,
-                color: Colors.white,
+                color: customColors.text_color,
               ),
               const SizedBox(
                 width: 16.0,
@@ -62,15 +63,14 @@ class _HabitVariablesOverviewBlock
           ),
           Row(
             children: <Widget>[
-              const Icon(
+              Icon(
                 Icons.notifications_rounded,
-                color: Colors.white,
+                color: customColors.text_color,
               ),
               const SizedBox(
                 width: 16.0,
               ),
-              Text((widget.habit.getReminder() == null ||
-                      widget.habit.getReminder() == "")
+              Text((widget.habit.getReminder() == null || widget.habit.getReminder() == "")
                   ? "OFF"
                   : widget.habit.getReminder()),
             ],
@@ -80,16 +80,15 @@ class _HabitVariablesOverviewBlock
           ),
           Row(
             children: <Widget>[
-              const Icon(
+              Icon(
                 Icons.question_mark,
-                color: Colors.white,
+                color: customColors.text_color,
               ),
               const SizedBox(
                 width: 16.0,
               ),
               Text(
-                (widget.habit.getQuestion() == null ||
-                        widget.habit.getQuestion() == "")
+                (widget.habit.getQuestion() == null || widget.habit.getQuestion() == "")
                     ? "N/A"
                     : widget.habit.getQuestion(),
               ),
@@ -100,16 +99,15 @@ class _HabitVariablesOverviewBlock
           ),
           Row(
             children: <Widget>[
-              const Icon(
+              Icon(
                 Icons.notes,
-                color: Colors.white,
+                color: customColors.text_color,
               ),
               const SizedBox(
                 width: 16.0,
               ),
               Text(
-                (widget.habit.getNotes() == null ||
-                        widget.habit.getNotes() == "")
+                (widget.habit.getNotes() == null || widget.habit.getNotes() == "")
                     ? "N/A"
                     : widget.habit.getNotes(),
               ),
