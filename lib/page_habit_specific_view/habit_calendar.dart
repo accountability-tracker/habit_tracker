@@ -7,8 +7,7 @@ import 'package:habit_tracker/entities/habit.dart';
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
-    show CalendarCarousel;
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:intl/intl.dart';
@@ -17,11 +16,7 @@ import 'package:habit_tracker/habit_enums.dart';
 import 'package:habit_tracker/data_notifier.dart';
 
 class HabitCalendar extends ConsumerStatefulWidget {
-  const HabitCalendar({
-      super.key,
-      required this.isarService,
-      required this.habit
-  });
+  const HabitCalendar({super.key, required this.isarService, required this.habit});
 
   final IsarService isarService;
 
@@ -54,6 +49,19 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
 
   EventList<Event> _markedDateMap = new EventList<Event>(events: {});
 
+  late Future<List<HabitDate>>? fhabitDates = null;
+
+  @override
+  void initState() {
+    super.initState();
+    // ref.read(habitsManagerProvider);
+
+    setState(() => {
+          fhabitDates =
+              widget.isarService.getHabitsDateCurrentMonth(_currentMonthNum, widget.habit.id)
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     /// Example Calendar Carousel without header and custom prev & next button
@@ -73,13 +81,12 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
         //events.forEach((event) => print(event.title));
 
         if (widget.habit.getType() == E_HABITS.MEASURABLE) {
-            var res = await showDialog(
+          var res = await showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
                   title: const Text('Set a value!'),
                   content: SingleChildScrollView(
-
                     child: Column(
                       children: <Widget>[
                         // Text("test"),
@@ -96,32 +103,30 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                     ElevatedButton(
                       child: const Text('Got it'),
                       onPressed: () {
-                        if (inputNumber != null && (inputNumber == '' || int.tryParse(inputNumber) == null)) {
+                        if (inputNumber != null &&
+                            (inputNumber == '' || int.tryParse(inputNumber) == null)) {
                           var res = showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Please enter a valid number.'),
-                                content: SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                    ],
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Please enter a valid number.'),
+                                  content: SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[],
+                                    ),
                                   ),
-                                ),
-                                actions: <Widget>[
-                                  ElevatedButton(
-                                    child: const Text('Okay'),
-                                    onPressed: () {
-                                      // setState(() => currentValue = initialValue);
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ],
-                              );
-                            }
-                          );
-                        }
-                        else {
+                                  actions: <Widget>[
+                                    ElevatedButton(
+                                      child: const Text('Okay'),
+                                      onPressed: () {
+                                        // setState(() => currentValue = initialValue);
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
+                        } else {
                           if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                             _modifyDate = true;
                           }
@@ -143,8 +148,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                     ),
                   ],
                 );
-              }
-            );
+              });
         }
       },
       showOnlyCurrentMonthDate: true,
@@ -167,19 +171,15 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
         color: Colors.red,
       ),
       selectedDayButtonColor: Color(widget.habit.getColor()),
-
       markedDateShowIcon: true,
       markedDateIconMaxShown: 1,
-      markedDateMoreCustomTextStyle: TextStyle(
-                              fontSize: 8,
-                              color: Colors.white),
+      markedDateMoreCustomTextStyle: TextStyle(fontSize: 8, color: Colors.white),
       markedDateIconBuilder: (event) {
         return event.icon;
       },
       markedDateMoreShowTotal: true,
       markedDateIconMargin: 9,
       markedDateIconOffset: 3,
-
       todayButtonColor: const Color.fromRGBO(41, 41, 41, 1.0),
       selectedDayTextStyle: const TextStyle(color: Colors.red),
       minSelectedDate: _currentDate.subtract(const Duration(days: 360)),
@@ -202,80 +202,76 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
 
     return Container(
         child: SingleChildScrollView(
-          child: Column(
-            
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              //custom icon without header
-              Container(
-                color: Color.fromRGBO(31, 31, 31, 1.0),
-                margin: const EdgeInsets.only(
-                  top: 30.0,
-                  bottom: 16.0,
-                  left: 16.0,
-                  right: 16.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          //custom icon without header
+          Container(
+            color: Color.fromRGBO(31, 31, 31, 1.0),
+            margin: const EdgeInsets.only(
+              top: 30.0,
+              bottom: 16.0,
+              left: 16.0,
+              right: 16.0,
+            ),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                    child: Text(
+                  _currentMonth,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24.0,
+                    color: Colors.white,
+                  ),
+                )),
+                TextButton(
+                  child: const Text('PREV'),
+                  onPressed: () {
+                    setState(() {
+                      _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month - 1);
+                      _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+                      _currentMonthNum = DateFormat('y-M').format(_targetDateTime);
+                    });
+                  },
                 ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        _currentMonth,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24.0,
-                          color: Colors.white,
-                        ),
-                      )),
-                    TextButton(
-                      child: const Text('PREV'),
-                      onPressed: () {
-                        setState(() {
-                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month - 1);
-                          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
-                          _currentMonthNum = DateFormat('y-M').format(_targetDateTime);
-                        });
-                      },
-                    ),
-                    TextButton(
-                      child: const Text('NEXT'),
-                      onPressed: () {
-                        setState(() {
-                          _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month + 1);
-                          _currentMonth = DateFormat.yMMM().format(_targetDateTime);
-                          _currentMonthNum = DateFormat('y-M').format(_targetDateTime);
-                        });
-                      },
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                color: const Color.fromRGBO(31, 31, 31, 1.0),
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-
-                child: FutureBuilder<List<HabitDate>>(
-                  future: widget.isarService.getHabitsDateCurrentMonth( _currentMonthNum, widget.habit.id),
+                TextButton(
+                  child: const Text('NEXT'),
+                  onPressed: () {
+                    setState(() {
+                      _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month + 1);
+                      _currentMonth = DateFormat.yMMM().format(_targetDateTime);
+                      _currentMonthNum = DateFormat('y-M').format(_targetDateTime);
+                    });
+                  },
+                )
+              ],
+            ),
+          ),
+          Container(
+              color: const Color.fromRGBO(31, 31, 31, 1.0),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: FutureBuilder<List<HabitDate>>(
+                  future: fhabitDates,
                   builder: (context, AsyncSnapshot<List<HabitDate>> snapshot) {
-
-                    if(snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.connectionState == ConnectionState.done) {
                       if (!_months_processed.contains(_currentMonthNum)) {
-                        for(var h in snapshot.data!) {
-                          if(h.value > 0) {
+                        for (var h in snapshot.data!) {
+                          if (h.value > 0) {
                             var eventDate = h.getDate().split('-');
                             int year = int.parse(eventDate[0]);
                             int month = int.parse(eventDate[1]);
                             int day = int.parse(eventDate[2]);
 
-                            for(int i=0; i<h.value; i++) {
+                            for (int i = 0; i < h.value; i++) {
                               _markedDateMap.add(
-                                DateTime(year, month, day),
-                                Event(
-                                  date: DateTime(year, month, day),
-                                  title: '',
-                                  icon: _eventIcon,
-                                )
-                              );
+                                  DateTime(year, month, day),
+                                  Event(
+                                    date: DateTime(year, month, day),
+                                    title: '',
+                                    icon: _eventIcon,
+                                  ));
                             }
                           }
                         }
@@ -285,32 +281,28 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                         //Date was selected.
                         if (widget.habit.getType() == E_HABITS.YES_OR_NO) {
                           var dateFound = false;
-                          for(var h in snapshot.data!) {
+                          for (var h in snapshot.data!) {
                             if (DateFormat('y-M-dd').format(_selectedDate) == h.date) {
-                              var i  = h.id;
+                              var i = h.id;
                               var hi = h.habit_id;
-                              var d  = h.date;
-                              var v  = h.value == 0 ? 1 : 0;
+                              var d = h.date;
+                              var v = h.value == 0 ? 1 : 0;
 
                               if (v == 1) {
                                 _markedDateMap.add(
-                                  DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                                  Event(
-                                    date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                                    title: '',
-                                    icon: _eventIcon,
-                                  )
-                                );
-                              }
-                              else {
+                                    DateTime(
+                                        _selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                    Event(
+                                      date: DateTime(_selectedDate.year, _selectedDate.month,
+                                          _selectedDate.day),
+                                      title: '',
+                                      icon: _eventIcon,
+                                    ));
+                              } else {
                                 _markedDateMap.removeAll(_selectedDate);
                               }
 
-                              widget.isarService.putHabitDate(
-                                HabitDate.FullWithId(
-                                  i, hi, d, v
-                                )
-                              );
+                              widget.isarService.putHabitDate(HabitDate.FullWithId(i, hi, d, v));
 
                               dateFound = true;
                               break;
@@ -326,31 +318,27 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                             if (_selectedDate.month < 10) {
                               month = '0' + _selectedDate.month.toString();
                             }
-                            widget.isarService.putHabitDate(
-                              HabitDate.Full(
-                                widget.habit.id,
-                                '${_selectedDate.year}-$month-$day',
-                                1
-                              )
-                            );
+                            widget.isarService.putHabitDate(HabitDate.Full(
+                                widget.habit.id, '${_selectedDate.year}-$month-$day', 1));
                             _markedDateMap.add(
-                              DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                              Event(
-                                date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                                title: '',
-                                icon: _eventIcon,
-                              )
-                            );
+                                DateTime(
+                                    _selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                Event(
+                                  date: DateTime(
+                                      _selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                  title: '',
+                                  icon: _eventIcon,
+                                ));
                           }
-                        }
-                        else if (widget.habit.getType() == E_HABITS.MEASURABLE && inputNumber != null) {
+                        } else if (widget.habit.getType() == E_HABITS.MEASURABLE &&
+                            inputNumber != null) {
                           var dateFound = false;
-                          for(var h in snapshot.data!) {
+                          for (var h in snapshot.data!) {
                             if (DateFormat('y-M-dd').format(_selectedDate) == h.date) {
-                              var id  = h.id;
+                              var id = h.id;
                               var hi = h.habit_id;
-                              var d  = h.date;
-                              var v  = int.parse(inputNumber);
+                              var d = h.date;
+                              var v = int.parse(inputNumber);
 
                               if (v == h.getValue()) {
                                 dateFound = true;
@@ -358,32 +346,25 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                               }
 
                               if (v > 0) {
-                                _markedDateMap.removeAll(DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day));
-                                for (int i=0; i<v; i++) {
+                                _markedDateMap.removeAll(DateTime(
+                                    _selectedDate.year, _selectedDate.month, _selectedDate.day));
+                                for (int i = 0; i < v; i++) {
                                   _markedDateMap.add(
-                                    DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                                    Event(
-                                      date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                                      title: '',
-                                      icon: _eventIcon,
-                                    )
-                                  );
+                                      DateTime(_selectedDate.year, _selectedDate.month,
+                                          _selectedDate.day),
+                                      Event(
+                                        date: DateTime(_selectedDate.year, _selectedDate.month,
+                                            _selectedDate.day),
+                                        title: '',
+                                        icon: _eventIcon,
+                                      ));
                                 }
-                                widget.isarService.putHabitDate(
-                                  HabitDate.FullWithId(
-                                    id, hi, d, v
-                                  )
-                                );
-                              }
-                              else {
+                                widget.isarService.putHabitDate(HabitDate.FullWithId(id, hi, d, v));
+                              } else {
                                 _markedDateMap.removeAll(_selectedDate);
                               }
 
-                              widget.isarService.putHabitDate(
-                                HabitDate.FullWithId(
-                                  id, hi, d, v
-                                )
-                              );
+                              widget.isarService.putHabitDate(HabitDate.FullWithId(id, hi, d, v));
 
                               dateFound = true;
                               break;
@@ -399,22 +380,18 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                               month = '0' + _selectedDate.month.toString();
                             }
 
-                            widget.isarService.putHabitDate(
-                              HabitDate.Full(
-                                widget.habit.id,
-                                '${_selectedDate.year}-$month-$day',
-                                int.parse(inputNumber)
-                              )
-                            );
-                            for (int i=0; i<int.parse(inputNumber); i++) {
+                            widget.isarService.putHabitDate(HabitDate.Full(widget.habit.id,
+                                '${_selectedDate.year}-$month-$day', int.parse(inputNumber)));
+                            for (int i = 0; i < int.parse(inputNumber); i++) {
                               _markedDateMap.add(
-                                DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                                Event(
-                                  date: DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
-                                  title: '',
-                                  icon: _eventIcon,
-                                )
-                              );
+                                  DateTime(
+                                      _selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                  Event(
+                                    date: DateTime(
+                                        _selectedDate.year, _selectedDate.month, _selectedDate.day),
+                                    title: '',
+                                    icon: _eventIcon,
+                                  ));
                             }
                           }
                         }
@@ -423,22 +400,18 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                       return _calendarCarouselNoHeader;
                     }
                     return Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.width * 0.65,
-                      child:
-                        const Text(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width * 0.65,
+                        child: const Text(
                           "Loading indacator...",
                           style: TextStyle(
                             fontSize: 24.0,
                             color: Colors.red,
                           ),
-                        )
-                    );
-                  }
-                )
-              ),
-            ],
-          ),
-        ));
+                        ));
+                  })),
+        ],
+      ),
+    ));
   }
 }

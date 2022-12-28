@@ -173,7 +173,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                   ),
 
                   const SizedBox(
-                    height: 16.0,
+                    height: 24.0,
                   ),
 
                   const Text(
