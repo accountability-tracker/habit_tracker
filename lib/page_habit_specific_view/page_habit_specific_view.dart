@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/s_isar.dart';
 
-import 'package:habit_tracker/habits.dart';
+import 'package:habit_tracker/theme.dart';
 
+import 'package:habit_tracker/habits.dart';
+import 'package:habit_tracker/entities/habit.dart';
 import 'package:habit_tracker/habit_enums.dart';
 
 import 'package:habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
@@ -14,9 +16,11 @@ import 'package:habit_tracker/page_habit_specific_view/habit_variables_overview_
 import 'package:habit_tracker/page_habit_specific_view/history_chart.dart';
 import 'package:habit_tracker/data_notifier.dart';
 
+import 'package:habit_tracker/page_habit_statistics_view/habit_calendar.dart';
+import 'package:habit_tracker/page_habit_statistics_view/pie_graph.dart';
+
 class PageHabitSpecificView extends ConsumerStatefulWidget {
-  const PageHabitSpecificView(
-      {super.key, required this.isarService, required this.habit});
+  const PageHabitSpecificView({super.key, required this.isarService, required this.habit});
 
   final IsarService isarService;
 
@@ -53,6 +57,8 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -68,8 +74,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => PageCreateNewHabitYesOrNo(
-                              isarService: widget.isarService,
-                              fHabit: widget.habit)),
+                              isarService: widget.isarService, fHabit: widget.habit)),
                     );
                     break;
 
@@ -78,8 +83,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => PageCreateNewHabitMeasurable(
-                              isarService: widget.isarService,
-                              fHabit: widget.habit)),
+                              isarService: widget.isarService, fHabit: widget.habit)),
                     );
                     break;
 
@@ -99,13 +103,13 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text(
-                  "Export",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              //   const PopupMenuItem<int>(
+              //     value: 1,
+              //     child: Text(
+              //       "Export",
+              //       style: TextStyle(color: Colors.white),
+              //     ),
+              //   ),
               const PopupMenuItem<int>(
                 value: 2,
                 child: Text(
@@ -117,8 +121,8 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
             onSelected: (item) async {
               // print(item)
               if (item == 0) {
-                await widget.isarService.changeHabitArchivedState(
-                    widget.habit.id, !widget.habit.IsArchived());
+                await widget.isarService
+                    .changeHabitArchivedState(widget.habit.id, !widget.habit.IsArchived());
               }
 
               if (item == 2) {
@@ -131,29 +135,69 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
         ],
       ),
       body: Center(
-        child: Container(
-          margin: const EdgeInsets.all(16.0),
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: Column(
-            children: <Widget>[
-              // Text(
-              //   widget.habit.getTitle(),
-              // ),
+        child: Expanded(
+          child: SingleChildScrollView(
+            // onReorder: (int oldIndex, int newIndex) {},
 
-              HabitVariablesOverviewBlock(
-                isarService: widget.isarService,
-                habit: widget.habit,
-              ),
+            child: Container(
+              margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.05, 16.0,
+                  MediaQuery.of(context).size.width * 0.05, 16.0),
+              // width: MediaQuery.of(context).size.width * 0.9,
+              child: Column(
+                children: <Widget>[
+                  // Text(
+                  //   widget.habit.getTitle(),
+                  // ),
 
-              const SizedBox(
-                height: 16.0,
-              ),
+                  HabitVariablesOverviewBlock(
+                    isarService: widget.isarService,
+                    habit: widget.habit,
+                  ),
 
-              HistoryChart(
-                isarService: widget.isarService,
-                habit: widget.habit,
+                  const SizedBox(
+                    height: 16.0,
+                  ),
+
+                  HistoryChart(
+                    isarService: widget.isarService,
+                    habit: widget.habit,
+                  ),
+
+                  const SizedBox(
+                    height: 16.0,
+                  ),
+
+                  HabitCalendar(
+                    isarService: widget.isarService,
+                    habit: widget.habit,
+                  ),
+
+                  const SizedBox(
+                    height: 16.0,
+                  ),
+
+                  const Text(
+                    "How This Habit Compares to Others",
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.red,
+                    ),
+                  ),
+
+                  FutureBuilder<List<Habit>>(
+                      future: widget.isarService.getAllHabits(),
+                      builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
+                        if (snapshot.hasData) {
+                          return PieGraph(
+                            habitList: snapshot.data,
+                            isarService: IsarService(),
+                          );
+                        }
+                        return const Text("Loading indacator...");
+                      })
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

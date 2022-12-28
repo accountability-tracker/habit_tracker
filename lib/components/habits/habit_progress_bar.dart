@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/data_notifier.dart';
 import 'package:habit_tracker/habit_enums.dart';
+import 'package:habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/s_isar.dart';
@@ -16,11 +17,7 @@ import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';
 
 class HabitBar extends ConsumerStatefulWidget {
-  HabitBar(
-      {Key? key,
-      required this.isarService,
-      required this.habit,
-      required this.updateFunction})
+  HabitBar({Key? key, required this.isarService, required this.habit, required this.updateFunction})
       : super(key: key);
 
   final IsarService isarService;
@@ -51,11 +48,10 @@ class _HabitBar extends ConsumerState<HabitBar> {
 
   void LoadHabits() {
     setState(() => {
-          f_habit_dates =
-              widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH
-                  ? widget.isarService.getHabitsDateCurrentMonth(
-                      DateFormat('y-M').format(DateTime.now()), widget.habit.id)
-                  : widget.isarService.getHabitsDateLastSeven(widget.habit.id)
+          f_habit_dates = widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH
+              ? widget.isarService.getHabitsDateCurrentMonth(
+                  DateFormat('y-M').format(DateTime.now()), widget.habit.id)
+              : widget.isarService.getHabitsDateLastSeven(widget.habit.id)
         });
   }
 
@@ -84,8 +80,7 @@ class _HabitBar extends ConsumerState<HabitBar> {
                     int maxValue = 0;
                     String uom = "";
 
-                    if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.EVERY_DAY) {
+                    if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
                       if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                         uom = "Today";
                         maxValue = widget.habit.getTarget()!;
@@ -93,20 +88,17 @@ class _HabitBar extends ConsumerState<HabitBar> {
                         uom = "Days";
                         maxValue = 7;
                       }
-                    } else if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.EVERY_X_DAYS) {
+                    } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_X_DAYS) {
                       uom = "Days";
                       maxValue = widget.habit.getFrequencyAmount();
-                    } else if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
+                    } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
                       uom = "This Week";
                       if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                         maxValue = widget.habit.getTarget()!;
                       } else {
                         maxValue = widget.habit.getFrequencyAmount();
                       }
-                    } else if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
+                    } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
                       uom = "This Month";
                       if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                         maxValue = widget.habit.getTarget()!;
@@ -115,24 +107,21 @@ class _HabitBar extends ConsumerState<HabitBar> {
                       }
                     }
 
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ProgressBar(
-                            habitName: widget.habit.getTitle(),
-                            fullUnits: maxValue,
-                            currentUnits: 0,
-                            uom: uom,
-                            color: widget.habit.getColor(),
-                          ),
-                        ]);
+                    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                      ProgressBar(
+                        habitName: widget.habit.getTitle(),
+                        fullUnits: maxValue,
+                        currentUnits: 0,
+                        uom: uom,
+                        color: widget.habit.getColor(),
+                      ),
+                    ]);
                   } else {
                     List<int> x = [];
                     List<dynamic> habitDates = [];
                     int maxValue = 1;
                     String uom = "";
-                    if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.EVERY_DAY) {
+                    if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
                       if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                         uom = "Today";
                         maxValue = widget.habit.getTarget()!;
@@ -145,18 +134,14 @@ class _HabitBar extends ConsumerState<HabitBar> {
                           habitDates.add(date.subtract(Duration(days: (i))));
                         }
                       }
-                    } else if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.EVERY_X_DAYS) {
+                    } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.EVERY_X_DAYS) {
                       uom = "Days";
                       maxValue = widget.habit.getFrequencyAmount();
-                      for (var i = 0;
-                          i < widget.habit.getFrequencyAmount();
-                          i++) {
+                      for (var i = 0; i < widget.habit.getFrequencyAmount(); i++) {
                         x.add(i);
                         habitDates.add(date.subtract(Duration(days: (i))));
                       }
-                    } else if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
+                    } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
                       uom = "This Week";
                       if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                         maxValue = widget.habit.getTarget()!;
@@ -167,8 +152,7 @@ class _HabitBar extends ConsumerState<HabitBar> {
                         x.add(i);
                         habitDates.add(date.subtract(Duration(days: (i))));
                       }
-                    } else if (widget.habit.getFrequency() ==
-                        E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
+                    } else if (widget.habit.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
                       uom = "This Month";
                       if (widget.habit.getType() == E_HABITS.MEASURABLE) {
                         maxValue = widget.habit.getTarget()!;
@@ -200,17 +184,15 @@ class _HabitBar extends ConsumerState<HabitBar> {
                       }
                     }
 
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ProgressBar(
-                            habitName: widget.habit.getTitle(),
-                            fullUnits: maxValue,
-                            currentUnits: completedVal,
-                            uom: uom,
-                            color: widget.habit.getColor(),
-                          ),
-                        ]);
+                    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                      ProgressBar(
+                        habitName: widget.habit.getTitle(),
+                        fullUnits: maxValue,
+                        currentUnits: completedVal,
+                        uom: uom,
+                        color: widget.habit.getColor(),
+                      ),
+                    ]);
                   }
                 }
 
@@ -228,8 +210,8 @@ class _HabitBar extends ConsumerState<HabitBar> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PageHabitStatisticsView(
-                      isarService: widget.isarService, habit: widget.habit)),
+                  builder: (context) =>
+                      PageHabitSpecificView(isarService: widget.isarService, habit: widget.habit)),
             ).then(widget.updateFunction);
           },
         ),
