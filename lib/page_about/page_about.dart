@@ -9,7 +9,7 @@ import 'package:habit_tracker/components/flat_textfield.dart';
 
 class Page_About extends StatefulWidget {
   const Page_About({
-      super.key,
+    super.key,
   });
 
   @override
@@ -17,12 +17,12 @@ class Page_About extends StatefulWidget {
 }
 
 class _Page_About extends State<Page_About> {
-
   void _openGithubSourceCode() async {
-    final Uri github_url = Uri(scheme: 'https', host: 'www.github.com', path: 'accountability-tracker/habit_tracker');
+    final Uri github_url =
+        Uri(scheme: 'https', host: 'www.github.com', path: 'accountability-tracker/habit_tracker');
     if (!await launchUrl(
-        github_url,
-        mode: LaunchMode.externalApplication,
+      github_url,
+      mode: LaunchMode.externalApplication,
     )) {
       throw 'Could not launch $github_url';
     }
@@ -30,7 +30,6 @@ class _Page_About extends State<Page_About> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -44,52 +43,39 @@ class _Page_About extends State<Page_About> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
             const Text(
               "Habit Tracker",
-              style: TextStyle(
-                color: Colors.blue
-              ),
+              style: TextStyle(color: Colors.blue),
             ),
-
             const Text(
-              "version 1.0.0",
+              "version 0.0.1",
             ),
-
-            const SizedBox(height: 16.0,),
-
+            const SizedBox(
+              height: 16.0,
+            ),
             const Text(
               "Links",
-              style: TextStyle(
-                color: Colors.blue
-              ),
+              style: TextStyle(color: Colors.blue),
             ),
-
             TextButton(
               child: const Text("Source code on Github"),
               onPressed: () => _openGithubSourceCode(),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                alignment: Alignment.centerLeft
-              ),
+              style:
+                  TextButton.styleFrom(padding: EdgeInsets.zero, alignment: Alignment.centerLeft),
             ),
-
-            const SizedBox(height: 16.0,),
-
+            const SizedBox(
+              height: 16.0,
+            ),
             const Text(
               "Developers",
-              style: TextStyle(
-                color: Colors.blue
-              ),
+              style: TextStyle(color: Colors.blue),
             ),
-
             const Text(
               "@clearfeld",
             ),
             const Text(
               "@AaronPatterson1",
             ),
-
           ],
         ),
       ),
