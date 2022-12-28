@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/theme.dart';
 
 class FlatTextField extends StatefulWidget {
-  const FlatTextField({
-      super.key,
-      required this.textController,
-      this.hintText
-  });
+  const FlatTextField({super.key, required this.textController, this.hintText});
 
   final TextEditingController textController;
   final String? hintText;
@@ -17,16 +14,15 @@ class FlatTextField extends StatefulWidget {
 class _FlatTextField extends State<FlatTextField> {
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
 
     return TextField(
       controller: widget.textController,
-      style: const TextStyle(color: Colors.white),
+      style: TextStyle(color: customColors.text_color),
       decoration: InputDecoration(
         filled: true,
-        fillColor: const Color.fromRGBO(41, 41, 41, 1.0),
-
+        fillColor: customColors.background, // const Color.fromRGBO(41, 41, 41, 1.0),
         border: InputBorder.none,
-
         hintText: widget.hintText,
         hintStyle: const TextStyle(fontSize: 16.0, color: Colors.grey),
       ),
