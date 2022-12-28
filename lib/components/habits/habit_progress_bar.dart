@@ -11,7 +11,7 @@ import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
-import 'package:habit_tracker/page_habit_statistics_view/page_habit_statistics_view.dart';
+import 'package:habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
 import 'package:habit_tracker/components/progress_bar.dart';
 import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';

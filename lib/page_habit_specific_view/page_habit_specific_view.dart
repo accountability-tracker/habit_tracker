@@ -16,8 +16,8 @@ import 'package:habit_tracker/page_habit_specific_view/habit_variables_overview_
 import 'package:habit_tracker/page_habit_specific_view/history_chart.dart';
 import 'package:habit_tracker/data_notifier.dart';
 
-import 'package:habit_tracker/page_habit_statistics_view/habit_calendar.dart';
-import 'package:habit_tracker/page_habit_statistics_view/pie_graph.dart';
+import 'package:habit_tracker/page_habit_specific_view/habit_calendar.dart';
+import 'package:habit_tracker/page_habit_specific_view/pie_graph.dart';
 
 class PageHabitSpecificView extends ConsumerStatefulWidget {
   const PageHabitSpecificView({super.key, required this.isarService, required this.habit});
