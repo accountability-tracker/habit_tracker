@@ -12,6 +12,7 @@ import 'package:habit_tracker/components/flat_textfield.dart';
 import 'package:habit_tracker/components/flat_dropdown.dart';
 
 import 'package:habit_tracker/data_notifier.dart';
+import 'package:habit_tracker/theme.dart';
 
 // TODO(clearfeld): move this into its own file and make it an enum instead
 const List<String> frequencyList = <String>[
@@ -22,22 +23,16 @@ const List<String> frequencyList = <String>[
 ];
 
 // TODO(clearfeld): expend this into its own class
-const List<String> reminderList = <String>[
-  'Off',
-  'On'
-];
+const List<String> reminderList = <String>['Off', 'On'];
 
 // TODO(clearfeld): change this to an enum later
-const List<String> targetTypeList = <String>[
-  'At least',
-  'At most'
-];
+const List<String> targetTypeList = <String>['At least', 'At most'];
 
 class PageCreateNewHabitMeasurable extends ConsumerStatefulWidget {
   const PageCreateNewHabitMeasurable({
-      super.key,
-      required this.isarService,
-      this.fHabit,
+    super.key,
+    required this.isarService,
+    this.fHabit,
   });
 
   final IsarService isarService;
@@ -71,11 +66,11 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
     super.initState();
     ref.read(habitsManagerProvider);
 
-    if(widget.fHabit != null) {
-      nameTextController.text = widget.fHabit?.getTitle() ?? "" ;
-      questionTextController.text = widget.fHabit?.getQuestion() ?? "" ;
-      unitTextController.text = widget.fHabit?.getUnit() ?? "" ;
-      targetTextController.text = widget.fHabit?.getTarget().toString() ?? "" ;
+    if (widget.fHabit != null) {
+      nameTextController.text = widget.fHabit?.getTitle() ?? "";
+      questionTextController.text = widget.fHabit?.getQuestion() ?? "";
+      unitTextController.text = widget.fHabit?.getUnit() ?? "";
+      targetTextController.text = widget.fHabit?.getTarget().toString() ?? "";
 
       if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
         frequencyValue = 'Every Day';
@@ -88,7 +83,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       // // String frequencyValue = frequencyList.first;
 
       // // String reminderValue = reminderList.first;
-      notesTextController.text = widget.fHabit?.getNotes() ?? "" ;
+      notesTextController.text = widget.fHabit?.getNotes() ?? "";
 
       pickerColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
       currentColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
@@ -107,7 +102,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
 
   void addHabit() {
     var freq = E_HABIT_FREQUENCY.EVERY_DAY;
-    if (frequencyValue =='Every Day') {
+    if (frequencyValue == 'Every Day') {
       freq = E_HABIT_FREQUENCY.EVERY_DAY;
     } else if (frequencyValue == 'Every Week') {
       freq = E_HABIT_FREQUENCY.X_TIMES_PER_WEEK;
@@ -115,22 +110,22 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       freq = E_HABIT_FREQUENCY.X_TIMES_PER_MONTH;
     }
 
-    if(widget.fHabit != null) {
+    if (widget.fHabit != null) {
       var h = widget.fHabit;
+      var c = currentColor.toString();
       h?.title = nameTextController.text;
       h?.question = questionTextController.text;
       h?.unit = unitTextController.text;
       h?.target = int.parse(targetTextController.text);
       h?.notes = notesTextController.text;
-      h?.color = currentColor.toString();
+      h?.color = c.substring(6, c.length - 1);
       h?.frequency = freq;
 
       widget.isarService.updateHabit(h);
     } else {
       var c = currentColor.toString();
 
-      widget.isarService.saveHabit(
-        Habit.FullMeasurable(
+      widget.isarService.saveHabit(Habit.FullMeasurable(
           E_HABITS.MEASURABLE,
           nameTextController.text,
           c.substring(6, c.length - 1),
@@ -140,9 +135,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
           1,
           "",
           questionTextController.text,
-          notesTextController.text
-        )
-      );
+          notesTextController.text));
     }
     // TODO: add measurable habit save
     // widget.isar_service.saveHabit(
@@ -181,6 +174,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
 
     return Scaffold(
       appBar: AppBar(
@@ -190,13 +184,11 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
         child: Center(
           child: Container(
             margin: const EdgeInsets.all(16.0),
-
-            constraints: const BoxConstraints (
+            constraints: const BoxConstraints(
               minWidth: 320,
               maxWidth: 896, // 16 * 56
             ),
             width: MediaQuery.of(context).size.width * 0.7,
-
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -212,78 +204,73 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           const Text("Name"),
-
-                          const SizedBox(height: 8.0,),
-
-                          FlatTextField(
-                            textController: nameTextController,
-                            hintText: 'e.g. Run'
+                          const SizedBox(
+                            height: 8.0,
                           ),
+                          FlatTextField(textController: nameTextController, hintText: 'e.g. Run'),
                         ],
                       ),
                     ),
-
-                    const SizedBox(width: 16.0,),
-
+                    const SizedBox(
+                      width: 16.0,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         const Text("Color"),
 
-                        const SizedBox(height: 8.0,),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
 
-                        GestureDetector (
+                        GestureDetector(
                           onTap: () {
                             showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text('Pick a color!'),
-                                  content: SingleChildScrollView(
-                                    child: ColorPicker(
-                                      pickerColor: pickerColor,
-                                      onColorChanged: changeColor,
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Pick a color!'),
+                                    content: SingleChildScrollView(
+                                      child: ColorPicker(
+                                        pickerColor: pickerColor,
+                                        onColorChanged: changeColor,
+                                      ),
+                                      // Use Material color picker:
+                                      //
+                                      // child: MaterialPicker(
+                                      //   pickerColor: pickerColor,
+                                      //   onColorChanged: changeColor,
+                                      //   showLabel: true, // only on portrait mode
+                                      // ),
+                                      //
+                                      // Use Block color picker:
+                                      //
+                                      // child: BlockPicker(
+                                      //   pickerColor: currentColor,
+                                      //   onColorChanged: changeColor,
+                                      // ),
+                                      //
+                                      // child: MultipleChoiceBlockPicker(
+                                      //   pickerColors: currentColors,
+                                      //   onColorsChanged: changeColors,
+                                      // ),
                                     ),
-                                    // Use Material color picker:
-                                    //
-                                    // child: MaterialPicker(
-                                    //   pickerColor: pickerColor,
-                                    //   onColorChanged: changeColor,
-                                    //   showLabel: true, // only on portrait mode
-                                    // ),
-                                    //
-                                    // Use Block color picker:
-                                    //
-                                    // child: BlockPicker(
-                                    //   pickerColor: currentColor,
-                                    //   onColorChanged: changeColor,
-                                    // ),
-                                    //
-                                    // child: MultipleChoiceBlockPicker(
-                                    //   pickerColors: currentColors,
-                                    //   onColorsChanged: changeColors,
-                                    // ),
-                                  ),
-                                  actions: <Widget>[
-                                    ElevatedButton(
-                                      child: const Text('Got it'),
-                                      onPressed: () {
-                                        setState(() => currentColor = pickerColor);
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
-                            );
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        child: const Text('Got it'),
+                                        onPressed: () {
+                                          setState(() => currentColor = pickerColor);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
                           },
-
-                          child:
-                          Container(
-                            color: const Color.fromRGBO(41, 41, 41, 1.0),
+                          child: Container(
+                            color: customColors.background,
                             width: 48.0,
                             height: 48.0,
-
                             child: Container(
                               margin: const EdgeInsets.all(10.0),
                               color: currentColor,
@@ -305,15 +292,17 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   ],
                 ),
 
-                const SizedBox(height: 32.0,),
+                const SizedBox(
+                  height: 32.0,
+                ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const Text("Question"),
-
-                    const SizedBox(height: 8.0,),
-
+                    const SizedBox(
+                      height: 8.0,
+                    ),
                     FlatTextField(
                       textController: questionTextController,
                       hintText: "e.g. How many miles did you run today?",
@@ -321,15 +310,17 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   ],
                 ),
 
-                const SizedBox(height: 32.0,),
+                const SizedBox(
+                  height: 32.0,
+                ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const Text("Unit"),
-
-                    const SizedBox(height: 8.0,),
-
+                    const SizedBox(
+                      height: 8.0,
+                    ),
                     FlatTextField(
                       textController: unitTextController,
                       hintText: "e.g. miles",
@@ -337,7 +328,9 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   ],
                 ),
 
-                const SizedBox(height: 32.0,),
+                const SizedBox(
+                  height: 32.0,
+                ),
 
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -347,9 +340,9 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           const Text("Target"),
-
-                          const SizedBox(height: 8.0,),
-
+                          const SizedBox(
+                            height: 8.0,
+                          ),
                           FlatTextField(
                             textController: targetTextController,
                             hintText: "e.g. 15",
@@ -357,22 +350,22 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                         ],
                       ),
                     ),
-
-                    const SizedBox(width: 16.0,),
-
+                    const SizedBox(
+                      width: 16.0,
+                    ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           const Text("Frequency"),
-
-                          const SizedBox(height: 8.0,),
-
+                          const SizedBox(
+                            height: 8.0,
+                          ),
                           FlatDropdown(
                             value: frequencyValue,
                             onValueChanged: (String? valueArg) {
                               setState(() {
-                                  frequencyValue = valueArg!;
+                                frequencyValue = valueArg!;
                               });
                             },
                             items: frequencyList,
@@ -383,7 +376,9 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   ],
                 ),
 
-                const SizedBox(height: 32.0,),
+                const SizedBox(
+                  height: 32.0,
+                ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -393,64 +388,61 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                         Text("Target Type"),
                       ],
                     ),
-
-                    const SizedBox(height: 8.0,),
-
+                    const SizedBox(
+                      height: 8.0,
+                    ),
                     FlatDropdown(
                       value: targetTypeValue,
                       onValueChanged: (String? valueArg) {
                         setState(() {
-                            targetTypeValue = valueArg!;
+                          targetTypeValue = valueArg!;
                         });
                       },
                       items: targetTypeList,
                     ),
-
                   ],
                 ),
 
-                const SizedBox(height: 32.0,),
+                const SizedBox(
+                  height: 32.0,
+                ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-
                     Row(
-                      children: <Widget> [
+                      children: <Widget>[
                         const Text("Reminder"),
-
                         TextButton(
-                          child: const Text("Test time picker"),
-                          onPressed: () async {
-                            TimeOfDay? selectedTime = await showTimePicker(
-                              initialTime: TimeOfDay.now(),
-                              context: context,
+                            child: const Text("Test time picker"),
+                            onPressed: () async {
+                              TimeOfDay? selectedTime = await showTimePicker(
+                                initialTime: TimeOfDay.now(),
+                                context: context,
 
-                              // 24 Hour format - setting
-                              // builder: (BuildContext context, Widget? child) {
-                              //   return MediaQuery(
-                              //     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                              //     child: child!,
-                              //   );
-                              // },
+                                // 24 Hour format - setting
+                                // builder: (BuildContext context, Widget? child) {
+                                //   return MediaQuery(
+                                //     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                                //     child: child!,
+                                //   );
+                                // },
+                              );
 
-                            );
+                              if (selectedTime == null) return;
 
-                            if(selectedTime == null) return;
-
-                            // print("Select time - " + selectedTime.toString());
-                          }
-                        ),
+                              // print("Select time - " + selectedTime.toString());
+                            }),
                       ],
                     ),
-
-                    const SizedBox(height: 8.0,),
-
+                    const SizedBox(
+                      height: 8.0,
+                    ),
                     FlatDropdown(
                       value: reminderValue,
                       onValueChanged: (String? valueArg) {
                         setState(() {
-                            reminderValue = valueArg!;
+                          reminderValue = valueArg!;
                         });
                       },
                       items: reminderList,
@@ -458,15 +450,17 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   ],
                 ),
 
-                const SizedBox(height: 32.0,),
+                const SizedBox(
+                  height: 32.0,
+                ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const Text("Notes"),
-
-                    const SizedBox(height: 8.0,),
-
+                    const SizedBox(
+                      height: 8.0,
+                    ),
                     FlatTextField(
                       textController: notesTextController,
                       hintText: "(Optional)",
@@ -474,14 +468,15 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   ],
                 ),
 
-                const SizedBox(height: 48.0,),
+                const SizedBox(
+                  height: 48.0,
+                ),
 
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Expanded(
-                      child:
-                      ElevatedButton(
+                      child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
                           foregroundColor: Colors.white,
@@ -492,31 +487,29 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
 
                           if (nameTextController.text == '') {
                             errorText = 'Please enter a valid title.';
-                          }
-                          else if (targetTextController.text == '' || int.tryParse(targetTextController.text) == null) {
+                          } else if (targetTextController.text == '' ||
+                              int.tryParse(targetTextController.text) == null) {
                             errorText = 'Please enter a valid number for target amount.';
                           }
 
                           if (errorText != '') {
                             var res = showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text(errorText),
-                                  actions: <Widget>[
-                                    ElevatedButton(
-                                      child: const Text('Okay'),
-                                      onPressed: () {
-                                        // setState(() => currentValue = initialValue);
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
-                            );
-                          }
-                          else {
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text(errorText),
+                                    actions: <Widget>[
+                                      ElevatedButton(
+                                        child: const Text('Okay'),
+                                        onPressed: () {
+                                          // setState(() => currentValue = initialValue);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
+                          } else {
                             addHabit();
                             ref.read(dataUpdate.notifier).setUpdate();
                             leavePage(context);
@@ -525,12 +518,11 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                         child: const Text('Save'),
                       ),
                     ),
-
-                    const SizedBox(width: 16.0,),
-
+                    const SizedBox(
+                      width: 16.0,
+                    ),
                     Expanded(
-                      child:
-                      ElevatedButton(
+                      child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey,
                           foregroundColor: Colors.white,
@@ -544,7 +536,6 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                     ),
                   ],
                 ),
-
               ],
             ),
           ),
