@@ -112,12 +112,13 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
 
     if (widget.fHabit != null) {
       var h = widget.fHabit;
+      var c = currentColor.toString();
       h?.title = nameTextController.text;
       h?.question = questionTextController.text;
       h?.unit = unitTextController.text;
       h?.target = int.parse(targetTextController.text);
       h?.notes = notesTextController.text;
-      h?.color = currentColor.toString();
+      h?.color = c.substring(6, c.length - 1);
       h?.frequency = freq;
 
       widget.isarService.updateHabit(h);
