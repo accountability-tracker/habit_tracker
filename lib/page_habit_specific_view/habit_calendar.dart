@@ -50,7 +50,10 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
   void initState() {
     super.initState();
     // ref.read(habitsManagerProvider);
+    loadHabitDates();
+  }
 
+  void loadHabitDates() {
     setState(() => {
           fhabitDates =
               widget.isarService.getHabitsDateCurrentMonth(_currentMonthNum, widget.habit.id)
@@ -225,6 +228,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                     _currentMonth = DateFormat.yMMM().format(_targetDateTime);
                     _currentMonthNum = DateFormat('y-M').format(_targetDateTime);
                   });
+                  loadHabitDates();
                 },
               ),
               TextButton(
@@ -235,6 +239,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                     _currentMonth = DateFormat.yMMM().format(_targetDateTime);
                     _currentMonthNum = DateFormat('y-M').format(_targetDateTime);
                   });
+                  loadHabitDates();
                 },
               )
             ],
