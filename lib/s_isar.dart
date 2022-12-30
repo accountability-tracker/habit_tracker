@@ -103,7 +103,7 @@ class IsarService {
 
   Future<List<HabitDate>> getHabitsDateLastSelectedPeriod(int habitIdArg, String dateString) async {
     final isar = await db;
-    return await isar.habitDates.filter().dateGreaterThan(dateString).findAll();
+    return await isar.habitDates.filter().habit_idEqualTo(habitIdArg).dateGreaterThan(dateString).findAll();
   }
 
 }
