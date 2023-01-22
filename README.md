@@ -4,7 +4,7 @@ A cross platform habit tracker.
 
 | Android            | iOS | Windows             | MacOS | Linux | Web |
 |--------------------|-----|---------------------|-------|-------|-----|
-| :heavy_check_mark: | -   | :heavy_check_mark:* | -     | -     | -   |
+| :heavy_check_mark: | -   | :heavy_check_mark:* | -     | :heavy_check_mark:* | -   |
 
 ## Screenshots
 
