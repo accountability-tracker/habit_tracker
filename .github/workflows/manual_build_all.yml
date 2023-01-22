@@ -52,8 +52,8 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                 files: |
-                    build/ios/ipa/*.ipa
-                    build/ios/archive/*.xcarchive
+                    /Users/runner/work/habit_tracker/habit_tracker/build/ios/archive/*.xcarchive
+                    /Users/runner/work/habit_tracker/habit_tracker/build/ios/ipa/*.ipa
 
     build_windows:
         runs-on: windows-latest
