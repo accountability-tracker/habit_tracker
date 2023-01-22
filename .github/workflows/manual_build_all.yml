@@ -17,8 +17,16 @@ jobs:
             - run: flutter pub get
             - run: flutter pub run build_runner build --delete-conflicting-outputs
             # - run: flutter test
-            - run: flutter build apk
-            - run: flutter build appbundle
+            - run: flutter build apk --release
+            - run: flutter build appbundle --release
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              with:
+                files: |
+                    build/app/outputs/flutter-apk/app-release.apk
+                    build/app/outputs/bundle/release/app-release.aab
+
     build_ios:
         runs-on: macos-latest
         steps:
@@ -31,6 +39,12 @@ jobs:
             - run: flutter pub run build_runner build --delete-conflicting-outputs
             # - run: flutter test
             - run: flutter build ios --release --no-codesign
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              with:
+                files: /Users/runner/work/habit_tracker/habit_tracker/build/ios/iphoneos/Runner.app.
+
     build_windows:
         runs-on: windows-latest
         steps:
@@ -41,7 +55,21 @@ jobs:
             - run: flutter pub get
             - run: flutter config --enable-windows-desktop
             - run: flutter pub run build_runner build --delete-conflicting-outputs
-            - run: flutter build windows
+            - run: flutter build windows --release
+            - name: Archive Release
+              uses: thedoctor0/zip-release@master
+              with:
+                type: 'zip'
+                filename: HabitTracker-${{github.ref_name}}-windows.zip
+                directory: build/windows/runner/Release
+            - name: Windows Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                files: build/windows/runner/Release/HabitTracker-${{github.ref_name}}-windows.zip
+    
     build_linux:
         runs-on: ubuntu-latest
         steps:
@@ -55,7 +83,21 @@ jobs:
             - run: flutter pub get
             - run: flutter config --enable-linux-desktop
             - run: flutter pub run build_runner build --delete-conflicting-outputs
-            - run: flutter build linux
+            - run: flutter build linux --release
+            - name: Archive Release
+              uses: thedoctor0/zip-release@master
+              with:
+                type: 'zip'
+                filename: HabitTracker-${{github.ref_name}}-linux.zip
+                directory: build/linux/x64/release/bundle
+            - name: Linux Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                files: build/linux/x64/release/bundle/HabitTracker-${{github.ref_name}}-linux.zip
+    
     build_macosx:
         runs-on: macos-latest
         steps:
@@ -67,4 +109,17 @@ jobs:
             - run: flutter pub get
             - run: flutter config --enable-macos-desktop
             - run: flutter pub run build_runner build --delete-conflicting-outputs
-            - run: flutter build macos
+            - run: flutter build macos --release
+            - name: Archive Release
+              uses: thedoctor0/zip-release@master
+              with:
+                type: 'zip'
+                filename: HabitTracker-${{github.ref_name}}-macos.zip
+                directory: build/macos/Build/Products/Release
+            - name: macOS Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                files: build/macos/Build/Products/Release/HabitTracker-${{github.ref_name}}-macos.zip
