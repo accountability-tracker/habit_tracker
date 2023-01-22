@@ -44,14 +44,14 @@ jobs:
             - run: flutter pub get
             - run: flutter pub run build_runner build --delete-conflicting-outputs
             # - run: flutter test
-            - run: flutter build ios --release --no-codesign
+            - run: flutter build ipa --release
             - name: Release
               uses: softprops/action-gh-release@v1
               if: startsWith(github.ref, 'refs/tags/')
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                files: /Users/runner/work/habit_tracker/habit_tracker/build/ios/iphoneos/Runner.app.
+                files: build/ios/ipa/*.ipa
 
     build_windows:
         runs-on: windows-latest
