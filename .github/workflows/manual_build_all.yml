@@ -1,0 +1,77 @@
+name: Flutter builds
+
+on: workflow_dispatch
+
+jobs:
+  build_android: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v2
+    with:
+      distribution: 'zulu'
+      java-version: '11'
+    - uses: subosito/flutter-action@v2
+    with:
+      flutter-version: '3.0.5'
+    - run: flutter pub get
+    - run: flutter pub run build_runner build --delete-conflicting-outputs
+    # - run: flutter test
+    - run: flutter build apk
+    - run: flutter build appbundle
+  build_ios:
+    runs-on: macos-latest
+      steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+        architecture: x64
+      - run: flutter pub get
+      - run: flutter pub run build_runner build --delete-conflicting-outputs
+      # - run: flutter test
+      - run: flutter build ios --release --no-codesign
+ build_windows:
+   runs-on: windows-latest
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+       with:
+         channel: 'beta'
+     - run: flutter config --enable-windows-desktop
+     - run: flutter pub run build_runner build --delete-conflicting-outputs
+     - run: flutter build windows
+ build_linux:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+       with:
+         channel: 'stable'
+     - run: |
+        sudo apt-get update -y
+        sudo apt-get install -y ninja-build libgtk-3-dev
+     - run: flutter config --enable-linux-desktop
+     - run: flutter pub run build_runner build --delete-conflicting-outputs
+     - run: flutter build linux
+  build_macosx:
+   runs-on: macos-latest
+   steps:
+     - uses: actions/checkout@v3
+     - uses: subosito/flutter-action@v2
+       with:
+         channel: 'stable'
+         architecture: x64
+     - run: flutter config --enable-macos-desktop
+     - run: flutter pub run build_runner build --delete-conflicting-outputs
+     - run: flutter build macos
+#  build_web:
+#    steps:
+#    - uses: actions/checkout@v3
+#    - uses: subosito/flutter-action@v2
+#    with:
+#      channel: 'stable'
+#    - run: flutter pub get
+#    - run: flutter pub run build_runner build --delete-conflicting-outputs
+#    # - run: flutter test
+#    - run: flutter build web
