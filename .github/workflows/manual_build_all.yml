@@ -1,6 +1,10 @@
 name: Flutter builds
 
-on: workflow_dispatch
+# on: workflow_dispatch
+on:
+    push:
+        tags:
+        - '*'
 
 jobs:
     build_android:
@@ -21,6 +25,7 @@ jobs:
             - run: flutter build appbundle --release
             - name: Release
               uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -42,6 +47,7 @@ jobs:
             - run: flutter build ios --release --no-codesign
             - name: Release
               uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -66,6 +72,7 @@ jobs:
                 directory: build/windows/runner/Release
             - name: Windows Release
               uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -93,6 +100,7 @@ jobs:
                 directory: build/linux/x64/release/bundle
             - name: Linux Release
               uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -118,6 +126,7 @@ jobs:
                 directory: build/macos/Build/Products/Release
             - name: macOS Release
               uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
