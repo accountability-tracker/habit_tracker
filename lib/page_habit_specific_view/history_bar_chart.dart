@@ -11,7 +11,7 @@ class HistoryBarChart extends StatefulWidget {
   final dynamic habitDates;
 
   @override
-  _HistoryBarChart createState() => _HistoryBarChart();
+  State<HistoryBarChart> createState() => _HistoryBarChart();
 }
 
 class _HistoryBarChart extends State<HistoryBarChart> {
@@ -21,7 +21,7 @@ class _HistoryBarChart extends State<HistoryBarChart> {
 
     // print(widget.habit_dates);
 
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 260.0,
       child: BarChart(
@@ -56,7 +56,7 @@ class _HistoryBarChart extends State<HistoryBarChart> {
                 showTitles: true,
                 getTitlesWidget: (double value, TitleMeta meta) {
                   var style = TextStyle(
-                    color: customColors.text_color,
+                    color: customColors.textColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   );
@@ -64,10 +64,10 @@ class _HistoryBarChart extends State<HistoryBarChart> {
 
                   // print(meta.sideTitles.toString());
 
-                  var x = widget.habitDates[value.toInt()]["date"].split("-");
+                  // var x = widget.habitDates[value.toInt()]["date"].split("-");
                   String range = widget.habitDates[value.toInt()]["date"];
 
-                  text = Container(
+                  text = SizedBox(
                     height: 32.0,
                     child: Row(
                       children: <Widget>[Text(range, style: style)],

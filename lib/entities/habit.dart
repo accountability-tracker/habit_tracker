@@ -4,11 +4,11 @@ import 'package:habit_tracker/habit_enums.dart';
 
 part "habit.g.dart";
 
-enum E_HABIT_FREQUENCY {
-  EVERY_DAY,
-  EVERY_X_DAYS,
-  X_TIMES_PER_WEEK,
-  X_TIMES_PER_MONTH,
+enum EHABITFREQUENCY {
+  everyDay,
+  everyXDays,
+  xTimesPerWeek,
+  xTimesPerMonth,
   // CUSTOM
 }
 
@@ -17,15 +17,15 @@ class Habit {
   Id id = Isar.autoIncrement;
 
   @enumerated
-  late E_HABITS type;
+  late EHABITS type;
 
   late String title;
 
   late String color;
 
   @enumerated
-  late E_HABIT_FREQUENCY frequency;
-  late int frequency_amount;
+  late EHABITFREQUENCY frequency;
+  late int frequencyAmount;
   // late int frequency_out_of_days;
 
   late String? unit;
@@ -40,11 +40,11 @@ class Habit {
 
   Habit();
 
-  Habit.Full(
-    E_HABITS typeArg,
+  Habit.full(
+    EHABITS typeArg,
     String titleArg,
     String colorArg,
-    E_HABIT_FREQUENCY frequencyArg,
+    EHABITFREQUENCY frequencyArg,
     int frequencyAmountArg,
     String? reminderArg,
     String? questionArg,
@@ -56,39 +56,38 @@ class Habit {
     unit = null;
     target = null;
     frequency = frequencyArg;
-    frequency_amount = frequencyAmountArg;
+    frequencyAmount = frequencyAmountArg;
     reminder = reminderArg;
     question = questionArg;
     notes = notesArg;
     archived = null;
   }
 
-  Habit.FullMeasurable(
-    E_HABITS typeArg,
-    String titleArg,
-    String colorArg,
-    String unitArg,
-    int targetArg,
-    E_HABIT_FREQUENCY frequencyArg,
-    int frequencyAmountArg,
-    String? reminderArg,
-    String? questionArg,
-    String? notesArg
-  ) {
+  Habit.fullMeasurable(
+      EHABITS typeArg,
+      String titleArg,
+      String colorArg,
+      String unitArg,
+      int targetArg,
+      EHABITFREQUENCY frequencyArg,
+      int frequencyAmountArg,
+      String? reminderArg,
+      String? questionArg,
+      String? notesArg) {
     type = typeArg;
     title = titleArg;
     color = colorArg;
     unit = unitArg;
     target = targetArg;
     frequency = frequencyArg;
-    frequency_amount = frequencyAmountArg;
+    frequencyAmount = frequencyAmountArg;
     reminder = reminderArg;
     question = questionArg;
     notes = notesArg;
     archived = null;
   }
 
-  E_HABITS getType() {
+  EHABITS getType() {
     return type;
   }
 
@@ -104,12 +103,12 @@ class Habit {
     return int.parse(color);
   }
 
-  E_HABIT_FREQUENCY getFrequency() {
+  EHABITFREQUENCY getFrequency() {
     return frequency;
   }
 
   int getFrequencyAmount() {
-    return frequency_amount;
+    return frequencyAmount;
   }
 
   String? getReminder() {
@@ -132,7 +131,7 @@ class Habit {
     return notes;
   }
 
-  bool IsArchived() {
+  bool isArchived() {
     return !(archived == null || archived == false);
   }
 }

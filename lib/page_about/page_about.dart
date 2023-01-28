@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/link.dart';
+// import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:habit_tracker/habits.dart';
+// import 'package:habit_tracker/habits.dart';
 
-import 'package:habit_tracker/components/flat_textfield.dart';
+// import 'package:habit_tracker/components/flat_textfield.dart';
 // import '../components/FlatDropdown.dart';
 
-class Page_About extends StatefulWidget {
-  const Page_About({
+class PageAbout extends StatefulWidget {
+  const PageAbout({
     super.key,
   });
 
   @override
-  _Page_About createState() => _Page_About();
+  State<PageAbout> createState() => _PageAbout();
 }
 
-class _Page_About extends State<Page_About> {
+class _PageAbout extends State<PageAbout> {
   void _openGithubSourceCode() async {
-    final Uri github_url =
+    final Uri githubUrl =
         Uri(scheme: 'https', host: 'www.github.com', path: 'accountability-tracker/habit_tracker');
     if (!await launchUrl(
-      github_url,
+      githubUrl,
       mode: LaunchMode.externalApplication,
     )) {
-      throw 'Could not launch $github_url';
+      throw 'Could not launch $githubUrl';
     }
   }
 
@@ -58,10 +58,10 @@ class _Page_About extends State<Page_About> {
               style: TextStyle(color: Colors.blue),
             ),
             TextButton(
-              child: const Text("Source code on Github"),
               onPressed: () => _openGithubSourceCode(),
               style:
                   TextButton.styleFrom(padding: EdgeInsets.zero, alignment: Alignment.centerLeft),
+              child: const Text("Source code on Github"),
             ),
             const SizedBox(
               height: 16.0,

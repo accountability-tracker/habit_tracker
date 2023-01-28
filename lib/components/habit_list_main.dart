@@ -14,7 +14,7 @@ import 'package:habit_tracker/components/habits/habit_line.dart';
 import 'package:habit_tracker/components/habits/habit_progress_bar.dart';
 import 'package:habit_tracker/components/five_day_line.dart';
 
-import 'package:habit_tracker/components/progress_bar.dart';
+// import 'package:habit_tracker/components/progress_bar.dart';
 
 class HabitListMain extends ConsumerStatefulWidget {
   const HabitListMain(
@@ -28,32 +28,32 @@ class HabitListMain extends ConsumerStatefulWidget {
   final Function(dynamic) updateFunction;
 
   @override
-  _HabitListMain createState() => _HabitListMain();
+  ConsumerState<HabitListMain> createState() => _HabitListMain();
 }
 
 class _HabitListMain extends ConsumerState<HabitListMain> {
-  late Future<List<Habit>>? fhabits = null;
+  late Future<List<Habit>>? fhabits;
 
   @override
   void initState() {
     super.initState();
     ref.read(habitsManagerProvider);
 
-    LoadHabits();
+    loadHabits();
   }
 
   @override
   void didUpdateWidget(HabitListMain oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (ref.watch(dataUpdate)) {
-      LoadHabits();
+      loadHabits();
       Future(() {
         ref.read(dataUpdate.notifier).setUpdate();
       });
     }
   }
 
-  void LoadHabits() {
+  void loadHabits() {
     setState(() => {fhabits = widget.isarService.getAllHabits()});
   }
 
@@ -74,7 +74,7 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
         Container(
           child: widget.habitView == 'input'
               ? const FiveDayLine()
-              : SizedBox(
+              : const SizedBox(
                   height: 53.0,
                 ),
         ),
@@ -94,12 +94,12 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                     if (snapshot.hasData) {
                       if (widget.habitView == 'input') {
                         final habits = snapshot.data!.map((habit) {
-                          if (habit.IsArchived()) {
+                          if (habit.isArchived()) {
                             return const SizedBox();
                           }
 
                           return Container(
-                            color: customColors.background_compliment,
+                            color: customColors.backgroundCompliment,
                             // const Color.fromRGBO(31, 31, 31, 1.0),
                             width: MediaQuery.of(context).size.width,
                             margin: const EdgeInsets.all(2.0),
@@ -114,12 +114,12 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                         return Column(children: habits);
                       } else {
                         final habits = snapshot.data!.map((habit) {
-                          if (habit.IsArchived()) {
+                          if (habit.isArchived()) {
                             return const SizedBox();
                           }
 
                           return Container(
-                            color: customColors.background_compliment,
+                            color: customColors.backgroundCompliment,
                             width: MediaQuery.of(context).size.width,
                             margin: const EdgeInsets.only(top: 2.0, bottom: 2.0),
                             padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),

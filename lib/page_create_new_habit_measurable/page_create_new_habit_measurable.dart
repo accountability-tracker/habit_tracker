@@ -39,7 +39,7 @@ class PageCreateNewHabitMeasurable extends ConsumerStatefulWidget {
   final Habit? fHabit;
 
   @override
-  _PageCreateNewHabitMeasurable createState() => _PageCreateNewHabitMeasurable();
+  ConsumerState<PageCreateNewHabitMeasurable> createState() => _PageCreateNewHabitMeasurable();
   // State<Page_CreateNewHabitMeasurable> createState() => _Page_CreateNewHabitMeasurable();
 }
 
@@ -72,11 +72,11 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       unitTextController.text = widget.fHabit?.getUnit() ?? "";
       targetTextController.text = widget.fHabit?.getTarget().toString() ?? "";
 
-      if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
+      if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.everyDay) {
         frequencyValue = 'Every Day';
-      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
+      } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.xTimesPerWeek) {
         frequencyValue = 'Every Week';
-      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
+      } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.xTimesPerMonth) {
         frequencyValue = 'Every Month';
       }
 
@@ -101,13 +101,13 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
   }
 
   void addHabit() {
-    var freq = E_HABIT_FREQUENCY.EVERY_DAY;
+    var freq = EHABITFREQUENCY.everyDay;
     if (frequencyValue == 'Every Day') {
-      freq = E_HABIT_FREQUENCY.EVERY_DAY;
+      freq = EHABITFREQUENCY.everyDay;
     } else if (frequencyValue == 'Every Week') {
-      freq = E_HABIT_FREQUENCY.X_TIMES_PER_WEEK;
+      freq = EHABITFREQUENCY.xTimesPerWeek;
     } else if (frequencyValue == 'Every Month') {
-      freq = E_HABIT_FREQUENCY.X_TIMES_PER_MONTH;
+      freq = EHABITFREQUENCY.xTimesPerMonth;
     }
 
     if (widget.fHabit != null) {
@@ -125,8 +125,8 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
     } else {
       var c = currentColor.toString();
 
-      widget.isarService.saveHabit(Habit.FullMeasurable(
-          E_HABITS.MEASURABLE,
+      widget.isarService.saveHabit(Habit.fullMeasurable(
+          EHABITS.measurable,
           nameTextController.text,
           c.substring(6, c.length - 1),
           unitTextController.text,
@@ -493,7 +493,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                           }
 
                           if (errorText != '') {
-                            var res = showDialog(
+                            showDialog(
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(

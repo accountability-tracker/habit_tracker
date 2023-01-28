@@ -22,9 +22,9 @@ const HabitDateSchema = CollectionSchema(
       name: r'date',
       type: IsarType.string,
     ),
-    r'habit_id': PropertySchema(
+    r'habitId': PropertySchema(
       id: 1,
-      name: r'habit_id',
+      name: r'habitId',
       type: IsarType.long,
     ),
     r'value': PropertySchema(
@@ -64,7 +64,7 @@ void _habitDateSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.date);
-  writer.writeLong(offsets[1], object.habit_id);
+  writer.writeLong(offsets[1], object.habitId);
   writer.writeLong(offsets[2], object.value);
 }
 
@@ -76,7 +76,7 @@ HabitDate _habitDateDeserialize(
 ) {
   final object = HabitDate();
   object.date = reader.readString(offsets[0]);
-  object.habit_id = reader.readLong(offsets[1]);
+  object.habitId = reader.readLong(offsets[1]);
   object.id = id;
   object.value = reader.readLong(offsets[2]);
   return object;
@@ -321,43 +321,43 @@ extension HabitDateQueryFilter
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habit_idEqualTo(
+  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habitIdEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'habit_id',
+        property: r'habitId',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habit_idGreaterThan(
+  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habitIdGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'habit_id',
+        property: r'habitId',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habit_idLessThan(
+  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habitIdLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'habit_id',
+        property: r'habitId',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habit_idBetween(
+  QueryBuilder<HabitDate, HabitDate, QAfterFilterCondition> habitIdBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -365,7 +365,7 @@ extension HabitDateQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'habit_id',
+        property: r'habitId',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -500,15 +500,15 @@ extension HabitDateQuerySortBy on QueryBuilder<HabitDate, HabitDate, QSortBy> {
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> sortByHabit_id() {
+  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> sortByHabitId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'habit_id', Sort.asc);
+      return query.addSortBy(r'habitId', Sort.asc);
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> sortByHabit_idDesc() {
+  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> sortByHabitIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'habit_id', Sort.desc);
+      return query.addSortBy(r'habitId', Sort.desc);
     });
   }
 
@@ -539,15 +539,15 @@ extension HabitDateQuerySortThenBy
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> thenByHabit_id() {
+  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> thenByHabitId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'habit_id', Sort.asc);
+      return query.addSortBy(r'habitId', Sort.asc);
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> thenByHabit_idDesc() {
+  QueryBuilder<HabitDate, HabitDate, QAfterSortBy> thenByHabitIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'habit_id', Sort.desc);
+      return query.addSortBy(r'habitId', Sort.desc);
     });
   }
 
@@ -585,9 +585,9 @@ extension HabitDateQueryWhereDistinct
     });
   }
 
-  QueryBuilder<HabitDate, HabitDate, QDistinct> distinctByHabit_id() {
+  QueryBuilder<HabitDate, HabitDate, QDistinct> distinctByHabitId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'habit_id');
+      return query.addDistinctBy(r'habitId');
     });
   }
 
@@ -612,9 +612,9 @@ extension HabitDateQueryProperty
     });
   }
 
-  QueryBuilder<HabitDate, int, QQueryOperations> habit_idProperty() {
+  QueryBuilder<HabitDate, int, QQueryOperations> habitIdProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'habit_id');
+      return query.addPropertyName(r'habitId');
     });
   }
 

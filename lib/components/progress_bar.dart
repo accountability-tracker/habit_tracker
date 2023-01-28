@@ -19,7 +19,7 @@ class ProgressBar extends ConsumerStatefulWidget {
   final int color;
 
   @override
-  _ProgressBar createState() => _ProgressBar();
+  ConsumerState<ProgressBar> createState() => _ProgressBar();
 }
 
 class _ProgressBar extends ConsumerState<ProgressBar> {
@@ -35,7 +35,7 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
   Widget build(BuildContext context) {
     final customColors = Theme.of(context).extension<CustomColors>()!;
 
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
       child: Column(
         children: <Widget>[
@@ -46,7 +46,7 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
                 children: [
                   Text(
                     widget.habitName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24.0,
                       //color: Color(widget.color)
                     ),
@@ -70,8 +70,8 @@ class _ProgressBar extends ConsumerState<ProgressBar> {
             height: 15.0,
           ),
           LinearProgressIndicator(
-            backgroundColor: customColors.progressBar_background,
-            valueColor: AlwaysStoppedAnimation<Color>(customColors.progressBar_foreground!),
+            backgroundColor: customColors.progressBarBackground,
+            valueColor: AlwaysStoppedAnimation<Color>(customColors.progressBarForeground!),
             value: widget.currentUnits / widget.fullUnits,
             minHeight: 8.0,
           ),

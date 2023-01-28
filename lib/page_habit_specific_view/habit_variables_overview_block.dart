@@ -12,7 +12,7 @@ class HabitVariablesOverviewBlock extends ConsumerStatefulWidget {
   final dynamic habit;
 
   @override
-  _HabitVariablesOverviewBlock createState() => _HabitVariablesOverviewBlock();
+  ConsumerState<HabitVariablesOverviewBlock> createState() => _HabitVariablesOverviewBlock();
 }
 
 class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewBlock> {
@@ -29,7 +29,7 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: customColors.background_compliment,
+        color: customColors.backgroundCompliment,
         // boxShadow: [
         //   BoxShadow(color: Colors.green, spreadRadius: 3),
         // ],
@@ -50,7 +50,7 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
             children: <Widget>[
               Icon(
                 Icons.calendar_month,
-                color: customColors.text_color,
+                color: customColors.textColor,
               ),
               const SizedBox(
                 width: 16.0,
@@ -65,7 +65,7 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
             children: <Widget>[
               Icon(
                 Icons.notifications_rounded,
-                color: customColors.text_color,
+                color: customColors.textColor,
               ),
               const SizedBox(
                 width: 16.0,
@@ -82,7 +82,7 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
             children: <Widget>[
               Icon(
                 Icons.question_mark,
-                color: customColors.text_color,
+                color: customColors.textColor,
               ),
               const SizedBox(
                 width: 16.0,
@@ -101,7 +101,7 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
             children: <Widget>[
               Icon(
                 Icons.notes,
-                color: customColors.text_color,
+                color: customColors.textColor,
               ),
               const SizedBox(
                 width: 16.0,

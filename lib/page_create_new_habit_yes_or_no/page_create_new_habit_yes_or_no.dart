@@ -37,7 +37,7 @@ class PageCreateNewHabitYesOrNo extends ConsumerStatefulWidget {
   final Habit? fHabit;
 
   @override
-  _PageCreateNewHabitYesOrNo createState() => _PageCreateNewHabitYesOrNo();
+  ConsumerState<PageCreateNewHabitYesOrNo> createState() => _PageCreateNewHabitYesOrNo();
   // State<Page_CreateNewHabitYesOrNo> createState() => _Page_CreateNewHabitYesOrNo();
 }
 
@@ -69,14 +69,14 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
       questionTextController.text = widget.fHabit?.getQuestion() ?? "";
       frequencyAmountController.text = widget.fHabit?.getFrequencyAmount().toString() ?? "1";
 
-      if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.EVERY_DAY) {
-        this.frequencyValue = 'Per Day';
-      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_WEEK) {
-        this.frequencyValue = 'Per Week';
-      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.X_TIMES_PER_MONTH) {
-        this.frequencyValue = 'Per Month';
-      } else if (widget.fHabit?.getFrequency() == E_HABIT_FREQUENCY.EVERY_X_DAYS) {
-        this.frequencyValue = 'Every # Days';
+      if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.everyDay) {
+        frequencyValue = 'Per Day';
+      } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.xTimesPerWeek) {
+        frequencyValue = 'Per Week';
+      } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.xTimesPerMonth) {
+        frequencyValue = 'Per Month';
+      } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.everyXDays) {
+        frequencyValue = 'Every # Days';
       }
       // // String frequencyValue = frequencyList.first;
 
@@ -100,15 +100,15 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
   }
 
   void addHabit() {
-    var freq = E_HABIT_FREQUENCY.EVERY_DAY;
-    if (this.frequencyValue == 'Per Day') {
-      freq = E_HABIT_FREQUENCY.EVERY_DAY;
-    } else if (this.frequencyValue == 'Per Week') {
-      freq = E_HABIT_FREQUENCY.X_TIMES_PER_WEEK;
-    } else if (this.frequencyValue == 'Per Month') {
-      freq = E_HABIT_FREQUENCY.X_TIMES_PER_MONTH;
-    } else if (this.frequencyValue == 'Every # Days') {
-      freq = E_HABIT_FREQUENCY.EVERY_X_DAYS;
+    var freq = EHABITFREQUENCY.everyDay;
+    if (frequencyValue == 'Per Day') {
+      freq = EHABITFREQUENCY.everyDay;
+    } else if (frequencyValue == 'Per Week') {
+      freq = EHABITFREQUENCY.xTimesPerWeek;
+    } else if (frequencyValue == 'Per Month') {
+      freq = EHABITFREQUENCY.xTimesPerMonth;
+    } else if (frequencyValue == 'Every # Days') {
+      freq = EHABITFREQUENCY.everyXDays;
     }
 
     if (widget.fHabit != null) {
@@ -119,14 +119,14 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
       h?.notes = notesTextController.text;
       h?.color = c.substring(6, c.length - 1);
       h?.frequency = freq;
-      h?.frequency_amount = int.parse(frequencyAmountController.text);
+      h?.frequencyAmount = int.parse(frequencyAmountController.text);
 
       widget.isarService.updateHabit(h);
     } else {
       var c = currentColor.toString();
 
-      widget.isarService.saveHabit(Habit.Full(
-          E_HABITS.YES_OR_NO,
+      widget.isarService.saveHabit(Habit.full(
+          EHABITS.yesOrNo,
           nameTextController.text,
           c.substring(6, c.length - 1),
           freq,
@@ -136,10 +136,10 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
           notesTextController.text));
     }
 
-    ref.watch(habitsManagerProvider.notifier).addHabit(Habit_YesOrNo(
+    ref.watch(habitsManagerProvider.notifier).addHabit(HabitYesOrNo(
         // TODO(clearfeld): pull id from isar or whatever the persistance ends up being
         -1,
-        E_HABITS.YES_OR_NO,
+        EHABITS.yesOrNo,
         nameTextController.text,
         currentColor,
         questionTextController.text,
@@ -311,13 +311,13 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                 ),
 
                 Row(
-                  children: [
-                    const Text("Frequency"),
+                  children: const [
+                    Text("Frequency"),
                   ],
                 ),
                 Row(
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.08,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -343,10 +343,10 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                             height: 8.0,
                           ),
                           FlatDropdown(
-                            value: this.frequencyValue,
+                            value: frequencyValue,
                             onValueChanged: (String? valueArg) {
                               setState(() {
-                                this.frequencyValue = valueArg!;
+                                frequencyValue = valueArg!;
                               });
                             },
                             items: frequencyList,
@@ -438,11 +438,12 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                         ),
                         onPressed: () {
                           if (nameTextController.text == '') {
-                            var res = showDialog(
+                            // var res =
+                            showDialog(
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text('Please enter a valid title.'),
+                                    title: const Text('Please enter a valid title.'),
                                     actions: <Widget>[
                                       ElevatedButton(
                                         child: const Text('Okay'),

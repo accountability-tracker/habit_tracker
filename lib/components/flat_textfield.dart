@@ -18,7 +18,7 @@ class _FlatTextField extends State<FlatTextField> {
 
     return TextField(
       controller: widget.textController,
-      style: TextStyle(color: customColors.text_color),
+      style: TextStyle(color: customColors.textColor),
       decoration: InputDecoration(
         filled: true,
         fillColor: customColors.background, // const Color.fromRGBO(41, 41, 41, 1.0),

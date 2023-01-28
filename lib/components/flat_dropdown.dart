@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker/theme.dart';
 
-typedef void SetValueStringCallback(String? valueArg);
+typedef SetValueStringCallback = void Function(String? valueArg);
 
 class FlatDropdown extends StatefulWidget {
   const FlatDropdown({
@@ -57,9 +57,9 @@ class _FlatDropdown extends State<FlatDropdown> {
             );
           }).toList(),
 
-          iconEnabledColor: customColors.text_color, //Icon color
+          iconEnabledColor: customColors.textColor, //Icon color
           style: TextStyle(
-            color: customColors.text_color, //Font color
+            color: customColors.textColor, //Font color
             fontSize: 16, //font size on dropdown button
           ),
 

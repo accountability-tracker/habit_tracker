@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final dataUpdate = StateNotifierProvider<isUpdated, bool>((ref) {
-    return isUpdated();
+final dataUpdate = StateNotifierProvider<IsUpdated, bool>((ref) {
+  return IsUpdated();
 });
 
-class isUpdated extends StateNotifier<bool> {
-  isUpdated() : super(false);
+class IsUpdated extends StateNotifier<bool> {
+  IsUpdated() : super(false);
   void setUpdate() => state = !state;
 }

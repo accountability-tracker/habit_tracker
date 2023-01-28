@@ -8,7 +8,7 @@ class ThemeToggleButton extends ConsumerStatefulWidget {
   const ThemeToggleButton({super.key});
 
   @override
-  _ThemeToggleButtonState createState() => _ThemeToggleButtonState();
+  ConsumerState<ThemeToggleButton> createState() => _ThemeToggleButtonState();
 }
 
 class _ThemeToggleButtonState extends ConsumerState<ThemeToggleButton> {
@@ -46,17 +46,17 @@ class _ThemeToggleButtonState extends ConsumerState<ThemeToggleButton> {
 
     return Row(
       children: <Widget>[
-        if(ref.watch(themeProvider) == ThemeMode.dark) ...[
+        if (ref.watch(themeProvider) == ThemeMode.dark) ...[
           IconButton(
             icon: const Icon(Icons.light_mode),
-            onPressed: (){
+            onPressed: () {
               ref.read(themeProvider.notifier).toggleTheme();
             },
           ),
-        ] else if(ref.watch(themeProvider) == ThemeMode.light) ...[
+        ] else if (ref.watch(themeProvider) == ThemeMode.light) ...[
           IconButton(
             icon: const Icon(Icons.dark_mode),
-            onPressed: (){
+            onPressed: () {
               ref.read(themeProvider.notifier).toggleTheme();
             },
           ),

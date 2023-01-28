@@ -14,7 +14,7 @@ import 'package:habit_tracker/components/habits/habit_yes_or_no_toggle.dart';
 import 'package:habit_tracker/components/habits/habit_measurable_block.dart';
 
 class HabitLine extends StatefulWidget {
-  HabitLine(
+  const HabitLine(
       {Key? key, required this.isarService, required this.habit, required this.updateFunction})
       : super(key: key);
 
@@ -26,7 +26,7 @@ class HabitLine extends StatefulWidget {
   final Function(dynamic) updateFunction;
 
   @override
-  _HabitLine createState() => _HabitLine();
+  State<HabitLine> createState() => _HabitLine();
 }
 
 class _HabitLine extends State<HabitLine> {
@@ -34,7 +34,7 @@ class _HabitLine extends State<HabitLine> {
   var nd = [4, 3, 2, 1, 0];
   final dss = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-  late Future<List<HabitDate>>? fhabitDates = null;
+  late Future<List<HabitDate>>? fhabitDates;
 
   @override
   void initState() {
@@ -107,12 +107,12 @@ class _HabitLine extends State<HabitLine> {
                     // int hidx = habit.key;
                     // print(index);
 
-                    if (widget.habit.type == E_HABITS.YES_OR_NO) {
+                    if (widget.habit.type == EHABITS.yesOrNo) {
                       return HabitYesOrNoToggle(
                           habit: widget.habit,
                           date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
                           isarService: widget.isarService);
-                    } else if (widget.habit.type == E_HABITS.MEASURABLE) {
+                    } else if (widget.habit.type == EHABITS.measurable) {
                       return HabitMeasurableBlock(
                           habit: widget.habit,
                           date: date.subtract(Duration(days: (4 - x[index]))), // - date.weekday + 1
@@ -191,14 +191,14 @@ class _HabitLine extends State<HabitLine> {
                     // int hidx = habit.key;
                     // print(index);
 
-                    if (widget.habit.type == E_HABITS.YES_OR_NO) {
+                    if (widget.habit.type == EHABITS.yesOrNo) {
                       return HabitYesOrNoToggle(
                           habitDate: habitDates[index],
                           habit: widget.habit,
                           date: date
                               .subtract(Duration(days: (4 - x[index]))), // index - date.weekday + 1
                           isarService: widget.isarService);
-                    } else if (widget.habit.type == E_HABITS.MEASURABLE) {
+                    } else if (widget.habit.type == EHABITS.measurable) {
                       return HabitMeasurableBlock(
                           habitDate: habitDates[index],
                           habit: widget.habit,

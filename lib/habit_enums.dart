@@ -1,7 +1,1 @@
-
-enum E_HABITS {
-  UNINITALIZED,
-  YES_OR_NO,
-  MEASURABLE,
-  COMPLEX
-}
+enum EHABITS { uninitalized, yesOrNo, measurable, complex }

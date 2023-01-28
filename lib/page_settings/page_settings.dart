@@ -21,22 +21,20 @@ import 'package:habit_tracker/page_settings/links/about.dart';
 
 class PageSettings extends StatefulWidget {
   const PageSettings({
-      super.key,
+    super.key,
   });
 
   @override
-  _PageSettings createState() => _PageSettings();
+  State<PageSettings> createState() => _PageSettings();
 }
 
 class _PageSettings extends State<PageSettings> {
-
   bool light = true;
 
   final heightSpacing = 16.0;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -44,7 +42,6 @@ class _PageSettings extends State<PageSettings> {
         ),
       ),
       body: SingleChildScrollView(
-
         child: Container(
           margin: const EdgeInsets.all(16.0),
           // width: MediaQuery.of(context).size.width * 0.9,
@@ -52,14 +49,10 @@ class _PageSettings extends State<PageSettings> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-
               // interface options
               const Text(
                 "Interface",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.cyan
-                ),
+                style: TextStyle(fontSize: 20.0, color: Colors.cyan),
               ),
 
               SizedBox(
@@ -111,10 +104,7 @@ class _PageSettings extends State<PageSettings> {
               // reminder options
               const Text(
                 "Reminder",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.cyan
-                ),
+                style: TextStyle(fontSize: 20.0, color: Colors.cyan),
               ),
 
               SizedBox(
@@ -136,10 +126,7 @@ class _PageSettings extends State<PageSettings> {
               // Databse options
               const Text(
                 "Database",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.cyan
-                ),
+                style: TextStyle(fontSize: 20.0, color: Colors.cyan),
               ),
 
               SizedBox(
@@ -167,10 +154,7 @@ class _PageSettings extends State<PageSettings> {
               // Databse options
               const Text(
                 "Troubleshooting",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.cyan
-                ),
+                style: TextStyle(fontSize: 20.0, color: Colors.cyan),
               ),
 
               SizedBox(
@@ -186,10 +170,7 @@ class _PageSettings extends State<PageSettings> {
               // Databse options
               const Text(
                 "Links",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.cyan
-                ),
+                style: TextStyle(fontSize: 20.0, color: Colors.cyan),
               ),
 
               SizedBox(
@@ -203,7 +184,6 @@ class _PageSettings extends State<PageSettings> {
               ),
 
               const About(),
-
             ],
           ),
         ),

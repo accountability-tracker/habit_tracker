@@ -61,14 +61,14 @@ class PieGraph extends ConsumerStatefulWidget {
   final IsarService isarService;
 
   @override
-  _PieGraph createState() => _PieGraph();
+  ConsumerState<PieGraph> createState() => _PieGraph();
 }
 
 class _PieGraph extends ConsumerState<PieGraph> {
   int touchedIndex = -1;
   List<double> habitDateValues = [];
 
-  late Future<List<HabitDate>>? fhabitDates = null;
+  late Future<List<HabitDate>>? fhabitDates;
 
   @override
   void initState() {
@@ -85,7 +85,7 @@ class _PieGraph extends ConsumerState<PieGraph> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
         child: FutureBuilder<List<HabitDate>>(
             future: fhabitDates,
@@ -93,7 +93,7 @@ class _PieGraph extends ConsumerState<PieGraph> {
               if (snapshot.connectionState == ConnectionState.done) {
                 for (var habitDate in snapshot.data!) {
                   for (int i = 0; i < widget.habitList.length; i++) {
-                    if (habitDate.habit_id == widget.habitList[i].id && habitDate.getValue() > 0) {
+                    if (habitDate.habitId == widget.habitList[i].id && habitDate.getValue() > 0) {
                       habitDateValues[i]++;
                       break;
                     }

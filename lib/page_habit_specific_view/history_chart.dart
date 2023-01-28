@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 
 // import '../components/FlatDropdown.dart';
 
-enum Items { Week, Month, Quarter, Year }
+enum Items { week, month, quarter, year }
 
 class HistoryChart extends ConsumerStatefulWidget {
   const HistoryChart({super.key, required this.isarService, required this.habit});
@@ -21,14 +21,14 @@ class HistoryChart extends ConsumerStatefulWidget {
   final dynamic habit;
 
   @override
-  _HistoryChart createState() => _HistoryChart();
+  ConsumerState<HistoryChart> createState() => _HistoryChart();
 }
 
 class _HistoryChart extends ConsumerState<HistoryChart> {
-  Items periodSelected = Items.Week;
+  Items periodSelected = Items.week;
   DateTime startDate = DateTime.now().subtract(Duration(days: 28 + DateTime.now().weekday));
 
-  late Future<List<HabitDate>>? fhabitDates = null;
+  late Future<List<HabitDate>>? fhabitDates;
 
   @override
   void initState() {
@@ -54,7 +54,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        color: customColors.background_compliment,
+        color: customColors.backgroundCompliment,
         // boxShadow: [
         //   BoxShadow(color: Colors.green, spreadRadius: 3),
         // ],
@@ -89,7 +89,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
 
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: customColors.text_color,
+                      color: customColors.textColor,
                     ),
 
                     // Array list of items
@@ -103,12 +103,12 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                     // change button value to selected value
                     onChanged: (Items? newValue) {
                       DateTime d = DateTime.now();
-                      if (newValue == Items.Week) {
+                      if (newValue == Items.week) {
                         startDate =
                             DateTime.now().subtract(Duration(days: 28 + DateTime.now().weekday));
-                      } else if (newValue == Items.Month) {
+                      } else if (newValue == Items.month) {
                         startDate = DateTime(d.year, d.month - 4, 1);
-                      } else if (newValue == Items.Quarter) {
+                      } else if (newValue == Items.quarter) {
                         // Find current Quarter
                         int quarterMonthStart = 1;
                         if (d.month >= 4 && d.month < 7) {
@@ -119,7 +119,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                           quarterMonthStart = 10;
                         }
                         startDate = DateTime(d.year - 1, quarterMonthStart, 1);
-                      } else if (newValue == Items.Year) {
+                      } else if (newValue == Items.year) {
                         startDate = DateTime(d.year - 4, 1, 1);
                       }
 
@@ -146,7 +146,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                     List<dynamic> xy = [];
                     List<dynamic> periods = [];
 
-                    if (periodSelected == Items.Week) {
+                    if (periodSelected == Items.week) {
                       DateTime start =
                           DateTime(d.year, d.month, d.day).subtract(Duration(days: d.weekday));
                       DateTime end = start.add(const Duration(days: 7));
@@ -174,7 +174,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                         },
                         {'start': start, 'end': end, 'value': 0},
                       ];
-                    } else if (periodSelected == Items.Month) {
+                    } else if (periodSelected == Items.month) {
                       periods = [
                         {
                           'start': DateTime(d.year, d.month - 4, 1),
@@ -215,9 +215,9 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                           'dateString': DateFormat('yMMMM').format(d).substring(0, 3)
                         },
                       ];
-                    } else if (periodSelected == Items.Quarter) {
+                    } else if (periodSelected == Items.quarter) {
                       DateTime start = DateTime(d.year, 1, 1);
-                      DateTime end = DateTime(d.year, 4, 1).subtract(Duration(days: 1));
+                      DateTime end = DateTime(d.year, 4, 1).subtract(const Duration(days: 1));
                       // Find the current quarter.
                       int currentQuarter = 1;
                       for (currentQuarter = 1; currentQuarter < 4; currentQuarter++) {
@@ -226,7 +226,8 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                           break;
                         }
                         start = DateTime(start.year, start.month + 3, 1);
-                        end = DateTime(end.year, start.month + 3, 1).subtract(Duration(days: 1));
+                        end = DateTime(end.year, start.month + 3, 1)
+                            .subtract(const Duration(days: 1));
                       }
 
                       periods = [
@@ -251,7 +252,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                           'dateString': '${start.year} Q$currentQuarter'
                         });
                       }
-                    } else if (periodSelected == Items.Year) {
+                    } else if (periodSelected == Items.year) {
                       periods = [
                         {
                           'start': DateTime(d.year - 4, 1, 1),
@@ -301,14 +302,13 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                       }
                     }
                     for (var period in periods) {
-                      String dateString = DateFormat('M-dd').format(period['start']) +
-                          ' to ' +
-                          DateFormat('M-dd').format(period['end']);
-                      if (periodSelected == Items.Month) {
+                      String dateString =
+                          '${DateFormat('M-dd').format(period['start'])} to  ${DateFormat('M-dd').format(period['end'])}';
+                      if (periodSelected == Items.month) {
                         dateString = period['dateString'];
-                      } else if (periodSelected == Items.Quarter) {
+                      } else if (periodSelected == Items.quarter) {
                         dateString = period['dateString'];
-                      } else if (periodSelected == Items.Year) {
+                      } else if (periodSelected == Items.year) {
                         dateString = period['dateString'];
                       }
                       xy.add({'date': dateString, 'value': period['value']});
@@ -319,7 +319,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                     );
 
                   default:
-                    return Container(
+                    return SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 260.0,
                       child: const Text("Loading"),

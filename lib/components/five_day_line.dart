@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FiveDayLine extends ConsumerStatefulWidget {
   const FiveDayLine({
-      super.key,
+    super.key,
   });
 
   @override
-  _FiveDayLine createState() => _FiveDayLine();
+  ConsumerState<FiveDayLine> createState() => _FiveDayLine();
 }
 
 class _FiveDayLine extends ConsumerState<FiveDayLine> {
@@ -28,14 +28,12 @@ class _FiveDayLine extends ConsumerState<FiveDayLine> {
 
   @override
   Widget build(BuildContext context) {
-
     // final him = ref.watch(habitsManagerProvider);
 
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.all(2.0),
       padding: const EdgeInsets.all(8.0),
-
       child: Row(
         children: <Widget>[
           // Spacer(),
@@ -47,19 +45,19 @@ class _FiveDayLine extends ConsumerState<FiveDayLine> {
           // Text(date.toString()),
           // Text(date.add(Duration(days: 1)).toString()),
 
-          Container(
+          SizedBox(
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             width: MediaQuery.of(context).size.width * 0.5,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget> [
-                for(var n in  nd)
-                Column(
-                  children: <Widget>[
-                    Text(printDay(date.subtract(Duration(days: (4 - n))).weekday)),
-                    Text(date.subtract(Duration(days: (4 - n))).day.toString()),
-                  ],
-                ),
+              children: <Widget>[
+                for (var n in nd)
+                  Column(
+                    children: <Widget>[
+                      Text(printDay(date.subtract(Duration(days: (4 - n))).weekday)),
+                      Text(date.subtract(Duration(days: (4 - n))).day.toString()),
+                    ],
+                  ),
               ],
             ),
           ),
@@ -84,7 +82,6 @@ class _FiveDayLine extends ConsumerState<FiveDayLine> {
           //     ),
           //   ),
           // ),
-
         ],
       ),
     );

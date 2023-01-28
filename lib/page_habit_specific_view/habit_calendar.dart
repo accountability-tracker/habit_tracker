@@ -26,12 +26,12 @@ class HabitCalendar extends ConsumerStatefulWidget {
   final Habit habit;
 
   @override
-  _HabitCalendarState createState() => new _HabitCalendarState();
+  ConsumerState<HabitCalendar> createState() => _HabitCalendarState();
 }
 
 class _HabitCalendarState extends ConsumerState<HabitCalendar> {
   var now = DateTime.now();
-  DateTime _currentDate = DateTime.now();
+  final DateTime _currentDate = DateTime.now();
   DateTime _selectedDate = DateTime.now();
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   String _currentMonthNum = DateFormat('y-M').format(DateTime.now());
@@ -40,9 +40,9 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
   bool _modifyDate = false;
   var inputNumber;
 
-  EventList<Event> _markedDateMap = new EventList<Event>(events: {});
+  EventList<Event> _markedDateMap = EventList<Event>(events: {});
 
-  late Future<List<HabitDate>>? fhabitDates = null;
+  late Future<List<HabitDate>>? fhabitDates;
 
   final Widget _eventIcon = const HabitCalendarEventIcon();
 
@@ -65,12 +65,12 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
     final customColors = Theme.of(context).extension<CustomColors>()!;
 
     /// Example Calendar Carousel without header and custom prev & next button
-    final _calendarCarouselNoHeader = CalendarCarousel<Event>(
+    final calendarCarouselNoHeader = CalendarCarousel<Event>(
       daysTextStyle: TextStyle(
-        color: customColors.text_color,
+        color: customColors.textColor,
       ),
       onDayPressed: (date, events) async {
-        if (widget.habit.getType() == E_HABITS.YES_OR_NO) {
+        if (widget.habit.getType() == EHABITS.yesOrNo) {
           _modifyDate = true;
 
           if (!ref.watch(dataUpdate)) {
@@ -80,8 +80,8 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
         setState(() => _selectedDate = DateTime(date.year, date.month, date.day));
         //events.forEach((event) => print(event.title));
 
-        if (widget.habit.getType() == E_HABITS.MEASURABLE) {
-          var res = await showDialog(
+        if (widget.habit.getType() == EHABITS.measurable) {
+          await showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
@@ -105,14 +105,14 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                       onPressed: () {
                         if (inputNumber != null &&
                             (inputNumber == '' || int.tryParse(inputNumber) == null)) {
-                          var res = showDialog(
+                          showDialog(
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
                                   title: const Text('Please enter a valid number.'),
                                   content: SingleChildScrollView(
                                     child: Column(
-                                      children: <Widget>[],
+                                      children: const <Widget>[],
                                     ),
                                   ),
                                   actions: <Widget>[
@@ -127,7 +127,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                                 );
                               });
                         } else {
-                          if (widget.habit.getType() == E_HABITS.MEASURABLE) {
+                          if (widget.habit.getType() == EHABITS.measurable) {
                             _modifyDate = true;
                           }
                           if (!ref.watch(dataUpdate)) {
@@ -153,7 +153,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
       },
       showOnlyCurrentMonthDate: true,
       weekendTextStyle: TextStyle(
-        color: customColors.text_color,
+        color: customColors.textColor,
       ),
       thisMonthDayBorderColor: Colors.transparent,
       markedDatesMap: _markedDateMap,
@@ -161,7 +161,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
       height: MediaQuery.of(context).size.width * 0.65,
       selectedDateTime: _selectedDate,
       targetDateTime: _targetDateTime,
-      customGridViewPhysics: NeverScrollableScrollPhysics(),
+      customGridViewPhysics: const NeverScrollableScrollPhysics(),
       markedDateCustomTextStyle: const TextStyle(
         fontSize: 18,
         color: Colors.red,
@@ -173,7 +173,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
       selectedDayButtonColor: Color(widget.habit.getColor()),
       markedDateShowIcon: true,
       markedDateIconMaxShown: 1,
-      markedDateMoreCustomTextStyle: TextStyle(fontSize: 8, color: customColors.text_color),
+      markedDateMoreCustomTextStyle: TextStyle(fontSize: 8, color: customColors.textColor),
       markedDateIconBuilder: (event) {
         return event.icon;
       },
@@ -196,7 +196,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
         });
       },
       onDayLongPressed: (DateTime date) {
-        print('long pressed date $date');
+        // print('long pressed date $date');
       },
     );
 
@@ -207,7 +207,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
       children: <Widget>[
         //custom icon without header
         Container(
-          color: customColors.background_compliment,
+          color: customColors.backgroundCompliment,
           padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
           child: Row(
             children: <Widget>[
@@ -217,7 +217,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24.0,
-                  color: customColors.text_color,
+                  color: customColors.textColor,
                 ),
               )),
               TextButton(
@@ -246,7 +246,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
           ),
         ),
         Container(
-            color: customColors.background_compliment, // const Color.fromRGBO(31, 31, 31, 1.0),
+            color: customColors.backgroundCompliment, // const Color.fromRGBO(31, 31, 31, 1.0),
             // margin: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
             //padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
             height: MediaQuery.of(context).size.width * 0.75,
@@ -277,12 +277,12 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                     }
                     if (_modifyDate) {
                       //Date was selected.
-                      if (widget.habit.getType() == E_HABITS.YES_OR_NO) {
+                      if (widget.habit.getType() == EHABITS.yesOrNo) {
                         var dateFound = false;
                         for (var h in snapshot.data!) {
                           if (DateFormat('y-M-dd').format(_selectedDate) == h.date) {
                             var i = h.id;
-                            var hi = h.habit_id;
+                            var hi = h.habitId;
                             var d = h.date;
                             var v = h.value == 0 ? 1 : 0;
 
@@ -300,7 +300,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                               _markedDateMap.removeAll(_selectedDate);
                             }
 
-                            widget.isarService.putHabitDate(HabitDate.FullWithId(i, hi, d, v));
+                            widget.isarService.putHabitDate(HabitDate.fullWithId(i, hi, d, v));
 
                             dateFound = true;
                             break;
@@ -311,12 +311,12 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                           String day = _selectedDate.day.toString();
                           String month = _selectedDate.month.toString();
                           if (_selectedDate.day < 10) {
-                            day = '0' + _selectedDate.day.toString();
+                            day = '0${_selectedDate.day.toString()}';
                           }
                           if (_selectedDate.month < 10) {
-                            month = '0' + _selectedDate.month.toString();
+                            month = '0${_selectedDate.month.toString()}';
                           }
-                          widget.isarService.putHabitDate(HabitDate.Full(
+                          widget.isarService.putHabitDate(HabitDate.full(
                               widget.habit.id, '${_selectedDate.year}-$month-$day', 1));
                           _markedDateMap.add(
                               DateTime(_selectedDate.year, _selectedDate.month, _selectedDate.day),
@@ -327,13 +327,13 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                                 icon: _eventIcon,
                               ));
                         }
-                      } else if (widget.habit.getType() == E_HABITS.MEASURABLE &&
+                      } else if (widget.habit.getType() == EHABITS.measurable &&
                           inputNumber != null) {
                         var dateFound = false;
                         for (var h in snapshot.data!) {
                           if (DateFormat('y-M-dd').format(_selectedDate) == h.date) {
                             var id = h.id;
-                            var hi = h.habit_id;
+                            var hi = h.habitId;
                             var d = h.date;
                             var v = int.parse(inputNumber);
 
@@ -356,12 +356,12 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                                       icon: _eventIcon,
                                     ));
                               }
-                              widget.isarService.putHabitDate(HabitDate.FullWithId(id, hi, d, v));
+                              widget.isarService.putHabitDate(HabitDate.fullWithId(id, hi, d, v));
                             } else {
                               _markedDateMap.removeAll(_selectedDate);
                             }
 
-                            widget.isarService.putHabitDate(HabitDate.FullWithId(id, hi, d, v));
+                            widget.isarService.putHabitDate(HabitDate.fullWithId(id, hi, d, v));
 
                             dateFound = true;
                             break;
@@ -371,13 +371,13 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                           String day = _selectedDate.day.toString();
                           String month = _selectedDate.month.toString();
                           if (_selectedDate.day < 10) {
-                            day = '0' + _selectedDate.day.toString();
+                            day = '0${_selectedDate.day.toString()}';
                           }
                           if (_selectedDate.month < 10) {
-                            month = '0' + _selectedDate.month.toString();
+                            month = '0${_selectedDate.month.toString()}';
                           }
 
-                          widget.isarService.putHabitDate(HabitDate.Full(widget.habit.id,
+                          widget.isarService.putHabitDate(HabitDate.full(widget.habit.id,
                               '${_selectedDate.year}-$month-$day', int.parse(inputNumber)));
                           for (int i = 0; i < int.parse(inputNumber); i++) {
                             _markedDateMap.add(
@@ -394,9 +394,9 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                       }
                       _modifyDate = false;
                     }
-                    return _calendarCarouselNoHeader;
+                    return calendarCarouselNoHeader;
                   }
-                  return Container(
+                  return SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.width * 0.65,
                       child: const Text(

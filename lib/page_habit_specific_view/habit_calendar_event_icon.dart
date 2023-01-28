@@ -16,7 +16,7 @@ class HabitCalendarEventIcon extends StatelessWidget {
       ),
       child: Icon(
         Icons.done,
-        color: customColors.text_color,
+        color: customColors.textColor,
       ),
     );
   }

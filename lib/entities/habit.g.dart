@@ -33,9 +33,9 @@ const HabitSchema = CollectionSchema(
       type: IsarType.byte,
       enumMap: _HabitfrequencyEnumValueMap,
     ),
-    r'frequency_amount': PropertySchema(
+    r'frequencyAmount': PropertySchema(
       id: 3,
-      name: r'frequency_amount',
+      name: r'frequencyAmount',
       type: IsarType.long,
     ),
     r'notes': PropertySchema(
@@ -133,7 +133,7 @@ void _habitSerialize(
   writer.writeBool(offsets[0], object.archived);
   writer.writeString(offsets[1], object.color);
   writer.writeByte(offsets[2], object.frequency.index);
-  writer.writeLong(offsets[3], object.frequency_amount);
+  writer.writeLong(offsets[3], object.frequencyAmount);
   writer.writeString(offsets[4], object.notes);
   writer.writeString(offsets[5], object.question);
   writer.writeString(offsets[6], object.reminder);
@@ -154,8 +154,8 @@ Habit _habitDeserialize(
   object.color = reader.readString(offsets[1]);
   object.frequency =
       _HabitfrequencyValueEnumMap[reader.readByteOrNull(offsets[2])] ??
-          E_HABIT_FREQUENCY.EVERY_DAY;
-  object.frequency_amount = reader.readLong(offsets[3]);
+          EHABITFREQUENCY.everyDay;
+  object.frequencyAmount = reader.readLong(offsets[3]);
   object.id = id;
   object.notes = reader.readStringOrNull(offsets[4]);
   object.question = reader.readStringOrNull(offsets[5]);
@@ -163,7 +163,7 @@ Habit _habitDeserialize(
   object.target = reader.readLongOrNull(offsets[7]);
   object.title = reader.readString(offsets[8]);
   object.type = _HabittypeValueEnumMap[reader.readByteOrNull(offsets[9])] ??
-      E_HABITS.UNINITALIZED;
+      EHABITS.uninitalized;
   object.unit = reader.readStringOrNull(offsets[10]);
   return object;
 }
@@ -181,7 +181,7 @@ P _habitDeserializeProp<P>(
       return (reader.readString(offset)) as P;
     case 2:
       return (_HabitfrequencyValueEnumMap[reader.readByteOrNull(offset)] ??
-          E_HABIT_FREQUENCY.EVERY_DAY) as P;
+          EHABITFREQUENCY.everyDay) as P;
     case 3:
       return (reader.readLong(offset)) as P;
     case 4:
@@ -196,7 +196,7 @@ P _habitDeserializeProp<P>(
       return (reader.readString(offset)) as P;
     case 9:
       return (_HabittypeValueEnumMap[reader.readByteOrNull(offset)] ??
-          E_HABITS.UNINITALIZED) as P;
+          EHABITS.uninitalized) as P;
     case 10:
       return (reader.readStringOrNull(offset)) as P;
     default:
@@ -205,28 +205,28 @@ P _habitDeserializeProp<P>(
 }
 
 const _HabitfrequencyEnumValueMap = {
-  'EVERY_DAY': 0,
-  'EVERY_X_DAYS': 1,
-  'X_TIMES_PER_WEEK': 2,
-  'X_TIMES_PER_MONTH': 3,
+  'everyDay': 0,
+  'everyXDays': 1,
+  'xTimesPerWeek': 2,
+  'xTimesPerMonth': 3,
 };
 const _HabitfrequencyValueEnumMap = {
-  0: E_HABIT_FREQUENCY.EVERY_DAY,
-  1: E_HABIT_FREQUENCY.EVERY_X_DAYS,
-  2: E_HABIT_FREQUENCY.X_TIMES_PER_WEEK,
-  3: E_HABIT_FREQUENCY.X_TIMES_PER_MONTH,
+  0: EHABITFREQUENCY.everyDay,
+  1: EHABITFREQUENCY.everyXDays,
+  2: EHABITFREQUENCY.xTimesPerWeek,
+  3: EHABITFREQUENCY.xTimesPerMonth,
 };
 const _HabittypeEnumValueMap = {
-  'UNINITALIZED': 0,
-  'YES_OR_NO': 1,
-  'MEASURABLE': 2,
-  'COMPLEX': 3,
+  'uninitalized': 0,
+  'yesOrNo': 1,
+  'measurable': 2,
+  'complex': 3,
 };
 const _HabittypeValueEnumMap = {
-  0: E_HABITS.UNINITALIZED,
-  1: E_HABITS.YES_OR_NO,
-  2: E_HABITS.MEASURABLE,
-  3: E_HABITS.COMPLEX,
+  0: EHABITS.uninitalized,
+  1: EHABITS.yesOrNo,
+  2: EHABITS.measurable,
+  3: EHABITS.complex,
 };
 
 Id _habitGetId(Habit object) {
@@ -472,7 +472,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }
 
   QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyEqualTo(
-      E_HABIT_FREQUENCY value) {
+      EHABITFREQUENCY value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'frequency',
@@ -482,7 +482,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }
 
   QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyGreaterThan(
-    E_HABIT_FREQUENCY value, {
+    EHABITFREQUENCY value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -495,7 +495,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }
 
   QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyLessThan(
-    E_HABIT_FREQUENCY value, {
+    EHABITFREQUENCY value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -508,8 +508,8 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }
 
   QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyBetween(
-    E_HABIT_FREQUENCY lower,
-    E_HABIT_FREQUENCY upper, {
+    EHABITFREQUENCY lower,
+    EHABITFREQUENCY upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -524,43 +524,43 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequency_amountEqualTo(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyAmountEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'frequency_amount',
+        property: r'frequencyAmount',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequency_amountGreaterThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyAmountGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'frequency_amount',
+        property: r'frequencyAmount',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequency_amountLessThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyAmountLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'frequency_amount',
+        property: r'frequencyAmount',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequency_amountBetween(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> frequencyAmountBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -568,7 +568,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'frequency_amount',
+        property: r'frequencyAmount',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1261,8 +1261,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> typeEqualTo(
-      E_HABITS value) {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> typeEqualTo(EHABITS value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'type',
@@ -1272,7 +1271,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }
 
   QueryBuilder<Habit, Habit, QAfterFilterCondition> typeGreaterThan(
-    E_HABITS value, {
+    EHABITS value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1285,7 +1284,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }
 
   QueryBuilder<Habit, Habit, QAfterFilterCondition> typeLessThan(
-    E_HABITS value, {
+    EHABITS value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1298,8 +1297,8 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }
 
   QueryBuilder<Habit, Habit, QAfterFilterCondition> typeBetween(
-    E_HABITS lower,
-    E_HABITS upper, {
+    EHABITS lower,
+    EHABITS upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1500,15 +1499,15 @@ extension HabitQuerySortBy on QueryBuilder<Habit, Habit, QSortBy> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> sortByFrequency_amount() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByFrequencyAmount() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'frequency_amount', Sort.asc);
+      return query.addSortBy(r'frequencyAmount', Sort.asc);
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> sortByFrequency_amountDesc() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByFrequencyAmountDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'frequency_amount', Sort.desc);
+      return query.addSortBy(r'frequencyAmount', Sort.desc);
     });
   }
 
@@ -1634,15 +1633,15 @@ extension HabitQuerySortThenBy on QueryBuilder<Habit, Habit, QSortThenBy> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> thenByFrequency_amount() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByFrequencyAmount() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'frequency_amount', Sort.asc);
+      return query.addSortBy(r'frequencyAmount', Sort.asc);
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> thenByFrequency_amountDesc() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByFrequencyAmountDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'frequency_amount', Sort.desc);
+      return query.addSortBy(r'frequencyAmount', Sort.desc);
     });
   }
 
@@ -1763,9 +1762,9 @@ extension HabitQueryWhereDistinct on QueryBuilder<Habit, Habit, QDistinct> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QDistinct> distinctByFrequency_amount() {
+  QueryBuilder<Habit, Habit, QDistinct> distinctByFrequencyAmount() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'frequency_amount');
+      return query.addDistinctBy(r'frequencyAmount');
     });
   }
 
@@ -1836,15 +1835,15 @@ extension HabitQueryProperty on QueryBuilder<Habit, Habit, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Habit, E_HABIT_FREQUENCY, QQueryOperations> frequencyProperty() {
+  QueryBuilder<Habit, EHABITFREQUENCY, QQueryOperations> frequencyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'frequency');
     });
   }
 
-  QueryBuilder<Habit, int, QQueryOperations> frequency_amountProperty() {
+  QueryBuilder<Habit, int, QQueryOperations> frequencyAmountProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'frequency_amount');
+      return query.addPropertyName(r'frequencyAmount');
     });
   }
 
@@ -1878,7 +1877,7 @@ extension HabitQueryProperty on QueryBuilder<Habit, Habit, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Habit, E_HABITS, QQueryOperations> typeProperty() {
+  QueryBuilder<Habit, EHABITS, QQueryOperations> typeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'type');
     });

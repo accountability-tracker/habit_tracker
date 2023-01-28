@@ -7,7 +7,7 @@ class HabitDate {
   Id id = Isar.autoIncrement;
 
   // add index
-  late int habit_id;
+  late int habitId;
   // add index
   late String date;
 
@@ -15,24 +15,15 @@ class HabitDate {
 
   HabitDate();
 
-  HabitDate.FullWithId(
-    int idArg,
-    int habitIdArg,
-    String dateArg,
-    int valueArg
-  ) {
+  HabitDate.fullWithId(int idArg, int habitIdArg, String dateArg, int valueArg) {
     id = idArg;
-    habit_id = habitIdArg;
+    habitId = habitIdArg;
     date = dateArg;
     value = valueArg;
   }
 
-  HabitDate.Full(
-    int habitIdArg,
-    String dateArg,
-    int valueArg
-  ) {
-    habit_id = habitIdArg;
+  HabitDate.full(int habitIdArg, String dateArg, int valueArg) {
+    habitId = habitIdArg;
     date = dateArg;
     value = valueArg;
   }

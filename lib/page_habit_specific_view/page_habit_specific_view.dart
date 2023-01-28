@@ -27,7 +27,7 @@ class PageHabitSpecificView extends ConsumerStatefulWidget {
   final dynamic habit;
 
   @override
-  _PageHabitSpecificView createState() => _PageHabitSpecificView();
+  ConsumerState<PageHabitSpecificView> createState() => _PageHabitSpecificView();
 }
 
 class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
@@ -69,7 +69,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
               icon: const Icon(Icons.edit),
               onPressed: () {
                 switch (widget.habit.getType()) {
-                  case E_HABITS.YES_OR_NO:
+                  case EHABITS.yesOrNo:
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -78,7 +78,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                     );
                     break;
 
-                  case E_HABITS.MEASURABLE:
+                  case EHABITS.measurable:
                     Navigator.push(
                       context,
                       MaterialPageRoute(

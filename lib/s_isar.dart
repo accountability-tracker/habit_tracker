@@ -12,15 +12,12 @@ class IsarService {
   }
 
   Future<Isar> openDB() async {
-    if(Isar.instanceNames.isEmpty) {
+    if (Isar.instanceNames.isEmpty) {
       final appDocDir = await getApplicationSupportDirectory();
-      print('App Doc path - $appDocDir.path');
+      // print('App Doc path - $appDocDir.path');
 
-      return await Isar.open(
-        [HabitSchema, HabitDateSchema],
-        directory: appDocDir.path,
-        inspector: true
-      );
+      return await Isar.open([HabitSchema, HabitDateSchema],
+          directory: appDocDir.path, inspector: true);
     }
 
     return Future.value(Isar.getInstance());
@@ -39,11 +36,11 @@ class IsarService {
   }
 
   Future<void> updateHabit(Habit? habitArg) async {
-    if(habitArg != null) {
+    if (habitArg != null) {
       final isar = await db;
 
       await isar.writeTxn(() async {
-          await isar.habits.put(habitArg);
+        await isar.habits.put(habitArg);
       });
     }
   }
@@ -52,11 +49,11 @@ class IsarService {
     final isar = await db;
 
     await isar.writeTxn(() async {
-        final habit = await isar.habits.get(habitIdArg);
-        if(habit != null) {
-          habit.archived = archivedStateArg;
-          await isar.habits.put(habit);
-        }
+      final habit = await isar.habits.get(habitIdArg);
+      if (habit != null) {
+        habit.archived = archivedStateArg;
+        await isar.habits.put(habit);
+      }
     });
   }
 
@@ -65,7 +62,7 @@ class IsarService {
   Future<void> deleteHabit(int habitIdArg) async {
     final isar = await db;
     await isar.writeTxn(() async {
-        isar.habits.delete(habitIdArg);
+      isar.habits.delete(habitIdArg);
     });
   }
 
@@ -76,14 +73,12 @@ class IsarService {
     // return await isar.habitDates.where().findAll();
 
     // TODO(clearfeld): make this filter an actual week range on the dates
-    return await isar.habitDates.filter().habit_idEqualTo(habitIdArg).limit(10).findAll();
+    return await isar.habitDates.filter().habitIdEqualTo(habitIdArg).limit(10).findAll();
   }
 
   Future<int> putHabitDate(HabitDate habitDate) async {
     final isar = await db;
-    var x = isar.writeTxnSync<int>(() =>
-      isar.habitDates.putSync(habitDate)
-    );
+    var x = isar.writeTxnSync<int>(() => isar.habitDates.putSync(habitDate));
     // TODO(clearfled): seems to be the item id which is good enough
     // needs more testing to confirm
     // cant find any additional info in the docs
@@ -92,18 +87,21 @@ class IsarService {
     return x;
   }
 
-  Future<List<HabitDate>> getHabitsDateCurrentMonth(String date, [ int habitIdArg = -1]) async {
+  Future<List<HabitDate>> getHabitsDateCurrentMonth(String date, [int habitIdArg = -1]) async {
     final isar = await db;
 
-    if(habitIdArg == -1) {
+    if (habitIdArg == -1) {
       return await isar.habitDates.filter().dateContains(date).findAll();
     }
-    return await isar.habitDates.filter().habit_idEqualTo(habitIdArg).dateContains(date).findAll();
+    return await isar.habitDates.filter().habitIdEqualTo(habitIdArg).dateContains(date).findAll();
   }
 
   Future<List<HabitDate>> getHabitsDateLastSelectedPeriod(int habitIdArg, String dateString) async {
     final isar = await db;
-    return await isar.habitDates.filter().habit_idEqualTo(habitIdArg).dateGreaterThan(dateString).findAll();
+    return await isar.habitDates
+        .filter()
+        .habitIdEqualTo(habitIdArg)
+        .dateGreaterThan(dateString)
+        .findAll();
   }
-
 }

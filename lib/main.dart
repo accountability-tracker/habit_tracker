@@ -12,7 +12,7 @@ import 'package:habit_tracker/page_create_new_habit_yes_or_no/page_create_new_ha
 import 'package:habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
 import 'package:habit_tracker/components/habit_list_main.dart';
 import 'package:habit_tracker/page_about/page_about.dart';
-import 'package:habit_tracker/page_settings/page_settings.dart';
+// import 'package:habit_tracker/page_settings/page_settings.dart';
 
 void main() {
   runApp(const ProviderScope(
@@ -54,7 +54,7 @@ class MyHomePage extends ConsumerStatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
@@ -70,7 +70,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         PageRouteBuilder(
           pageBuilder:
               (BuildContext context, Animation<double> animation1, Animation<double> animation2) {
-            return const Page_About();
+            return const PageAbout();
           },
           transitionDuration: Duration.zero,
           reverseTransitionDuration: Duration.zero,
@@ -95,7 +95,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         backgroundColor: customColors.background,
         appBar: AppBar(
           title: Text(widget.title),
-          backgroundColor: customColors.navbar_background,
+          backgroundColor: customColors.navbarBackground,
           foregroundColor: Colors.white,
           actions: [
             IconButton(
@@ -108,7 +108,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                       context: context,
                       builder: (context) {
                         return Scaffold(
-                          body: Container(
+                          body: SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               children: <Widget>[
@@ -132,6 +132,14 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                     ).then(refreshHabitList);
                                   },
                                   child: Container(
+                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff7c94b6),
+                                      border: Border.all(
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
                                     child: Column(
                                       children: const <Widget>[
                                         Text(
@@ -152,14 +160,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xff7c94b6),
-                                      border: Border.all(
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(4),
                                     ),
                                   ),
                                 ),
@@ -185,6 +185,14 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                     ).then(refreshHabitList);
                                   },
                                   child: Container(
+                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff7c94b6),
+                                      border: Border.all(
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
                                     child: Column(
                                       children: const <Widget>[
                                         Text(
@@ -205,14 +213,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                                           ),
                                         ),
                                       ],
-                                    ),
-                                    padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xff7c94b6),
-                                      border: Border.all(
-                                        width: 2,
-                                      ),
-                                      borderRadius: BorderRadius.circular(4),
                                     ),
                                   ),
                                 ),
