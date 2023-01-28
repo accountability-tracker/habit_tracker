@@ -1,10 +1,10 @@
-name: Flutter builds
+name: Manual Flutter Builds
 
-# on: workflow_dispatch
-on:
-    push:
-        tags:
-        - '*'
+on: workflow_dispatch
+# on:
+#     push:
+#         tags:
+#         - '*'
 
 jobs:
     build_android:
@@ -79,7 +79,7 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                 files: build/windows/runner/Release/HabitTracker-${{github.ref_name}}-windows.zip
-    
+
     build_linux:
         runs-on: ubuntu-latest
         steps:
@@ -107,7 +107,7 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                 files: build/linux/x64/release/bundle/HabitTracker-${{github.ref_name}}-linux.zip
-    
+
     build_macosx:
         runs-on: macos-latest
         steps:

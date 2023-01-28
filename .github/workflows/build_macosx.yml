@@ -1,0 +1,33 @@
+name: Flutter MacOSX Build
+
+on:
+    push:
+        tags:
+        - '*'
+
+jobs:
+    build_macosx:
+        runs-on: macos-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: subosito/flutter-action@v2
+              with:
+                  channel: "stable"
+                  architecture: x64
+            - run: flutter pub get
+            - run: flutter config --enable-macos-desktop
+            - run: flutter pub run build_runner build --delete-conflicting-outputs
+            - run: flutter build macos --release
+            - name: Archive Release
+              uses: thedoctor0/zip-release@master
+              with:
+                type: 'zip'
+                filename: HabitTracker-${{github.ref_name}}-macos.zip
+                directory: build/macos/Build/Products/Release
+            - name: macOS Release
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                files: build/macos/Build/Products/Release/HabitTracker-${{github.ref_name}}-macos.zip
