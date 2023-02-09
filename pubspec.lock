@@ -320,6 +320,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: "313e5899851b43de7e779c4a054e8d489fb61caf95fe786bc301b13120557f03"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.5"
   google_fonts:
     dependency: "direct main"
     description:
@@ -855,4 +863,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.18.2 <4.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.3.0"
