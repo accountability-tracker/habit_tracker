@@ -6,7 +6,8 @@ import 'package:habit_tracker/theme.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class TotalCaloriesBlock extends ConsumerStatefulWidget {
-  const TotalCaloriesBlock({super.key, required this.receivedCals, required this.totalCals, required this.burnedCals});
+  const TotalCaloriesBlock(
+      {super.key, required this.receivedCals, required this.totalCals, required this.burnedCals});
 
   final int receivedCals;
   final int totalCals;
@@ -36,127 +37,160 @@ class _TotalCaloriesBlock extends ConsumerState<TotalCaloriesBlock> {
         // ],
       ),
       child: IntrinsicHeight(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [Text("Received", style: TextStyle(fontSize: 14, color: Colors.grey),)],),
-                        const SizedBox(
-                          height: 12.0,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [Text(widget.receivedCals.toString(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),), 
-                                     Text(" / " + widget.totalCals.toString(), style: TextStyle(fontSize: 24, color: Colors.grey),),
-                                     Text("  cal", style: TextStyle(fontSize: 14, color: Colors.grey),)
-                                    ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children: [Text("Spent", style: TextStyle(fontSize: 14, color: Colors.grey),)],),
-                        const SizedBox(
-                          height: 12.0,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [Text(widget.burnedCals.toString(), style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),), 
-                                       Text("  cal", style: TextStyle(fontSize: 14, color: Colors.grey),)
-                                      ],
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
-            const VerticalDivider(
-              width: 20,
-              thickness: 1,
-              indent: 20,
-              endIndent: 0,
-              color: Colors.grey,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    //CircularProgressIndicator(
-                    //  value:(widget.receivedCals - widget.burnedCals) / widget.totalCals,
-                    //  backgroundColor: Colors.white,
-                    //),
-                    SizedBox(
-                      height: 200,
-                      width: 200,
-                      child: SfRadialGauge(
-                        axes: [
-                          RadialAxis(
-                            minimum: 0,
-                            maximum: widget.totalCals.toDouble(),
-                            annotations: <GaugeAnnotation>[
-                              GaugeAnnotation(
-                                widget: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    const SizedBox(
-                                      height: 55.0,
-                                    ),
-                                    Text("Total", 
-                                         style: TextStyle(fontSize: 14, color: Colors.grey),
-                                        ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(widget.totalCals.toString(), 
-                                         style: TextStyle(fontSize: 24),
-                                        ),
-                                    Text("cal", 
-                                         style: TextStyle(fontSize: 14, color: Colors.grey),
-                                        ),
-                                    const SizedBox(
-                                      height: 60.0,
-                                    ),
-                                  ]
-                                )
-                              )
-                            ],
-                            showLabels: false,
-                            showTicks: false,
-                            startAngle: 270,
-                            endAngle: 270,
-                            ranges: [
-                              GaugeRange(startValue: 0, endValue: (widget.receivedCals - widget.burnedCals).toDouble())
-                            ],
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: const <Widget>[
+                          Text(
+                            "Received",
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
                           )
                         ],
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 16.0,
-                ),
-              ],
-            ),
-          ],
-        )
-      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.receivedCals.toString(),
+                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            " / ${widget.totalCals.toString()}",
+                            style: const TextStyle(fontSize: 24, color: Colors.grey),
+                          ),
+                          const Text(
+                            "  cal",
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Spent",
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12.0,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.burnedCals.toString(),
+                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "  cal",
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+          const VerticalDivider(
+            width: 20,
+            thickness: 1,
+            indent: 20,
+            endIndent: 0,
+            color: Colors.grey,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  //CircularProgressIndicator(
+                  //  value:(widget.receivedCals - widget.burnedCals) / widget.totalCals,
+                  //  backgroundColor: Colors.white,
+                  //),
+                  SizedBox(
+                    height: 200,
+                    width: 200,
+                    child: SfRadialGauge(
+                      axes: [
+                        RadialAxis(
+                          minimum: 0,
+                          maximum: widget.totalCals.toDouble(),
+                          annotations: <GaugeAnnotation>[
+                            GaugeAnnotation(
+                                widget: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                  const SizedBox(
+                                    height: 55.0,
+                                  ),
+                                  Text(
+                                    "Total",
+                                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                                  ),
+                                  const SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(
+                                    widget.totalCals.toString(),
+                                    style: TextStyle(fontSize: 24),
+                                  ),
+                                  Text(
+                                    "cal",
+                                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                                  ),
+                                  const SizedBox(
+                                    height: 60.0,
+                                  ),
+                                ]))
+                          ],
+                          showLabels: false,
+                          showTicks: false,
+                          startAngle: 270,
+                          endAngle: 270,
+                          ranges: [
+                            GaugeRange(
+                                startValue: 0,
+                                endValue: (widget.receivedCals - widget.burnedCals).toDouble())
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
+            ],
+          ),
+        ],
+      )),
     );
   }
 }

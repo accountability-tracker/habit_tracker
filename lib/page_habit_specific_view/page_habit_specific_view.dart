@@ -163,6 +163,15 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                           height: 16.0,
                         ),
 
+                        const Divider(
+                            thickness: 0.25,
+                            color: Colors.grey,
+                        ),
+
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+
                         HistoryChart(
                           isarService: widget.isarService,
                           habit: widget.habit,
@@ -181,26 +190,27 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                           height: 24.0,
                         ),
 
-                        const Text(
-                          "How This Habit Compares to Others",
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            color: Colors.red,
-                          ),
-                        ),
+                        // const Text(
+                        //   "How This Habit Compares to Others",
+                        //   style: TextStyle(
+                        //     fontSize: 24.0,
+                        //     color: Colors.red,
+                        //   ),
+                        // ),
 
-                        FutureBuilder<List<Habit>>(
-                            future: widget.isarService.getAllHabits(),
-                            builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
-                              if (snapshot.hasData) {
-                                return PieGraph(
-                                  habitList: snapshot.data,
-                                  isarService: IsarService(),
-                                );
-                              }
-                              return const Text("Loading indacator...");
-                            })
+                        // FutureBuilder<List<Habit>>(
+                        //     future: widget.isarService.getAllHabits(),
+                        //     builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
+                        //       if (snapshot.hasData) {
+                        //         return PieGraph(
+                        //           habitList: snapshot.data,
+                        //           isarService: IsarService(),
+                        //         );
+                        //       }
+                        //       return const Text("Loading indacator...");
+                        //     })
                       ],
+
                     ),
                   ),
                 ),
