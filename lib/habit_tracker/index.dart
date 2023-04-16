@@ -80,24 +80,7 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
                             refreshHabitList: refreshHabitList
                         );
                       });
-
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => Page_CreateNewHabitYesOrNo(
-                  //       isar_service: isar_service
-                  //   )),
-                  // );
                 }),
-
-            // IconButton(
-            //   icon: const Icon(Icons.settings),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const PageSettings()),
-            //     );
-            //   }
-            // ),
 
             if (ref.watch(themeProvider) == ThemeMode.dark) ...[
               IconButton(
@@ -121,17 +104,6 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
               ),
             ],
 
-            IconButton(
-              icon: Icon(
-                habitView == 'input' ? Icons.bar_chart : Icons.rule,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                setState(() {
-                  habitView == 'input' ? habitView = 'stats' : habitView = 'input';
-                });
-              },
-            ),
 
             // PopupMenuButton(
             //   icon: const Icon(Icons.sort),

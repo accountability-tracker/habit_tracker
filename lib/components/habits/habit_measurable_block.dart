@@ -58,14 +58,22 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
 
     return Column(
       children: <Widget>[
-        TextButton(
-          child: Text(
-            valueText,
-            style: TextStyle(
-              color: Color(widget.habit.getColor()), // Colors.red,
+        InkWell(
+          child:
+            Container(
+              alignment: Alignment.center,
+              height: 30,
+              width: 60,
+              child: Text(
+                valueText,
+                style: TextStyle(
+                  color: Color(widget.habit.getColor()), // Colors.red,
+                  fontSize: currentValue > 0 ? 24.0 : 16.0,
+                ),
+              ),
+
             ),
-          ),
-          onPressed: () async {
+          onTap: () async {
             // var initialValue = currentValue;
             var res = await showDialog(
                 context: context,
@@ -199,6 +207,7 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
           Text(widget.habit.unit.toString(),
               style: const TextStyle(
                 color: Colors.grey,
+                fontSize: 12.0,
               )),
       ],
     );

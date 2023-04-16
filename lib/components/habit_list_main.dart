@@ -68,17 +68,8 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
     // TODO: scrollview
 
     return Column(
-      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        Container(
-          child: widget.habitView == 'input'
-              ? const FiveDayLine()
-              : const SizedBox(
-                  height: 53.0,
-                ),
-        ),
-        //const FiveDayLine(),
 
         Expanded(
           child: SingleChildScrollView(
@@ -88,6 +79,9 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
+                Container(
+                  child: const FiveDayLine(),
+                ),
                 FutureBuilder<List<Habit>>(
                   future: fhabits,
                   builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
@@ -99,11 +93,14 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                           }
 
                           return Container(
-                            color: customColors.backgroundCompliment,
+                            decoration: BoxDecoration(
+                              color: customColors.backgroundCompliment!,
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            ),
                             // const Color.fromRGBO(31, 31, 31, 1.0),
                             width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.all(2.0),
-                            padding: const EdgeInsets.all(8.0),
+                            margin: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: HabitLine(
                                 isarService: widget.isarService,
                                 habit: habit,
