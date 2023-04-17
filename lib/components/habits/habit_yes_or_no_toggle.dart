@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
+import 'package:habit_tracker/theme.dart';
 
 class HabitYesOrNoToggle extends StatefulWidget {
   HabitYesOrNoToggle(
@@ -25,7 +26,7 @@ class HabitYesOrNoToggle extends StatefulWidget {
 }
 
 class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
-  bool toggledOn = false; // habitDate != null ?
+  bool toggledOn = false;
   // (
   //   habitDate?.getValue() == 0 ? false : true
   // )
@@ -33,15 +34,19 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(clearfeld): fix this to update on clcik
+    var customColors = Theme.of(context).extension<CustomColors>()!;
+    // TODO(clearfeld): fix this to update on clcik\
     toggledOn =
         widget.habitDate != null ? (widget.habitDate?.getValue() == 0 ? false : true) : false;
 
+
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         IconButton(
-            icon: (toggledOn ? const Icon(Icons.check) : const Icon(Icons.close)),
-            color: Color(widget.habit.getColor()), // Colors.red,
+            icon: (toggledOn ? const Icon(Icons.check, weight: 1, size: 40,) : const Icon(Icons.close, size: 40,)),
+            //iconSize: 40,
+            color: (toggledOn ? Color(widget.habit.getColor()) : customColors.iconDisabled),  //Color(widget.habit.getColor()), // Colors.red,
             onPressed: () async {
               var x = !toggledOn;
               setState(() {

@@ -107,6 +107,19 @@ class Habit {
     return frequency;
   }
 
+  String getFrequencyName() {
+    switch (frequency) {
+      case EHABITFREQUENCY.everyDay:
+        return 'Every Day';
+      case EHABITFREQUENCY.everyXDays:
+        return 'Every $frequencyAmount Days';
+      case EHABITFREQUENCY.xTimesPerMonth:
+        return '$frequencyAmount Times a Month';
+      case EHABITFREQUENCY.xTimesPerWeek:
+        return '$frequencyAmount Times a Week';
+    }
+  }
+
   int getFrequencyAmount() {
     return frequencyAmount;
   }

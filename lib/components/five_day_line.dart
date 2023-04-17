@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker/theme.dart';
 
 class FiveDayLine extends ConsumerStatefulWidget {
   const FiveDayLine({
@@ -28,34 +29,37 @@ class _FiveDayLine extends ConsumerState<FiveDayLine> {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
     // final him = ref.watch(habitsManagerProvider);
 
     return Container(
+      color: customColors.navbarBackground,
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.all(2.0),
+      //margin: const EdgeInsets.all(2.0),
       padding: const EdgeInsets.all(8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           // Spacer(),
 
-          Container(
-            width: MediaQuery.of(context).size.width * 0.45,
-          ),
+          //Container(
+          //  width: MediaQuery.of(context).size.width * 0.45,
+          //),
 
           // Text(date.toString()),
           // Text(date.add(Duration(days: 1)).toString()),
 
           SizedBox(
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            width: MediaQuery.of(context).size.width * 0.5,
+            width: (MediaQuery.of(context).size.width * 0.8) + 40,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 for (var n in nd)
                   Column(
                     children: <Widget>[
-                      Text(printDay(date.subtract(Duration(days: (4 - n))).weekday)),
-                      Text(date.subtract(Duration(days: (4 - n))).day.toString()),
+                      Text(printDay(date.subtract(Duration(days: (4 - n))).weekday), style: TextStyle(color: customColors.textColorSecondary)),
+                      Text(date.subtract(Duration(days: (4 - n))).day.toString(), style: TextStyle(color: customColors.textColorSecondary)),
                     ],
                   ),
               ],
