@@ -166,8 +166,8 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
           c,
           freq,
           int.parse(frequencyAmountController.text),
-          reminderText,
           reminderTime,
+          reminderText,
           questionTextController.text,
           notesTextController.text));
     }
