@@ -32,7 +32,8 @@ class _FlatDropdown extends State<FlatDropdown> {
 
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: customColors.background, //  Color.fromRGBO(41, 41, 41, 1.0),
+        color: customColors.backgroundCompliment, //  Color.fromRGBO(41, 41, 41, 1.0),
+        borderRadius: BorderRadius.circular(10),
         //background color of dropdown button
         // border: Border.all(color: Colors.black38, width:3), //border of dropdown button
         // borderRadius: BorderRadius.circular(50), //border raiuds of dropdown button

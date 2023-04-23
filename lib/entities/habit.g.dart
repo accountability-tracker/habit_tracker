@@ -48,29 +48,34 @@ const HabitSchema = CollectionSchema(
       name: r'question',
       type: IsarType.string,
     ),
-    r'reminder': PropertySchema(
+    r'reminderMessage': PropertySchema(
       id: 6,
-      name: r'reminder',
+      name: r'reminderMessage',
+      type: IsarType.string,
+    ),
+    r'reminderTime': PropertySchema(
+      id: 7,
+      name: r'reminderTime',
       type: IsarType.string,
     ),
     r'target': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'target',
       type: IsarType.long,
     ),
     r'title': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'title',
       type: IsarType.string,
     ),
     r'type': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'type',
       type: IsarType.byte,
       enumMap: _HabittypeEnumValueMap,
     ),
     r'unit': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'unit',
       type: IsarType.string,
     )
@@ -109,7 +114,13 @@ int _habitEstimateSize(
     }
   }
   {
-    final value = object.reminder;
+    final value = object.reminderMessage;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.reminderTime;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -136,11 +147,12 @@ void _habitSerialize(
   writer.writeLong(offsets[3], object.frequencyAmount);
   writer.writeString(offsets[4], object.notes);
   writer.writeString(offsets[5], object.question);
-  writer.writeString(offsets[6], object.reminder);
-  writer.writeLong(offsets[7], object.target);
-  writer.writeString(offsets[8], object.title);
-  writer.writeByte(offsets[9], object.type.index);
-  writer.writeString(offsets[10], object.unit);
+  writer.writeString(offsets[6], object.reminderMessage);
+  writer.writeString(offsets[7], object.reminderTime);
+  writer.writeLong(offsets[8], object.target);
+  writer.writeString(offsets[9], object.title);
+  writer.writeByte(offsets[10], object.type.index);
+  writer.writeString(offsets[11], object.unit);
 }
 
 Habit _habitDeserialize(
@@ -159,12 +171,13 @@ Habit _habitDeserialize(
   object.id = id;
   object.notes = reader.readStringOrNull(offsets[4]);
   object.question = reader.readStringOrNull(offsets[5]);
-  object.reminder = reader.readStringOrNull(offsets[6]);
-  object.target = reader.readLongOrNull(offsets[7]);
-  object.title = reader.readString(offsets[8]);
-  object.type = _HabittypeValueEnumMap[reader.readByteOrNull(offsets[9])] ??
+  object.reminderMessage = reader.readStringOrNull(offsets[6]);
+  object.reminderTime = reader.readStringOrNull(offsets[7]);
+  object.target = reader.readLongOrNull(offsets[8]);
+  object.title = reader.readString(offsets[9]);
+  object.type = _HabittypeValueEnumMap[reader.readByteOrNull(offsets[10])] ??
       EHABITS.uninitalized;
-  object.unit = reader.readStringOrNull(offsets[10]);
+  object.unit = reader.readStringOrNull(offsets[11]);
   return object;
 }
 
@@ -191,13 +204,15 @@ P _habitDeserializeProp<P>(
     case 6:
       return (reader.readStringOrNull(offset)) as P;
     case 7:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 9:
+      return (reader.readString(offset)) as P;
+    case 10:
       return (_HabittypeValueEnumMap[reader.readByteOrNull(offset)] ??
           EHABITS.uninitalized) as P;
-    case 10:
+    case 11:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -919,36 +934,36 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderIsNull() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'reminder',
+        property: r'reminderMessage',
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderIsNotNull() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'reminder',
+        property: r'reminderMessage',
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderEqualTo(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'reminder',
+        property: r'reminderMessage',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderGreaterThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -956,14 +971,14 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'reminder',
+        property: r'reminderMessage',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderLessThan(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -971,14 +986,14 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'reminder',
+        property: r'reminderMessage',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderBetween(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -987,7 +1002,7 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'reminder',
+        property: r'reminderMessage',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -997,69 +1012,216 @@ extension HabitQueryFilter on QueryBuilder<Habit, Habit, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderStartsWith(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'reminder',
+        property: r'reminderMessage',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderEndsWith(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'reminder',
+        property: r'reminderMessage',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderContains(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'reminder',
+        property: r'reminderMessage',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMatches(
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'reminder',
+        property: r'reminderMessage',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderIsEmpty() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderMessageIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'reminder',
+        property: r'reminderMessage',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderIsNotEmpty() {
+  QueryBuilder<Habit, Habit, QAfterFilterCondition>
+      reminderMessageIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'reminder',
+        property: r'reminderMessage',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'reminderTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'reminderTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'reminderTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'reminderTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'reminderTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'reminderTime',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'reminderTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'reminderTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'reminderTime',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'reminderTime',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'reminderTime',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterFilterCondition> reminderTimeIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'reminderTime',
         value: '',
       ));
     });
@@ -1535,15 +1697,27 @@ extension HabitQuerySortBy on QueryBuilder<Habit, Habit, QSortBy> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> sortByReminder() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByReminderMessage() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'reminder', Sort.asc);
+      return query.addSortBy(r'reminderMessage', Sort.asc);
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> sortByReminderDesc() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByReminderMessageDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'reminder', Sort.desc);
+      return query.addSortBy(r'reminderMessage', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByReminderTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reminderTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> sortByReminderTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reminderTime', Sort.desc);
     });
   }
 
@@ -1681,15 +1855,27 @@ extension HabitQuerySortThenBy on QueryBuilder<Habit, Habit, QSortThenBy> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> thenByReminder() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByReminderMessage() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'reminder', Sort.asc);
+      return query.addSortBy(r'reminderMessage', Sort.asc);
     });
   }
 
-  QueryBuilder<Habit, Habit, QAfterSortBy> thenByReminderDesc() {
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByReminderMessageDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'reminder', Sort.desc);
+      return query.addSortBy(r'reminderMessage', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByReminderTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reminderTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QAfterSortBy> thenByReminderTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'reminderTime', Sort.desc);
     });
   }
 
@@ -1782,10 +1968,18 @@ extension HabitQueryWhereDistinct on QueryBuilder<Habit, Habit, QDistinct> {
     });
   }
 
-  QueryBuilder<Habit, Habit, QDistinct> distinctByReminder(
+  QueryBuilder<Habit, Habit, QDistinct> distinctByReminderMessage(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'reminder', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'reminderMessage',
+          caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Habit, Habit, QDistinct> distinctByReminderTime(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'reminderTime', caseSensitive: caseSensitive);
     });
   }
 
@@ -1859,9 +2053,15 @@ extension HabitQueryProperty on QueryBuilder<Habit, Habit, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Habit, String?, QQueryOperations> reminderProperty() {
+  QueryBuilder<Habit, String?, QQueryOperations> reminderMessageProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'reminder');
+      return query.addPropertyName(r'reminderMessage');
+    });
+  }
+
+  QueryBuilder<Habit, String?, QQueryOperations> reminderTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'reminderTime');
     });
   }
 

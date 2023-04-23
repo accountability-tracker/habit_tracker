@@ -105,12 +105,12 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
                           width: 16.0,
                         ),
                         Text(
-                          (widget.habit.getReminder() == null || widget.habit.getReminder() == "")
+                          (widget.habit.getReminderMessage() == null || widget.habit.getReminderMessage() == "")
                               ? "OFF"
-                              : widget.habit.getReminder(),
+                              : widget.habit.getReminderMessage(),
                           style: TextStyle(
-                            color: (widget.habit.getReminder() == null ||
-                                    widget.habit.getReminder() == "")
+                            color: (widget.habit.getReminderMessage() == null ||
+                                    widget.habit.getReminderMessage() == "")
                                 ? Colors.grey
                                 : Colors.white,
                           ),

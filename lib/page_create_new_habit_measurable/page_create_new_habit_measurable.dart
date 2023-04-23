@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:habit_tracker/components/flat_date_picker.dart';
+import 'package:habit_tracker/components/color_select.dart';
+import 'package:habit_tracker/components/flat_switch.dart';
 
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
@@ -51,15 +53,15 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
   String frequencyValue = frequencyList.first;
   String targetTypeValue = targetTypeList.first;
   String reminderValue = reminderList.first;
+  final reminderOn = TextEditingController();
   final notesTextController = TextEditingController();
+  final reminderTextController = TextEditingController();
 
   // create some values
   Color pickerColor = const Color(0xff443a49);
-  Color currentColor = const Color(0xff443a49);
-  // ValueChanged<Color> callback
-  void changeColor(Color color) {
-    setState(() => pickerColor = color);
-  }
+  final currentColor = TextEditingController();
+  final customColor = TextEditingController();
+  final dateController = TextEditingController();
 
   @override
   void initState() {
@@ -71,6 +73,17 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       questionTextController.text = widget.fHabit?.getQuestion() ?? "";
       unitTextController.text = widget.fHabit?.getUnit() ?? "";
       targetTextController.text = widget.fHabit?.getTarget().toString() ?? "";
+      if (widget.fHabit?.getReminderTime() != null) {
+        dateController.text = widget.fHabit?.getReminderTime() ?? "12:00";  //"12:00";
+        reminderTextController.text = widget.fHabit?.getReminderMessage() ?? "";
+        reminderOn.text = 't';
+      }
+      else {
+        dateController.text = "12:00";
+        reminderTextController.text = "";
+      }
+      customColor.text = '0xff443a49';
+      currentColor.text = widget.fHabit?.getColorString() ?? '0xfff16567';
 
       if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.everyDay) {
         frequencyValue = 'Every Day';
@@ -85,8 +98,17 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       // // String reminderValue = reminderList.first;
       notesTextController.text = widget.fHabit?.getNotes() ?? "";
 
-      pickerColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
-      currentColor = Color(widget.fHabit?.getColor() ?? 0xff443a49);
+      if (widget.fHabit?.getColorString() != '0xfff16567' &&
+          widget.fHabit?.getColorString() != '0xff2ec977' &&
+          widget.fHabit?.getColorString() != '0xff5666f3' &&
+          widget.fHabit?.getColorString() != '0xfff7f186' &&
+          widget.fHabit?.getColorString() != '0xff9186f4') {
+        customColor.text = widget.fHabit?.getColorString() ?? '0xff443a49';
+      }
+    } else {
+      dateController.text = "12:00";
+      customColor.text = '0xff443a49';
+      currentColor.text = '0xfff16567';
     }
   }
 
@@ -112,28 +134,43 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
 
     if (widget.fHabit != null) {
       var h = widget.fHabit;
-      var c = currentColor.toString();
+      var c = currentColor.text;
+      var reminderText;
+      var reminderTime;
+      if (reminderOn.text == 't') {
+        reminderText = reminderTextController.text;
+        reminderTime = dateController.text;
+      }
       h?.title = nameTextController.text;
       h?.question = questionTextController.text;
       h?.unit = unitTextController.text;
       h?.target = int.parse(targetTextController.text);
       h?.notes = notesTextController.text;
-      h?.color = c.substring(6, c.length - 1);
+      h?.color = c;
       h?.frequency = freq;
+      h?.reminderMessage = reminderText;
+      h?.reminderTime = reminderTime;
 
       widget.isarService.updateHabit(h);
     } else {
-      var c = currentColor.toString();
+      var c = currentColor.text;
+      var reminderText;
+      var reminderTime;
+      if (reminderOn.text == 't') {
+        reminderText = reminderTextController.text;
+        reminderTime = dateController.text;
+      }
 
       widget.isarService.saveHabit(Habit.fullMeasurable(
           EHABITS.measurable,
           nameTextController.text,
-          c.substring(6, c.length - 1),
+          c,
           unitTextController.text,
           int.parse(targetTextController.text),
           freq,
           1,
-          "",
+          reminderTime,
+          reminderText,
           questionTextController.text,
           notesTextController.text));
     }
@@ -177,8 +214,83 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
     final customColors = Theme.of(context).extension<CustomColors>()!;
 
     return Scaffold(
+      backgroundColor: customColors.background,
       appBar: AppBar(
-        title: const Text("Create New Habit (Measurable)"),
+        title: Text(widget.fHabit?.getTitle() ?? "New Habit", style: TextStyle(color: Colors.white),),
+        centerTitle: true,
+        backgroundColor: customColors.navbarBackground,
+        //surfaceTintColor: customColors.backgroundCompliment,
+        shadowColor: null,
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          Row(children: [
+            InkWell(
+              child: Text("Save", style: TextStyle(color: customColors.textColorLink)),
+              onTap: () {
+                if (nameTextController.text == '') {
+                  // var res =
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: customColors.background,
+                          surfaceTintColor: customColors.background,
+                          title: const Text('Please enter a valid title.'),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              child: Text('Okay', style: TextStyle(color: customColors.textColorLink)),
+                              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(customColors.backgroundCompliment)),
+                              onPressed: () {
+                                // setState(() => currentValue = initialValue);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                }
+                else if (targetTextController.text == '') {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: customColors.background,
+                        surfaceTintColor: customColors.background,
+                        title: const Text('Please enter a valid Target Amount.'),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            child: Text('Okay', style: TextStyle(color: customColors.textColorLink)),
+                            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(customColors.backgroundCompliment)),
+                            onPressed: () {
+                              // setState(() => currentValue = initialValue);
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    });
+                } else {
+                  addHabit();
+                  ref.read(dataUpdate.notifier).setUpdate();
+                  leavePage(context);
+                }
+              }
+            ),
+            SizedBox(width: 10,)
+          ],)
+        ],
+        leading: Row(
+          children: [
+            const SizedBox(width: 10),
+            Container(
+              alignment: Alignment.center,
+              child: InkWell(
+                child: Text("Cancel", style: TextStyle(color: customColors.textColorSecondary),),
+                onTap: () {Navigator.of(context).pop();}
+              )
+            )
+          ]
+        )
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -196,110 +308,41 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 //   'Create your new habit',
                 // ),
 
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FlatTextField(
+                      textController: nameTextController,
+                      hintText: "Title",
+                    ),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 8.0,
+                ),
+
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text("Name"),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          FlatTextField(textController: nameTextController, hintText: 'e.g. Run'),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text("Color"),
-
-                        const SizedBox(
-                          height: 8.0,
-                        ),
-
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Pick a color!'),
-                                    content: SingleChildScrollView(
-                                      child: ColorPicker(
-                                        pickerColor: pickerColor,
-                                        onColorChanged: changeColor,
-                                      ),
-                                      // Use Material color picker:
-                                      //
-                                      // child: MaterialPicker(
-                                      //   pickerColor: pickerColor,
-                                      //   onColorChanged: changeColor,
-                                      //   showLabel: true, // only on portrait mode
-                                      // ),
-                                      //
-                                      // Use Block color picker:
-                                      //
-                                      // child: BlockPicker(
-                                      //   pickerColor: currentColor,
-                                      //   onColorChanged: changeColor,
-                                      // ),
-                                      //
-                                      // child: MultipleChoiceBlockPicker(
-                                      //   pickerColors: currentColors,
-                                      //   onColorsChanged: changeColors,
-                                      // ),
-                                    ),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                        child: const Text('Got it'),
-                                        onPressed: () {
-                                          setState(() => currentColor = pickerColor);
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                });
-                          },
-                          child: Container(
-                            color: customColors.background,
-                            width: 48.0,
-                            height: 48.0,
-                            child: Container(
-                              margin: const EdgeInsets.all(10.0),
-                              color: currentColor,
-                              width: 48.0,
-                              height: 48.0,
-                            ),
-                          ),
-                        ),
-
-                        // TextField(
-                        //   controller: nameTextController,
-                        //   decoration: InputDecoration(
-                        //     border: OutlineInputBorder(),
-                        //     hintText: "e.g. Exercise",
-                        //   ),
-                        // ),
-                      ],
-                    ),
+                    ColorSelect(currentColor: currentColor, customColor: customColor,),
                   ],
                 ),
 
                 const SizedBox(
-                  height: 32.0,
+                  height: 16.0,
+                ),
+                Divider(color: customColors.backgroundCompliment, thickness: 1,),
+                const SizedBox(
+                  height: 16.0,
                 ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text("Question"),
+                    const Text("Question", style: TextStyle(fontWeight: FontWeight.bold),), 
                     const SizedBox(
                       height: 8.0,
                     ),
@@ -311,13 +354,17 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 ),
 
                 const SizedBox(
-                  height: 32.0,
+                  height: 16.0,
+                ),
+                Divider(color: customColors.backgroundCompliment, thickness: 1,),
+                const SizedBox(
+                  height: 16.0,
                 ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text("Unit"),
+                    const Text("Unit", style: TextStyle(fontWeight: FontWeight.bold),),
                     const SizedBox(
                       height: 8.0,
                     ),
@@ -335,29 +382,31 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Expanded(
+                    SizedBox(
+                      width: 80.0,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Text("Target"),
+                          const Text("Target", style: TextStyle(fontWeight: FontWeight.bold),),
                           const SizedBox(
                             height: 8.0,
                           ),
                           FlatTextField(
                             textController: targetTextController,
                             hintText: "e.g. 15",
+                            keyboardType: 'num',
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(
-                      width: 16.0,
+                      width: 8.0,
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Text("Frequency"),
+                          const Text("Frequency", style: TextStyle(fontWeight: FontWeight.bold),),
                           const SizedBox(
                             height: 8.0,
                           ),
@@ -385,7 +434,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   children: <Widget>[
                     Row(
                       children: const <Widget>[
-                        Text("Target Type"),
+                        Text("Target Type", style: TextStyle(fontWeight: FontWeight.bold),),
                       ],
                     ),
                     const SizedBox(
@@ -404,135 +453,62 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 ),
 
                 const SizedBox(
-                  height: 32.0,
+                  height: 16.0,
+                ),
+                Divider(color: customColors.backgroundCompliment, thickness: 1,),
+                const SizedBox(
+                  height: 16.0,
                 ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
+                      mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        const Text("Reminder"),
-                        TextButton(
-                            child: const Text("Test time picker"),
-                            onPressed: () async {
-                              TimeOfDay? selectedTime = await showTimePicker(
-                                initialTime: TimeOfDay.now(),
-                                context: context,
-
-                                // 24 Hour format - setting
-                                // builder: (BuildContext context, Widget? child) {
-                                //   return MediaQuery(
-                                //     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                                //     child: child!,
-                                //   );
-                                // },
-                              );
-
-                              if (selectedTime == null) return;
-
-                              // print("Select time - " + selectedTime.toString());
-                            }),
+                        const Text("Reminder", style: TextStyle(fontWeight: FontWeight.bold),),
+                        Expanded(child: SizedBox()),
+                        FlatSwitch(reminderController: reminderOn,),
                       ],
                     ),
                     const SizedBox(
                       height: 8.0,
                     ),
-                    FlatDropdown(
-                      value: reminderValue,
-                      onValueChanged: (String? valueArg) {
-                        setState(() {
-                          reminderValue = valueArg!;
-                        });
-                      },
-                      items: reminderList,
-                    ),
+                    Row(
+                      children: [
+                        FlatDatePicker(dateController: dateController,),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
+                        Expanded(
+                          child: FlatTextField(
+                            textController: reminderTextController,
+                            hintText: "Reminder Message",
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
 
                 const SizedBox(
-                  height: 32.0,
+                  height: 16.0,
+                ),
+                Divider(color: customColors.backgroundCompliment, thickness: 1,),
+                const SizedBox(
+                  height: 16.0,
                 ),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text("Notes"),
+                    const Text("Notes", style: TextStyle(fontWeight: FontWeight.bold),),
                     const SizedBox(
                       height: 8.0,
                     ),
                     FlatTextField(
                       textController: notesTextController,
                       hintText: "(Optional)",
-                    ),
-                  ],
-                ),
-
-                const SizedBox(
-                  height: 48.0,
-                ),
-
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                        ),
-                        onPressed: () {
-                          String errorText = '';
-
-                          if (nameTextController.text == '') {
-                            errorText = 'Please enter a valid title.';
-                          } else if (targetTextController.text == '' ||
-                              int.tryParse(targetTextController.text) == null) {
-                            errorText = 'Please enter a valid number for target amount.';
-                          }
-
-                          if (errorText != '') {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text(errorText),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                        child: const Text('Okay'),
-                                        onPressed: () {
-                                          // setState(() => currentValue = initialValue);
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                });
-                          } else {
-                            addHabit();
-                            ref.read(dataUpdate.notifier).setUpdate();
-                            leavePage(context);
-                          }
-                        },
-                        child: const Text('Save'),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16.0,
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                        ),
-                        onPressed: () {
-                          leavePage(context);
-                        },
-                        child: const Text('Cancel'),
-                      ),
                     ),
                   ],
                 ),
