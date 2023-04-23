@@ -38,6 +38,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
     required this.background,
     required this.backgroundCompliment,
     required this.textColor,
+    required this.textColorSecondary,
+    required this.textColorLink,
+    required this.iconDisabled,
+    required this.switchColor,
+    required this.toggleColor,
+    required this.dividerColor,
     // navbar
     required this.navbarBackground,
     //
@@ -50,6 +56,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? background;
   final Color? backgroundCompliment;
   final Color? textColor;
+  final Color? textColorSecondary;
+  final Color? textColorLink;
+  final Color? iconDisabled;
+  final Color? switchColor;
+  final Color? toggleColor;
+  final Color? dividerColor;
 
   final Color? navbarBackground;
 
@@ -64,6 +76,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? background,
     Color? backgroundCompliment,
     Color? textColor,
+    Color? textColorSecondary,
+    Color? textColorLink,
+    Color? iconDisabled,
+    Color? switchColor,
+    Color? toggleColor,
+    Color? dividerColor,
     Color? navbarBackground,
     Color? buttonAffirmative,
     Color? buttonNegative,
@@ -74,6 +92,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
       background: background ?? this.background,
       backgroundCompliment: backgroundCompliment ?? this.backgroundCompliment,
       textColor: textColor ?? this.textColor,
+      textColorSecondary: textColorSecondary ?? this.textColorSecondary,
+      textColorLink: textColorLink ?? this.textColorLink,
+      iconDisabled: iconDisabled ?? this.iconDisabled,
+      switchColor: switchColor ?? this.switchColor,
+      toggleColor: toggleColor ?? this.toggleColor,
+      dividerColor: dividerColor ?? this.dividerColor,
       navbarBackground: navbarBackground ?? this.navbarBackground,
       buttonAffirmative: buttonAffirmative ?? this.buttonAffirmative,
       buttonNegative: buttonNegative ?? this.buttonNegative,
@@ -92,6 +116,12 @@ class CustomColors extends ThemeExtension<CustomColors> {
       background: Color.lerp(background, other.background, t),
       backgroundCompliment: Color.lerp(backgroundCompliment, other.backgroundCompliment, t),
       textColor: Color.lerp(textColor, other.textColor, t),
+      textColorSecondary: Color.lerp(textColorSecondary, other.textColorSecondary, t),
+      textColorLink: Color.lerp(textColorLink, other.textColorLink, t),
+      iconDisabled: Color.lerp(iconDisabled, other.iconDisabled, t),
+      switchColor: Color.lerp(switchColor, other.switchColor, t),
+      toggleColor: Color.lerp(toggleColor, other.toggleColor, t),
+      dividerColor: Color.lerp(dividerColor, other.dividerColor, t),
       navbarBackground: Color.lerp(navbarBackground, other.navbarBackground, t),
       buttonAffirmative: Color.lerp(buttonAffirmative, other.buttonAffirmative, t),
       buttonNegative: Color.lerp(buttonNegative, other.buttonNegative, t),
@@ -112,11 +142,17 @@ final custDarkTheme = ThemeData.dark().copyWith(
   extensions: <ThemeExtension<dynamic>>[
     const CustomColors(
       // general
-      background: Color(0xFF111111),
-      backgroundCompliment: Color(0xFF1E1E1E),
+      background: Color(0xff18171e),
+      backgroundCompliment: Color(0xff242430),
       textColor: Color(0xFFFFFFFF),
+      textColorSecondary: Color(0xff7c7c86),
+      textColorLink: Color(0xff6b6bfc),
+      iconDisabled: Color(0xff696969),
+      switchColor: Color(0xff521b1b),
+      toggleColor: Color(0xffd90000),
+      dividerColor: Color(0xff242430),
       // navabar
-      navbarBackground: Color(0xFF1E1E1E),
+      navbarBackground: Color(0xff242430),
       //
       buttonAffirmative: Color(0xfff39c12),
       buttonNegative: Color(0xffe74c3c),
@@ -143,8 +179,14 @@ final custLightTheme = ThemeData.light().copyWith(
       background: Color(0xFFF8F8F8),
       backgroundCompliment: Color.fromRGBO(255, 255, 255, 1.0),
       textColor: Color(0xFF000000),
+      textColorSecondary: Color(0xffcdcdcd),
+      textColorLink: Color(0xff6b6bfc),
+      iconDisabled: Color(0xff696969),
+      switchColor: Color(0xff6b6bfc),
+      toggleColor: Color(0xff3010f3),
+      dividerColor: Color(0xffe1e1e1),
       // navabar
-      navbarBackground: Color(0xFF053a7a),
+      navbarBackground: Color(0xff100cc5),
       //
       buttonAffirmative: Color(0xfff39c12),
       buttonNegative: Color(0xffe74c3c),
