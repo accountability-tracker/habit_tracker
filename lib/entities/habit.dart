@@ -31,7 +31,8 @@ class Habit {
   late String? unit;
   late int? target;
 
-  late String? reminder; // Time
+  late String? reminderTime; // Time
+  late String? reminderMessage;
 
   late String? question;
   late String? notes;
@@ -46,7 +47,8 @@ class Habit {
     String colorArg,
     EHABITFREQUENCY frequencyArg,
     int frequencyAmountArg,
-    String? reminderArg,
+    String? reminderTimeArg,
+    String? reminderMessageArg,
     String? questionArg,
     String? notesArg,
   ) {
@@ -57,7 +59,8 @@ class Habit {
     target = null;
     frequency = frequencyArg;
     frequencyAmount = frequencyAmountArg;
-    reminder = reminderArg;
+    reminderTime = reminderTimeArg;
+    reminderMessage = reminderMessageArg;
     question = questionArg;
     notes = notesArg;
     archived = null;
@@ -71,7 +74,8 @@ class Habit {
       int targetArg,
       EHABITFREQUENCY frequencyArg,
       int frequencyAmountArg,
-      String? reminderArg,
+      String? reminderTimeArg,
+      String? reminderMessageArg,
       String? questionArg,
       String? notesArg) {
     type = typeArg;
@@ -81,7 +85,8 @@ class Habit {
     target = targetArg;
     frequency = frequencyArg;
     frequencyAmount = frequencyAmountArg;
-    reminder = reminderArg;
+    reminderTime = reminderTimeArg;
+    reminderMessage = reminderMessageArg;
     question = questionArg;
     notes = notesArg;
     archived = null;
@@ -101,6 +106,10 @@ class Habit {
     // var c = color.substring(6, color.length - 1);
     // print(c);
     return int.parse(color);
+  }
+
+  String getColorString() {
+    return color;
   }
 
   EHABITFREQUENCY getFrequency() {
@@ -124,8 +133,12 @@ class Habit {
     return frequencyAmount;
   }
 
-  String? getReminder() {
-    return reminder;
+  String? getReminderTime() {
+    return reminderTime;
+  }
+
+  String? getReminderMessage() {
+    return reminderMessage;
   }
 
   String? getQuestion() {
