@@ -184,7 +184,6 @@ class _HabitLine extends State<HabitLine> {
 
                         if (widget.habit.type == EHABITS.yesOrNo) {
                           return HabitYesOrNoToggle(
-                              habitDate: habitDates[index],
                               habit: widget.habit,
                               date: date
                                   .subtract(Duration(days: (4 - x[index]))), // index - date.weekday + 1
