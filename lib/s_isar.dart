@@ -104,4 +104,22 @@ class IsarService {
         .dateGreaterThan(dateString)
         .findAll();
   }
+
+  Future<List<HabitDate>> getHabitDate(int habitIdArg, String dateString) async {
+    final isar = await db;
+    return await isar.habitDates
+        .filter()
+        .habitIdEqualTo(habitIdArg)
+        .dateEqualTo(dateString)
+        .findAll();
+  }
+  Future<void> toggleHabitDate(HabitDate habitDate) async {
+    if (habitDate != null) {
+      final isar = await db;
+
+      await isar.writeTxn(() async {
+        await isar.habitDates.put(habitDate);
+      });
+    }
+  }
 }
