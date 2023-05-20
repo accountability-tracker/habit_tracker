@@ -26,6 +26,7 @@ class HabitYesOrNoToggle extends StatefulWidget {
 class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
   bool toggledOn = false; // reserved for null habit dates.
   late Future<List<HabitDate>>? fhabitDate;
+  var habitDateId;
 
   @override
   void initState() {
@@ -55,12 +56,18 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
                 case ConnectionState.done:
                   if (snapshot.data!.isEmpty) {
                     return IconButton(
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           toggledOn = toggledOn ? false : true;
                         });
-                        var id = widget.isarService.putHabitDate(HabitDate.full(widget.habit.id,
-                        '${widget.date.year}-${widget.date.month}-${widget.date.day}', toggledOn ? 1 : 0));
+                        if (habitDateId == null) {
+                          habitDateId = await widget.isarService.putHabitDate(HabitDate.full(widget.habit.id,
+                          '${widget.date.year}-${widget.date.month}-${widget.date.day}', toggledOn ? 1 : 0));
+                        }
+                        else {
+                          widget.isarService.putHabitDate(HabitDate.fullWithId(habitDateId, widget.habit.id,
+                          '${widget.date.year}-${widget.date.month}-${widget.date.day}', toggledOn ? 1 : 0));
+                        }
                       },
                       icon: (toggledOn ? const Icon(Icons.check, weight: 1, size: 40,) : const Icon(Icons.close, size: 40,)),
                       color: (toggledOn ? Color(widget.habit.getColor()) : customColors.iconDisabled),  //Color(widget.habit.getColor())
@@ -68,14 +75,19 @@ class _HabitYesOrNoToggle extends State<HabitYesOrNoToggle> {
                   }
                   else {
                     var habitDate = snapshot.data![0];
+                    if (habitDate.getValue() != 0) {
+                      toggledOn = true;
+                    }
                     return IconButton(
                       onPressed: () {
                         var x = habitDate.getValue();
                         setState(() {
                           x = x == 0 ? 1 : 0;
                           habitDate.setValue(x);
+                          toggledOn = toggledOn ? false : true;
                         });
-                        widget.isarService.toggleHabitDate(habitDate);
+                        widget.isarService.putHabitDate(HabitDate.fullWithId(snapshot.data!.first.id, widget.habit.id,
+                          '${widget.date.year}-${widget.date.month}-${widget.date.day}', toggledOn ? 1 : 0));
                       },
                       icon: (habitDate.getValue() != 0 ? const Icon(Icons.check, weight: 1, size: 40,) : const Icon(Icons.close, size: 40,)),
                       color: (habitDate.getValue() != 0 ? Color(widget.habit.getColor()) : customColors.iconDisabled),  //Color(widget.habit.getColor())

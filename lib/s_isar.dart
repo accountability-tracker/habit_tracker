@@ -64,6 +64,12 @@ class IsarService {
     await isar.writeTxn(() async {
       isar.habits.delete(habitIdArg);
     });
+    await isar.writeTxn(() async {
+      final habitDates = await isar.habitDates.filter().habitIdEqualTo(habitIdArg).findAll();
+      for (var date in habitDates) {
+        isar.habitDates.delete(date.id);
+      }
+    });
   }
 
   // Habit Date Helpers

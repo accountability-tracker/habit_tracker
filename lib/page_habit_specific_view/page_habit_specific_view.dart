@@ -64,6 +64,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
         title: Text(
           widget.habit.getTitle(),
         ),
+        backgroundColor: customColors.backgroundCompliment,
         actions: [
           IconButton(
               icon: const Icon(Icons.edit),
@@ -160,7 +161,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                         ),
 
                         const SizedBox(
-                          height: 16.0,
+                          height: 8.0,
                         ),
 
                         const Divider(
@@ -169,7 +170,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                         ),
 
                         const SizedBox(
-                          height: 16.0,
+                          height: 8.0,
                         ),
 
                         HistoryChart(
@@ -178,7 +179,7 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                         ),
 
                         const SizedBox(
-                          height: 16.0,
+                          height: 8.0,
                         ),
 
                         HabitCalendar(
