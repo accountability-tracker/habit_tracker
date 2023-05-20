@@ -117,15 +117,20 @@ class Habit {
   }
 
   String getFrequencyName() {
+    String unit = getUnit() ?? 'Times';
+    String fa = getFrequencyAmount().toString();
+    if (getTarget() != null) {
+      fa = getTarget().toString();
+    }
     switch (frequency) {
       case EHABITFREQUENCY.everyDay:
         return 'Every Day';
       case EHABITFREQUENCY.everyXDays:
-        return 'Every $frequencyAmount Days';
+        return 'Every $fa Days';
       case EHABITFREQUENCY.xTimesPerMonth:
-        return '$frequencyAmount Times a Month';
+        return '$fa $unit a Month';
       case EHABITFREQUENCY.xTimesPerWeek:
-        return '$frequencyAmount Times a Week';
+        return '$fa $unit a Week';
     }
   }
 
