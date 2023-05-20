@@ -5,6 +5,7 @@ import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
 import 'package:habit_tracker/page_habit_specific_view/history_bar_chart.dart';
+import 'package:habit_tracker/page_habit_specific_view/history_line_chart.dart';
 import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';
 
@@ -314,7 +315,11 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                       xy.add({'date': dateString, 'value': period['value']});
                     }
 
-                    return HistoryBarChart(
+                    // return HistoryBarChart(
+                    //   habitDates: xy, // habit_dates
+                    // );
+
+                    return HistoryLineChart(
                       habitDates: xy, // habit_dates
                     );
 
