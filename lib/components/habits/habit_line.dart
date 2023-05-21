@@ -71,7 +71,9 @@ class _HabitLine extends State<HabitLine> {
                       MaterialPageRoute(
                         builder: (context) =>
                           PageHabitSpecificView(isarService: widget.isarService, habit: widget.habit)),
-                    ).then(widget.updateFunction);
+                    ).then(widget.updateFunction).then((value) {
+                      setState(() => {fhabitDates = widget.isarService.getHabitsDateLastSeven(widget.habit.id)});
+                    },);
                   },
                 )
               ],

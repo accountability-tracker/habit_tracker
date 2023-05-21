@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/entities/habit.dart';
@@ -7,9 +5,9 @@ import 'package:habit_tracker/entities/habit.dart';
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
+import 'package:habit_tracker/components/calendar/flutter_calendar_carousel.dart' show CalendarCarousel;
+import 'package:habit_tracker/components/calendar/classes/event.dart';
+import 'package:habit_tracker/components/calendar/classes/event_list.dart';
 import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';
 
@@ -67,7 +65,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
     /// Example Calendar Carousel without header and custom prev & next button
     final calendarCarouselNoHeader = CalendarCarousel<Event>(
       daysTextStyle: TextStyle(
-        color: customColors.textColor,
+        color: customColors.textColorSecondary,
       ),
       onDayPressed: (date, events) async {
         if (widget.habit.getType() == EHABITS.yesOrNo) {
@@ -110,9 +108,9 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                               builder: (context) {
                                 return AlertDialog(
                                   title: const Text('Please enter a valid number.'),
-                                  content: SingleChildScrollView(
+                                  content: const SingleChildScrollView(
                                     child: Column(
-                                      children: const <Widget>[],
+                                      children: <Widget>[],
                                     ),
                                   ),
                                   actions: <Widget>[
@@ -153,35 +151,36 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
       },
       showOnlyCurrentMonthDate: true,
       weekendTextStyle: TextStyle(
-        color: customColors.textColor,
+        color: customColors.textColorSecondary,
       ),
       thisMonthDayBorderColor: Colors.transparent,
+      daysHaveCircularBorder: false,
+      customShapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+
       markedDatesMap: _markedDateMap,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width * 0.65,
       selectedDateTime: _selectedDate,
       targetDateTime: _targetDateTime,
       customGridViewPhysics: const NeverScrollableScrollPhysics(),
-      markedDateCustomTextStyle: const TextStyle(
-        fontSize: 18,
-        color: Colors.red,
+      markedDateCustomTextStyle: TextStyle(
+        color: customColors.textColor,
       ),
       showHeader: false,
-      todayTextStyle: const TextStyle(
-        color: Colors.red,
+      todayTextStyle: TextStyle(
+        color: customColors.textColor,
+        fontSize: 18,
       ),
       selectedDayButtonColor: Color(widget.habit.getColor()),
-      markedDateShowIcon: true,
-      markedDateIconMaxShown: 1,
-      markedDateMoreCustomTextStyle: TextStyle(fontSize: 8, color: customColors.textColor),
-      markedDateIconBuilder: (event) {
-        return event.icon;
-      },
-      markedDateMoreShowTotal: true,
-      markedDateIconMargin: 9,
-      markedDateIconOffset: 3,
-      todayButtonColor: const Color.fromRGBO(41, 41, 41, 1.0),
-      selectedDayTextStyle: const TextStyle(color: Colors.red),
+      markedDateShowIcon: false,
+      dayButtonColor: customColors.backgroundCompliment!,
+      markedDateMoreShowTotal: false,
+      markedDateWidget: Positioned(child: Container(color: Colors.transparent, height: 4.0, width: 4.0), bottom: 4.0, left: 18.0),
+      markedDayButtonColor: Color(widget.habit.getColor()).withOpacity(0.5),
+      markedDayTextColor: TextStyle(color: Color(widget.habit.getColor())),
+      todayButtonColor: customColors.backgroundCompliment!,
+      weekdayTextStyle: TextStyle(color: customColors.textColorSecondary),
+      selectedDayTextStyle: TextStyle(color: Colors.white),
       minSelectedDate: _currentDate.subtract(const Duration(days: 360)),
       maxSelectedDate: _currentDate.add(const Duration(days: 360)),
       prevDaysTextStyle: const TextStyle(
@@ -207,7 +206,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
       children: <Widget>[
         //custom icon without header
         Container(
-          color: customColors.backgroundCompliment,
+          color: customColors.background,
           padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
           child: Row(
             children: <Widget>[
@@ -221,7 +220,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                 ),
               )),
               TextButton(
-                child: const Text('PREV'),
+                child: Text('<', style: TextStyle(fontSize: 24, color: customColors.textColorSecondary, fontWeight: FontWeight.w300)),
                 onPressed: () {
                   setState(() {
                     _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month - 1);
@@ -232,7 +231,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                 },
               ),
               TextButton(
-                child: const Text('NEXT'),
+                child: Text('>', style: TextStyle(fontSize: 24, color: customColors.textColorSecondary, fontWeight: FontWeight.w300)),
                 onPressed: () {
                   setState(() {
                     _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month + 1);
@@ -246,7 +245,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
           ),
         ),
         Container(
-            color: customColors.backgroundCompliment, // const Color.fromRGBO(31, 31, 31, 1.0),
+            color: customColors.background, // const Color.fromRGBO(31, 31, 31, 1.0),
             // margin: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
             //padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
             height: MediaQuery.of(context).size.width * 0.75,
@@ -310,12 +309,6 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                         if (!dateFound) {
                           String day = _selectedDate.day.toString();
                           String month = _selectedDate.month.toString();
-                          if (_selectedDate.day < 10) {
-                            day = '0${_selectedDate.day.toString()}';
-                          }
-                          if (_selectedDate.month < 10) {
-                            month = '0${_selectedDate.month.toString()}';
-                          }
                           widget.isarService.putHabitDate(HabitDate.full(
                               widget.habit.id, '${_selectedDate.year}-$month-$day', 1));
                           _markedDateMap.add(
@@ -370,12 +363,6 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                         if (!dateFound) {
                           String day = _selectedDate.day.toString();
                           String month = _selectedDate.month.toString();
-                          if (_selectedDate.day < 10) {
-                            day = '0${_selectedDate.day.toString()}';
-                          }
-                          if (_selectedDate.month < 10) {
-                            month = '0${_selectedDate.month.toString()}';
-                          }
 
                           widget.isarService.putHabitDate(HabitDate.full(widget.habit.id,
                               '${_selectedDate.year}-$month-$day', int.parse(inputNumber)));

@@ -179,7 +179,7 @@ final custLightTheme = ThemeData.light().copyWith(
       background: Color(0xFFF8F8F8),
       backgroundCompliment: Color.fromRGBO(255, 255, 255, 1.0),
       textColor: Color(0xFF000000),
-      textColorSecondary: Color(0xffcdcdcd),
+      textColorSecondary: Color(0xff7c7c86),
       textColorLink: Color(0xff6b6bfc),
       iconDisabled: Color(0xff696969),
       switchColor: Color(0xff6b6bfc),
