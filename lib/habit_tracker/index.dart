@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habit_tracker/entities/meta.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:habit_tracker/components/drawer_cust.dart';
 import 'package:habit_tracker/habit_tracker/add_habit_type_modal.dart';
@@ -29,6 +31,47 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
   // TODO: make a riverpod instance that keeps track of the Isar Instance
   final isarService = IsarService();
   var habitView = 'input';
+
+// TODO: meta app info checks should probably live in their own file and be in a root level comp ahead of the router
+// fine for now but when folder and file cleanup is under way this should also be moved
+ PackageInfo _packageInfo = PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+    buildSignature: 'Unknown',
+    installerStore: 'Unknown',
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+    VerifyMetaInformation();
+  }
+
+  Future<void> _initPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
+
+  void VerifyMetaInformation() async {
+    final appMetaInfo = await isarService.getAppMetaInfo();
+    print("App Meta Info");
+    print(appMetaInfo);
+
+    if(appMetaInfo == null) {
+        final appMetaInfov = AppMetaInfo.full(
+            _packageInfo.version
+        );
+
+        await isarService.saveAppMetaInfo(appMetaInfov);
+    } else {
+        // TODO: check version if different from current app version do upgrade path if needed
+    }
+  }
 
   void _moreOptionSelected(int item) {
     // print(item);
@@ -77,9 +120,7 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
                       context: context,
                       builder: (context) {
                         return AddHabitTypeModal(
-                            isarService: isarService,
-                            refreshHabitList: refreshHabitList
-                        );
+                            isarService: isarService, refreshHabitList: refreshHabitList);
                       });
                 }),
 
@@ -104,7 +145,6 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
                 },
               ),
             ],
-
 
             // PopupMenuButton(
             //   icon: const Icon(Icons.sort),

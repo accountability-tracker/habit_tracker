@@ -1,6 +1,7 @@
 import "package:isar/isar.dart";
 import 'package:path_provider/path_provider.dart';
 
+import "entities/meta.dart";
 import "entities/habit.dart";
 import "entities/habit_date.dart";
 
@@ -16,11 +17,29 @@ class IsarService {
       final appDocDir = await getApplicationSupportDirectory();
       // print('App Doc path - $appDocDir.path');
 
-      return await Isar.open([HabitSchema, HabitDateSchema],
+      return await Isar.open([AppMetaInfoSchema, HabitSchema, HabitDateSchema],
           directory: appDocDir.path, inspector: true);
     }
 
     return Future.value(Isar.getInstance());
+  }
+
+  // App Meta Info Helpers
+  Future<void> saveAppMetaInfo(AppMetaInfo appMetaInfoArg) async {
+    final isar = await db;
+    isar.writeTxnSync<int>(() => isar.appMetaInfos.putSync(appMetaInfoArg));
+  }
+
+  //Future<List<AppMetaInfo>> getAppMetaInfo() async {
+  Future<AppMetaInfo?> getAppMetaInfo() async {
+    final isar = await db;
+    final res = await isar.appMetaInfos.where().idEqualTo(0).findAll();
+
+    if (res.isEmpty) {
+      return null;
+    } else {
+      return res.first;
+    }
   }
 
   // Habit helpers
@@ -119,6 +138,7 @@ class IsarService {
         .dateEqualTo(dateString)
         .findAll();
   }
+
   Future<void> toggleHabitDate(HabitDate habitDate) async {
     if (habitDate != null) {
       final isar = await db;
