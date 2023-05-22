@@ -430,6 +430,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                     FlatTextField(
                       textController: notesTextController,
                       hintText: "(Optional)",
+                      textarea: true
                     ),
                   ],
                 ),
