@@ -509,6 +509,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                     FlatTextField(
                       textController: notesTextController,
                       hintText: "(Optional)",
+                      textarea: true
                     ),
                   ],
                 ),
