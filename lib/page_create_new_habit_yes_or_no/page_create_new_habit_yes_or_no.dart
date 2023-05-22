@@ -212,7 +212,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
         title: Text(widget.fHabit?.getTitle() ?? "New Habit", style: TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor: customColors.navbarBackground,
-        //surfaceTintColor: customColors.backgroundCompliment,
+        surfaceTintColor: Colors.transparent,
         shadowColor: null,
         automaticallyImplyLeading: false,
         actions: <Widget>[
