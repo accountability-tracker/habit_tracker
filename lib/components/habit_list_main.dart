@@ -70,7 +70,9 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-
+        Container(
+          child: const FiveDayLine(),
+        ),
         Expanded(
           child: SingleChildScrollView(
             // onReorder: (int oldIndex, int newIndex) {},
@@ -79,9 +81,6 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Container(
-                  child: const FiveDayLine(),
-                ),
                 FutureBuilder<List<Habit>>(
                   future: fhabits,
                   builder: (context, AsyncSnapshot<List<Habit>> snapshot) {
@@ -94,9 +93,8 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
 
                           return Container(
                             decoration: BoxDecoration(
-                              color: customColors.backgroundCompliment!,
-                              borderRadius: BorderRadius.all(Radius.circular(10))
-                            ),
+                                color: customColors.backgroundCompliment!,
+                                borderRadius: BorderRadius.all(Radius.circular(10))),
                             // const Color.fromRGBO(31, 31, 31, 1.0),
                             width: MediaQuery.of(context).size.width,
                             margin: const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
@@ -107,7 +105,9 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                                 updateFunction: widget.updateFunction),
                           );
                         }).toList();
-                        habits.add(const SizedBox(height: 12,));
+                        habits.add(const SizedBox(
+                          height: 12,
+                        ));
 
                         return Column(children: habits);
                       } else {
