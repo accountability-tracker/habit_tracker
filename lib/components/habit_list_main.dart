@@ -107,6 +107,7 @@ class _HabitListMain extends ConsumerState<HabitListMain> {
                                 updateFunction: widget.updateFunction),
                           );
                         }).toList();
+                        habits.add(const SizedBox(height: 12,));
 
                         return Column(children: habits);
                       } else {
