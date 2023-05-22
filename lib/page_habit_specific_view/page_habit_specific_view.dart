@@ -124,7 +124,9 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
               // print(item)
               if (item == 0) {
                 await widget.isarService
-                    .changeHabitArchivedState(widget.habit.id, !widget.habit.IsArchived());
+                    .changeHabitArchivedState(widget.habit.id, !widget.habit.isArchived());
+                Navigator.pop(context);
+                ref.read(dataUpdate.notifier).setUpdate();
               }
 
               if (item == 2) {

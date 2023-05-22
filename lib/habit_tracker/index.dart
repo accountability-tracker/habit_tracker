@@ -218,7 +218,7 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
           // to see the wireframe for each widget.
         ),
 
-        drawer: const DrawerCust(),
+        // drawer: const DrawerCust(),
 
         // floatingActionButton: FloatingActionButton(
         //   onPressed: _incrementCounter,
