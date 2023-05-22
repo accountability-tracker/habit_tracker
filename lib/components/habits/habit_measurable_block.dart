@@ -68,7 +68,7 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
                 valueText,
                 style: TextStyle(
                   color: Color(widget.habit.getColor()), // Colors.red,
-                  fontSize: currentValue > 0 ? 24.0 : 16.0,
+                  fontSize: 24.0,
                 ),
               ),
 
