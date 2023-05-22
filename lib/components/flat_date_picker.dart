@@ -18,7 +18,11 @@ class _FlatDatePicker extends State<FlatDatePicker> {
     return TextButton(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll<Color>(customColors.backgroundCompliment!),
-        //shape: BoxShape.rectangle,
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          )
+        )
       ),
       onPressed: () async {
         TimeOfDay? selectedTime = await showTimePicker(
@@ -37,7 +41,7 @@ class _FlatDatePicker extends State<FlatDatePicker> {
             Text(widget.dateController.text, style: TextStyle(color: customColors.textColor),)
           ]
         ), 
-        height: 36.0, 
+        height: 32.0,
         width: 72.0
       ),
     );
