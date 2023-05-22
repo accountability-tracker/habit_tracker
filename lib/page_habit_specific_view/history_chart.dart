@@ -72,12 +72,6 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                 ),
               ),
               const Spacer(),
-              const Text(
-                "Selector  -  ",
-                style: TextStyle(
-                  fontSize: 20.0,
-                ),
-              ),
               Column(
                 children: [
                   DropdownButton(
