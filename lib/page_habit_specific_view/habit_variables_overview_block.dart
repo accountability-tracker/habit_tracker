@@ -261,6 +261,7 @@ class _HabitVariablesOverviewBlock extends ConsumerState<HabitVariablesOverviewB
           child: Column(
             children: <Widget>[
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
