@@ -64,7 +64,7 @@ class _FlatDropdown extends State<FlatDropdown> {
             fontSize: 16, //font size on dropdown button
           ),
 
-          dropdownColor: Colors.redAccent, //dropdown background color
+          dropdownColor: customColors.background, //dropdown background color
           underline: Container(), //remove underline
           isExpanded: true, //make true to make width 100%
         ),
