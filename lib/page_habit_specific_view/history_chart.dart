@@ -320,6 +320,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                     // );
 
                     return HistoryLineChart(
+                      habit: widget.habit,
                       habitDates: xy, // habit_dates
                     );
 

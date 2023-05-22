@@ -6,9 +6,11 @@ class HistoryLineChart extends StatefulWidget {
   const HistoryLineChart({
     super.key,
     required this.habitDates,
+    required this.habit,
   });
 
   final dynamic habitDates;
+  final dynamic habit;
 
   @override
   State<HistoryLineChart> createState() => _HistoryLineChart();
@@ -42,7 +44,7 @@ class _HistoryLineChart extends State<HistoryLineChart> {
               isStrokeCapRound: true,
               preventCurveOverShooting: true,
               // curveSmoothness: 0.2,
-              color: Colors.indigo,
+              color: Color(widget.habit.getColor()),
             ),
           ],
           titlesData: FlTitlesData(
