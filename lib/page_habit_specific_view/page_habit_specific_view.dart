@@ -64,7 +64,8 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
         title: Text(
           widget.habit.getTitle(),
         ),
-        backgroundColor: customColors.backgroundCompliment,
+        backgroundColor: customColors.navbarBackground,
+        surfaceTintColor: Colors.transparent,
         actions: [
           IconButton(
               icon: const Icon(Icons.edit),

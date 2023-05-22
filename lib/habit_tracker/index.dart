@@ -64,6 +64,7 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
         appBar: AppBar(
           title: Text(widget.title),
           backgroundColor: customColors.navbarBackground,
+          surfaceTintColor: Colors.transparent,
           foregroundColor: Colors.white,
           actions: [
             IconButton(

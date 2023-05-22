@@ -74,6 +74,7 @@ class _CalorieTrackerHomeState extends ConsumerState<CalorieTrackerHome> {
         appBar: AppBar(
           title: Text(widget.title),
           backgroundColor: customColors.navbarBackground,
+          surfaceTintColor: Colors.transparent,
           foregroundColor: Colors.white,
           actions: [
             IconButton(
