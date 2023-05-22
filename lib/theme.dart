@@ -182,7 +182,7 @@ final custLightTheme = ThemeData.light().copyWith(
   extensions: <ThemeExtension<dynamic>>[
     const CustomColors(
       // general
-      background: Color(0xFFF8F8F8),
+      background: Color.fromARGB(255, 239, 239, 239),
       backgroundCompliment: Color.fromRGBO(255, 255, 255, 1.0),
       textColor: Color(0xFF000000),
       textColorSecondary: Color(0xff7c7c86),
@@ -190,7 +190,7 @@ final custLightTheme = ThemeData.light().copyWith(
       iconDisabled: Color(0xff696969),
       switchColor: Color(0xff6b6bfc),
       toggleColor: Color(0xff3010f3),
-      dividerColor: Color(0xffe1e1e1),
+      dividerColor: Color.fromARGB(255, 177, 177, 177),
       // navabar
       navbarBackground: Color(0xff100cc5),
       navbarSubText: Color(0xFFF8F8F8),
