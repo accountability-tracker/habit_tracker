@@ -50,6 +50,10 @@ class CustomColors extends ThemeExtension<CustomColors> {
     //
     required this.buttonAffirmative,
     required this.buttonNegative,
+
+    required this.buttonNormal,
+    required this.buttonNormalHover,
+
     // progress bars
     required this.progressBarBackground,
     required this.progressBarForeground,
@@ -69,6 +73,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
 
   final Color? buttonAffirmative;
   final Color? buttonNegative;
+  final Color? buttonNormal;
+  final Color? buttonNormalHover;
 
   final Color? progressBarBackground;
   final Color? progressBarForeground;
@@ -105,6 +111,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
       navbarSubText: navbarSubText ?? this.navbarSubText,
       buttonAffirmative: buttonAffirmative ?? this.buttonAffirmative,
       buttonNegative: buttonNegative ?? this.buttonNegative,
+      buttonNormal: buttonNormal ?? this.buttonNormal,
+      buttonNormalHover: buttonNormalHover ?? this.buttonNormalHover,
       progressBarBackground: progressBarBackground ?? this.progressBarBackground,
       progressBarForeground: progressBarForeground ?? this.progressBarForeground,
     );
@@ -130,6 +138,8 @@ class CustomColors extends ThemeExtension<CustomColors> {
       navbarSubText: Color.lerp(navbarSubText, other.navbarSubText, t),
       buttonAffirmative: Color.lerp(buttonAffirmative, other.buttonAffirmative, t),
       buttonNegative: Color.lerp(buttonNegative, other.buttonNegative, t),
+      buttonNormal: Color.lerp(buttonNormal, other.buttonNormal, t),
+      buttonNormalHover: Color.lerp(buttonNormalHover, other.buttonNormalHover, t),
       progressBarBackground: Color.lerp(progressBarBackground, other.progressBarBackground, t),
       progressBarForeground: Color.lerp(progressBarForeground, other.progressBarForeground, t),
     );
@@ -162,6 +172,10 @@ final custDarkTheme = ThemeData.dark().copyWith(
       //
       buttonAffirmative: Color(0xfff39c12),
       buttonNegative: Color(0xffe74c3c),
+
+      buttonNormal: Color(0xff242430),
+      buttonNormalHover: Color(0xff0B0B0F),
+
       // progress_bar
       progressBarBackground: Color.fromARGB(255, 27, 20, 20),
       progressBarForeground: Color.fromARGB(255, 83, 109, 209),
@@ -197,6 +211,10 @@ final custLightTheme = ThemeData.light().copyWith(
       //
       buttonAffirmative: Color(0xfff39c12),
       buttonNegative: Color(0xffe74c3c),
+
+      buttonNormal: Color.fromARGB(255, 255, 255, 255),
+      buttonNormalHover: Color.fromARGB(255, 196, 196, 207),
+
       // progress_bar
       progressBarBackground: Color(0xFFF1F1F1),
       progressBarForeground: Color(0xFF254CFF),

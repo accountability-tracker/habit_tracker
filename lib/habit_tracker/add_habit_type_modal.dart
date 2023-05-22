@@ -8,6 +8,7 @@ import 'package:habit_tracker/s_isar.dart';
 
 import 'package:habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
 import 'package:habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
+import 'package:habit_tracker/theme.dart';
 
 class AddHabitTypeModal extends ConsumerStatefulWidget {
   const AddHabitTypeModal({
@@ -30,26 +31,30 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
 
   @override
   Widget build(BuildContext context) {
-    // final customColors = Theme.of(context).extension<CustomColors>()!;
+    final customColors = Theme.of(context).extension<CustomColors>()!;
 
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
       content: Container(
-        width: MediaQuery.of(context).size.width * 0.7,
-        height: MediaQuery.of(context).size.height * 0.6,
+        width: MediaQuery.of(context).size.width * 1,
+        constraints: const BoxConstraints(
+            maxWidth: 640.0
+        ),
+        height: MediaQuery.of(context).size.height * 0.7,
         margin: EdgeInsets.zero,
         padding: const EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 16.0),
         decoration: BoxDecoration(
-          color: const Color(0xFF18171E),
+          color: customColors.background,
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Column(
           children: <Widget>[
             const Spacer(),
-            const Text(
+            Text(
               "Select Habit Type",
               style: TextStyle(
                 fontSize: 40.0,
+                color: customColors.textColor,
                 // fontWeight: FontWeight.bold
               ),
             ),
@@ -59,7 +64,7 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
-                color: !isHoverYesOrNo ? const Color(0xff242430) : const Color(0xff0B0B0F),
+                color: !isHoverYesOrNo ? customColors.buttonNormal : customColors.buttonNormalHover,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: InkWell(
@@ -86,11 +91,11 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
-                    children: const <Widget>[
+                    children: <Widget>[
                       Text(
                         "Yes or No",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: customColors.textColor,
                           fontSize: 28.0,
                         ),
                       ),
@@ -100,7 +105,7 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
                       Text(
                         "e.g. Did you wake up early today? Did you exercise? Did you play chess?",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: customColors.textColorSecondary,
                           fontSize: 16.0,
                         ),
                         textAlign: TextAlign.center,
@@ -116,7 +121,7 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
-                color: !isHoverMesurable ? const Color(0xff242430) : const Color(0xff0B0B0F),
+                color: !isHoverMesurable ? customColors.buttonNormal : customColors.buttonNormalHover,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: InkWell(
@@ -143,11 +148,11 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
-                    children: const <Widget>[
+                    children: <Widget>[
                       Text(
                         "Measurable",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: customColors.textColor,
                           fontSize: 28.0,
                         ),
                       ),
@@ -157,7 +162,7 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
                       Text(
                         "e.g. How many miles did you run today? How many pages did you read?",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: customColors.textColorSecondary,
                           fontSize: 16.0,
                         ),
                         textAlign: TextAlign.center,
@@ -173,7 +178,7 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
-                color: !isHoverCancel ? const Color(0xff242430) : const Color(0xff0B0B0F),
+                color: !isHoverCancel ? customColors.buttonNormal : customColors.buttonNormalHover,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: InkWell(
@@ -188,11 +193,11 @@ class _AddHabitTypeModal extends ConsumerState<AddHabitTypeModal> {
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(48.0, 16.0, 48.0, 16.0),
                   child: Column(
-                    children: const <Widget>[
+                    children: <Widget>[
                       Text(
                         "Cancel",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: customColors.textColor,
                           fontSize: 24.0,
                         ),
                       ),
