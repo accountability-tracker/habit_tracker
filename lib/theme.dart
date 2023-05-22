@@ -46,6 +46,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     required this.dividerColor,
     // navbar
     required this.navbarBackground,
+    required this.navbarSubText,
     //
     required this.buttonAffirmative,
     required this.buttonNegative,
@@ -64,6 +65,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
   final Color? dividerColor;
 
   final Color? navbarBackground;
+  final Color? navbarSubText;
 
   final Color? buttonAffirmative;
   final Color? buttonNegative;
@@ -83,6 +85,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
     Color? toggleColor,
     Color? dividerColor,
     Color? navbarBackground,
+    Color? navbarSubText,
     Color? buttonAffirmative,
     Color? buttonNegative,
     Color? progressBarBackground,
@@ -99,6 +102,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       toggleColor: toggleColor ?? this.toggleColor,
       dividerColor: dividerColor ?? this.dividerColor,
       navbarBackground: navbarBackground ?? this.navbarBackground,
+      navbarSubText: navbarSubText ?? this.navbarSubText,
       buttonAffirmative: buttonAffirmative ?? this.buttonAffirmative,
       buttonNegative: buttonNegative ?? this.buttonNegative,
       progressBarBackground: progressBarBackground ?? this.progressBarBackground,
@@ -123,6 +127,7 @@ class CustomColors extends ThemeExtension<CustomColors> {
       toggleColor: Color.lerp(toggleColor, other.toggleColor, t),
       dividerColor: Color.lerp(dividerColor, other.dividerColor, t),
       navbarBackground: Color.lerp(navbarBackground, other.navbarBackground, t),
+      navbarSubText: Color.lerp(navbarSubText, other.navbarSubText, t),
       buttonAffirmative: Color.lerp(buttonAffirmative, other.buttonAffirmative, t),
       buttonNegative: Color.lerp(buttonNegative, other.buttonNegative, t),
       progressBarBackground: Color.lerp(progressBarBackground, other.progressBarBackground, t),
@@ -153,6 +158,7 @@ final custDarkTheme = ThemeData.dark().copyWith(
       dividerColor: Color(0xff242430),
       // navabar
       navbarBackground: Color(0xff242430),
+      navbarSubText: Color(0xff7c7c86),
       //
       buttonAffirmative: Color(0xfff39c12),
       buttonNegative: Color(0xffe74c3c),
@@ -187,6 +193,7 @@ final custLightTheme = ThemeData.light().copyWith(
       dividerColor: Color(0xffe1e1e1),
       // navabar
       navbarBackground: Color(0xff100cc5),
+      navbarSubText: Color(0xFFF8F8F8),
       //
       buttonAffirmative: Color(0xfff39c12),
       buttonNegative: Color(0xffe74c3c),

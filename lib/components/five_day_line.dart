@@ -47,9 +47,9 @@ class _FiveDayLine extends ConsumerState<FiveDayLine> {
                       Column(
                         children: <Widget>[
                           Text(printDay(date.subtract(Duration(days: (4 - n))).weekday),
-                              style: TextStyle(color: customColors.textColorSecondary)),
+                              style: TextStyle(color: customColors.navbarSubText)),
                           Text(date.subtract(Duration(days: (4 - n))).day.toString(),
-                              style: TextStyle(color: customColors.textColorSecondary)),
+                              style: TextStyle(color: customColors.navbarSubText)),
                         ],
                       ),
                   ],
