@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker/theme.dart';
 // import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,32 +31,42 @@ class _PageAbout extends State<PageAbout> {
 
   @override
   Widget build(BuildContext context) {
+    final customColors = Theme.of(context).extension<CustomColors>()!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "About",
         ),
+        backgroundColor: customColors.navbarBackground,
+        surfaceTintColor: Colors.transparent,
+        foregroundColor: Colors.white,
       ),
       body: Container(
-        margin: const EdgeInsets.all(16.0),
+        // margin: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
+        color: customColors.background,
         // width: MediaQuery.of(context).size.width * 0.9,
 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
+            Text(
               "Habit Tracker",
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(color: customColors.progressBarForeground),
             ),
             const Text(
-              "version 0.0.1",
+              "version 0.0.4",
             ),
-            const SizedBox(
-              height: 16.0,
+
+            Divider(
+                thickness: 0.25,
+                color: customColors.dividerColor,
             ),
-            const Text(
+
+            Text(
               "Links",
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(color: customColors.progressBarForeground),
             ),
             TextButton(
               onPressed: () => _openGithubSourceCode(),
@@ -63,12 +74,15 @@ class _PageAbout extends State<PageAbout> {
                   TextButton.styleFrom(padding: EdgeInsets.zero, alignment: Alignment.centerLeft),
               child: const Text("Source code on Github"),
             ),
-            const SizedBox(
-              height: 16.0,
+
+            Divider(
+                thickness: 0.25,
+                color: customColors.dividerColor,
             ),
-            const Text(
+
+            Text(
               "Developers",
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(color: customColors.progressBarForeground),
             ),
             const Text(
               "@clearfeld",

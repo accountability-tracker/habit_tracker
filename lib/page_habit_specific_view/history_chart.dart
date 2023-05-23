@@ -78,13 +78,14 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                     // Initial Value
                     dropdownColor: customColors.background,
                     value: periodSelected,
+                    underline: const SizedBox(),
 
                     // Down Arrow Icon
                     icon: const Icon(Icons.keyboard_arrow_down),
 
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: customColors.textColor,
+                      color: customColors.textColorSecondary,
                     ),
 
                     // Array list of items
@@ -296,6 +297,7 @@ class _HistoryChart extends ConsumerState<HistoryChart> {
                         }
                       }
                     }
+
                     for (var period in periods) {
                       String dateString =
                           '${DateFormat('M-dd').format(period['start'])} to  ${DateFormat('M-dd').format(period['end'])}';

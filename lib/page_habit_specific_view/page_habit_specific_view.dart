@@ -61,14 +61,16 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           widget.habit.getTitle(),
+          style: TextStyle(color: Colors.white),
         ),
         backgroundColor: customColors.navbarBackground,
         surfaceTintColor: Colors.transparent,
         actions: [
           IconButton(
-              icon: const Icon(Icons.edit),
+              icon: const Icon(Icons.edit, color: Colors.white),
               onPressed: () {
                 switch (widget.habit.getType()) {
                   case EHABITS.yesOrNo:
@@ -95,14 +97,14 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                 }
               }),
           PopupMenuButton(
-            icon: const Icon(Icons.more_vert),
-            color: Colors.red,
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            color: customColors.backgroundCompliment,
             itemBuilder: (context) => [
-              const PopupMenuItem<int>(
+              PopupMenuItem<int>(
                 value: 0,
                 child: Text(
                   "Archive",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: customColors.textColor),
                 ),
               ),
               //   const PopupMenuItem<int>(
@@ -112,11 +114,11 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
               //       style: TextStyle(color: Colors.white),
               //     ),
               //   ),
-              const PopupMenuItem<int>(
+              PopupMenuItem<int>(
                 value: 2,
                 child: Text(
                   "Delete",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: customColors.textColor),
                 ),
               ),
             ],
@@ -168,8 +170,8 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                         ),
 
                         const Divider(
-                            thickness: 0.25,
-                            color: Colors.grey,
+                          thickness: 0.25,
+                          color: Colors.grey,
                         ),
 
                         const SizedBox(
@@ -214,7 +216,6 @@ class _PageHabitSpecificView extends ConsumerState<PageHabitSpecificView> {
                         //       return const Text("Loading indacator...");
                         //     })
                       ],
-
                     ),
                   ),
                 ),

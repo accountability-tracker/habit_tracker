@@ -190,13 +190,13 @@ class _HabitTrackerHomeState extends ConsumerState<HabitTrackerHome> {
                 Icons.more_vert,
                 color: Colors.white,
               ),
-              color: Colors.red,
+              color: customColors.backgroundCompliment,
               itemBuilder: (context) => [
-                const PopupMenuItem<int>(
+                PopupMenuItem<int>(
                   value: 0,
                   child: Text(
                     "About",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: customColors.textColor),
                   ),
                 ),
               ],
