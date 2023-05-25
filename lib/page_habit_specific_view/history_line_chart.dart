@@ -33,9 +33,11 @@ class _HistoryLineChart extends State<HistoryLineChart> {
       child: LineChart(
         swapAnimationDuration: const Duration(milliseconds: 150),
         swapAnimationCurve: Curves.linear,
-
         LineChartData(
-            minX: 0,
+          minX: 0,
+          lineTouchData: LineTouchData(
+            touchTooltipData: LineTouchTooltipData(tooltipBgColor: Colors.black),
+          ),
           lineBarsData: [
             LineChartBarData(
               spots: data,
@@ -71,7 +73,11 @@ class _HistoryLineChart extends State<HistoryLineChart> {
                     height: 64.0,
                     width: 36,
                     child: Center(
-                      child: Text(range, style: style, textAlign: TextAlign.center,),
+                      child: Text(
+                        range,
+                        style: style,
+                        textAlign: TextAlign.center,
+                      ),
                       //children: <Widget>[Text(range, style: style)],
                     ),
                   );
@@ -96,7 +102,7 @@ class _HistoryLineChart extends State<HistoryLineChart> {
                     child: text,
                   );
                 },
-                reservedSize: 64,
+                reservedSize: 80,
               ),
               // axisNameWidget: Text(x),
             ),
@@ -111,12 +117,11 @@ class _HistoryLineChart extends State<HistoryLineChart> {
 
             rightTitles: AxisTitles(
               sideTitles: SideTitles(
-                reservedSize: 16.0,
-                showTitles: true,
-                getTitlesWidget: (double value, TitleMeta meta) {
-                  return SideTitleWidget(axisSide: meta.axisSide, child: const Text(''));
-                }
-              ),
+                  reservedSize: 16.0,
+                  showTitles: true,
+                  getTitlesWidget: (double value, TitleMeta meta) {
+                    return SideTitleWidget(axisSide: meta.axisSide, child: const Text(''));
+                  }),
             ),
 
             topTitles: AxisTitles(
@@ -125,12 +130,10 @@ class _HistoryLineChart extends State<HistoryLineChart> {
               ),
             ),
           ),
-
           gridData: FlGridData(
             drawVerticalLine: false,
             drawHorizontalLine: true,
           ),
-
           borderData: FlBorderData(
             border: Border.all(
                 color: const Color.fromRGBO(41, 41, 41, 1.0), width: 1.0, style: BorderStyle.solid),
