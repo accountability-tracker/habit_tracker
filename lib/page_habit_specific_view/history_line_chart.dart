@@ -29,7 +29,7 @@ class _HistoryLineChart extends State<HistoryLineChart> {
 
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 260.0,
+      height: 320.0,
       child: LineChart(
         swapAnimationDuration: const Duration(milliseconds: 150),
         swapAnimationCurve: Curves.linear,
@@ -52,6 +52,7 @@ class _HistoryLineChart extends State<HistoryLineChart> {
 
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
+                interval: 1,
                 showTitles: true,
                 getTitlesWidget: (double value, TitleMeta meta) {
                   var style = TextStyle(
@@ -67,9 +68,11 @@ class _HistoryLineChart extends State<HistoryLineChart> {
                   String range = widget.habitDates[value.toInt()]["date"];
 
                   text = SizedBox(
-                    height: 32.0,
-                    child: Row(
-                      children: <Widget>[Text(range, style: style)],
+                    height: 64.0,
+                    width: 36,
+                    child: Center(
+                      child: Text(range, style: style, textAlign: TextAlign.center,),
+                      //children: <Widget>[Text(range, style: style)],
                     ),
                   );
 
@@ -93,7 +96,7 @@ class _HistoryLineChart extends State<HistoryLineChart> {
                     child: text,
                   );
                 },
-                reservedSize: 38,
+                reservedSize: 64,
               ),
               // axisNameWidget: Text(x),
             ),
@@ -108,7 +111,11 @@ class _HistoryLineChart extends State<HistoryLineChart> {
 
             rightTitles: AxisTitles(
               sideTitles: SideTitles(
-                showTitles: false,
+                reservedSize: 16.0,
+                showTitles: true,
+                getTitlesWidget: (double value, TitleMeta meta) {
+                  return SideTitleWidget(axisSide: meta.axisSide, child: const Text(''));
+                }
               ),
             ),
 
