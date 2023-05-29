@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/theme.dart';
 
 class FlatTextField extends StatefulWidget {
-  const FlatTextField({super.key, required this.textController, this.hintText, this.keyboardType, this.textarea=false});
+  const FlatTextField({super.key, required this.textController, this.hintText, this.keyboardType, this.textarea=false, this.alignment=TextAlign.start});
 
   final TextEditingController textController;
   final String? hintText;
   final String? keyboardType;
   final bool textarea;
+  final TextAlign alignment;
 
   @override
   State<FlatTextField> createState() => _FlatTextField();
@@ -25,6 +26,7 @@ class _FlatTextField extends State<FlatTextField> {
       return TextFormField(
         controller: widget.textController,
         style: TextStyle(color: customColors.textColor),
+        textAlign: widget.alignment,
         minLines: 6,
         maxLines: null,
         keyboardType: TextInputType.multiline,
@@ -49,6 +51,7 @@ class _FlatTextField extends State<FlatTextField> {
       controller: widget.textController,
       keyboardType: keyboard,
       style: TextStyle(color: customColors.textColor),
+      textAlign: widget.alignment,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.only(left: 16, right: 16),
         filled: true,

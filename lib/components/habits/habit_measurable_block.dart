@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
+import 'package:habit_tracker/theme.dart';
+import 'package:habit_tracker/components/flat_textfield.dart';
 
 class HabitMeasurableBlock extends StatefulWidget {
   HabitMeasurableBlock(
@@ -50,6 +52,7 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
     //   widget.habitDate?.getValue() == 0 ? false : true
     // )
     // : false;
+    final customColors = Theme.of(context).extension<CustomColors>()!;
 
     if (widget.habitDate != null && widget.habitDate?.getValue() != null) {
       valueText = widget.habitDate?.getValue().toString() ?? "0";
@@ -76,89 +79,114 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
           onTap: () async {
             // var initialValue = currentValue;
             var res = await showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text('Set a value!'),
-                    content: SingleChildScrollView(
-                      // child: ColorPicker(
-                      //   pickerColor: pickerColor,
-                      //   onColorChanged: changeColor,
-                      // ),
-
-                      child: Column(
-                        children: <Widget>[
-                          // Text("test"),
-
-                          TextFormField(
-                            controller: textController,
-                            // initialValue: currentValue.toString(),
-                            // keyboardType: TextInputType.numberWithOptions(decimal: false),
-                            // onChanged: () {
-                            //   controller.text
-                            // },
-
-                            // readOnly: disabled,
-                            // inputFormatters: <TextInputFormatter>[
-                            //   FilteringTextInputFormatter.allow(RegExp(_getRegexString())),
-                            //   TextInputFormatter.withFunction(
-                            //     (oldValue, newValue) => newValue.copyWith(
-                            //       text: newValue.text.replaceAll('.', ','),
-                            //     ),
-                            //   ),
-                            // ],
-                            // decoration: InputDecoration(
-                            //   label: Text(label),
-                            //   errorText: error,
-                            //   icon: icon,
-                            // ),
-                          ),
-                        ],
-                      ),
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('Set a value!', textAlign: TextAlign.center, style: TextStyle(fontSize: 32),),
+                  surfaceTintColor: Colors.transparent,
+                  backgroundColor: customColors.background,
+                  content: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          child:FlatTextField(textController: textController, alignment: TextAlign.center),
+                          width: 60,
+                        )
+                      ],
                     ),
-                    actions: <Widget>[
-                      ElevatedButton(
-                        child: const Text('Got it'),
-                        onPressed: () {
-                          if ((textController.text == '' ||
-                              int.tryParse(textController.text) == null)) {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text('Please enter a valid number.'),
-                                    content: SingleChildScrollView(
-                                      child: Column(
-                                        children: const <Widget>[],
+                  ),
+                  actions: <Widget>[
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                          child: const Text('Got it'),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormal!),
+                            foregroundColor: MaterialStateColor.resolveWith((states) => customColors.textColor!),
+                            surfaceTintColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+                            overlayColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormalHover!),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )
+                            )
+                          ),
+                          onPressed: () {
+                            if ((textController.text == '' ||
+                                int.tryParse(textController.text) == null)) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      surfaceTintColor: Colors.transparent,
+                                      backgroundColor: customColors.background,
+                                      title: const Text('Please enter a valid number.'),
+                                      content: SingleChildScrollView(
+                                        child: Column(
+                                          children: const <Widget>[],
+                                        ),
                                       ),
-                                    ),
-                                    actions: <Widget>[
-                                      ElevatedButton(
-                                        child: const Text('Okay'),
-                                        onPressed: () {
-                                          // setState(() => currentValue = initialValue);
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                });
-                          } else {
-                            // setState(() => currentValue = currentValue);
-                            Navigator.of(context).pop({"set": true, "value": textController.text});
-                          }
-                        },
-                      ),
-                      ElevatedButton(
-                        child: const Text('Cancel'),
-                        onPressed: () {
-                          // setState(() => currentValue = initialValue);
-                          Navigator.of(context).pop({"set": false, "value": textController.text});
-                        },
-                      ),
-                    ],
-                  );
-                });
+                                      actions: <Widget>[
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            ElevatedButton(
+                                              child: const Text('Okay'),
+                                              style: ButtonStyle(
+                                                backgroundColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormal!),
+                                                foregroundColor: MaterialStateColor.resolveWith((states) => customColors.textColor!),
+                                                surfaceTintColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+                                                overlayColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormalHover!),
+                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10.0),
+                                                  )
+                                                )
+                                              ),
+                                              onPressed: () {
+                                                // setState(() => currentValue = initialValue);
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  });
+                            } else {
+                              // setState(() => currentValue = currentValue);
+                              Navigator.of(context).pop({"set": true, "value": textController.text});
+                            }
+                          },
+                        ),
+                        SizedBox(width: 16,),
+                        ElevatedButton(
+                          child: Text('Cancel', style: TextStyle(color: customColors.textColorSecondary),),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormal!),
+                            foregroundColor: MaterialStateColor.resolveWith((states) => customColors.textColor!),
+                            overlayColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormalHover!),
+                            surfaceTintColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )
+                            )
+                          ),
+                          onPressed: () {
+                            // setState(() => currentValue = initialValue);
+                            Navigator.of(context).pop({"set": false, "value": textController.text});
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }
+            );
 
             if (res != null && res["set"]) {
               // print("Value - " + res["set"].toString());
@@ -200,6 +228,9 @@ class _HabitMeasurableBlock extends State<HabitMeasurableBlock> {
                 }
                 //code to execute when this button is pressed
               }
+            }
+            else {
+              textController.text = currentValue.toString();
             }
           },
         ),
