@@ -57,6 +57,7 @@ dependencies:
   percent_indicator: ^4.0.1
   flutter_switch: ^0.3.2
   package_info_plus: ^4.0.1
+  remixicon: ^1.0.0
 
 dev_dependencies:
   flutter_test:
