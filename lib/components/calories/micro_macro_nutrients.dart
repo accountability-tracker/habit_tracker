@@ -58,7 +58,7 @@ class _MicroMacroNutrientBlock extends ConsumerState<MicroMacroNutrientBlock> {
                       ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [Text(widget.receivedNu.toString(), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),), 
+                        children: [Text(widget.receivedNu.toString(), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
                                    Text("  /  ${widget.totalNu}", style: const TextStyle(fontSize: 24, color: Colors.grey),),
                                    Text(" ${widget.unit}", style: const TextStyle(fontSize: 18, color: Colors.grey),)
                                   ],
@@ -96,7 +96,7 @@ class _MicroMacroNutrientBlock extends ConsumerState<MicroMacroNutrientBlock> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text('$progress%', 
+                                  Text('$progress%',
                                        style: const TextStyle(fontSize: 24, color: Colors.grey),
                                       ),
                                 ]
@@ -108,7 +108,7 @@ class _MicroMacroNutrientBlock extends ConsumerState<MicroMacroNutrientBlock> {
                           startAngle: 270,
                           endAngle: 270,
                           ranges: [
-                            GaugeRange(startValue: 0, endValue: (widget.receivedNu).toDouble(), 
+                            GaugeRange(startValue: 0, endValue: (widget.receivedNu).toDouble(),
                                        gradient: const SweepGradient(colors: [Colors.blue, Colors.lightBlue]),
                             )
                           ],
