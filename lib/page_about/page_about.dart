@@ -56,7 +56,8 @@ class _PageAbout extends State<PageAbout> {
               style: TextStyle(color: customColors.progressBarForeground),
             ),
             const Text(
-              "version 0.0.4",
+                // TODO: pull this value from somewhere else instead of hard coding it
+              "version 0.0.5",
             ),
 
             Divider(
