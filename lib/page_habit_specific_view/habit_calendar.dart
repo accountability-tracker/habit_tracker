@@ -16,6 +16,7 @@ import 'package:habit_tracker/page_habit_specific_view/habit_calendar_event_icon
 
 import 'package:habit_tracker/habit_enums.dart';
 import 'package:habit_tracker/data_notifier.dart';
+import 'package:remixicon/remixicon.dart';
 
 class HabitCalendar extends ConsumerStatefulWidget {
   const HabitCalendar({super.key, required this.isarService, required this.habit});
@@ -257,7 +258,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
         //custom icon without header
         Container(
           color: customColors.background,
-          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -270,7 +271,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                 ),
               )),
               TextButton(
-                child: Text('<', style: TextStyle(fontSize: 24, color: customColors.textColorSecondary, fontWeight: FontWeight.w300)),
+                child: Icon(Remix.arrow_drop_left_line, color: customColors.textColor, size: 48),
                 onPressed: () {
                   setState(() {
                     _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month - 1);
@@ -281,7 +282,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                 },
               ),
               TextButton(
-                child: Text('>', style: TextStyle(fontSize: 24, color: customColors.textColorSecondary, fontWeight: FontWeight.w300)),
+                child: Icon(Remix.arrow_drop_right_line, color: customColors.textColor, size: 48),
                 onPressed: () {
                   setState(() {
                     _targetDateTime = DateTime(_targetDateTime.year, _targetDateTime.month + 1);
