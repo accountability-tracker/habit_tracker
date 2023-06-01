@@ -8,6 +8,7 @@ import 'package:habit_tracker/entities/habit_date.dart';
 import 'package:habit_tracker/components/calendar/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:habit_tracker/components/calendar/classes/event.dart';
 import 'package:habit_tracker/components/calendar/classes/event_list.dart';
+import 'package:habit_tracker/components/flat_textfield.dart';
 import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';
 
@@ -37,6 +38,7 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
   List<String> _months_processed = [];
   bool _modifyDate = false;
   var inputNumber;
+  final textController = TextEditingController();
 
   EventList<Event> _markedDateMap = EventList<Event>(events: {});
 
@@ -79,71 +81,119 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
         //events.forEach((event) => print(event.title));
 
         if (widget.habit.getType() == EHABITS.measurable) {
+          textController.text = events.length.toString();
           await showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: const Text('Set a value!'),
+                  title: const Text('Set a value!', textAlign: TextAlign.center, style: TextStyle(fontSize: 32),),
+                  surfaceTintColor: Colors.transparent,
+                  backgroundColor: customColors.background,
                   content: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
                         // Text("test"),
-                        TextFormField(
-                          initialValue: events.length.toString(),
-                          onChanged: (value) {
-                            inputNumber = value;
-                          },
-                        ),
+                        SizedBox(
+                          child:FlatTextField(textController: textController, alignment: TextAlign.center),
+                          width: 60,
+                        )
                       ],
                     ),
                   ),
                   actions: <Widget>[
-                    ElevatedButton(
-                      child: const Text('Got it'),
-                      onPressed: () {
-                        if (inputNumber != null &&
-                            (inputNumber == '' || int.tryParse(inputNumber) == null)) {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text('Please enter a valid number.'),
-                                  content: const SingleChildScrollView(
-                                    child: Column(
-                                      children: <Widget>[],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    ElevatedButton(
-                                      child: const Text('Okay'),
-                                      onPressed: () {
-                                        // setState(() => currentValue = initialValue);
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              });
-                        } else {
-                          if (widget.habit.getType() == EHABITS.measurable) {
-                            _modifyDate = true;
-                          }
-                          if (!ref.watch(dataUpdate)) {
-                            ref.read(dataUpdate.notifier).setUpdate();
-                          }
-                          Navigator.of(context).pop();
-                        }
-                        // setState(() => currentValue = currentValue);
-                      },
-                    ),
-                    ElevatedButton(
-                      child: const Text('Cancel'),
-                      onPressed: () {
-                        inputNumber = null;
-                        // setState(() => currentValue = initialValue);
-                        Navigator.of(context).pop();
-                      },
-                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                          child: const Text('Got it'),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormal!),
+                            foregroundColor: MaterialStateColor.resolveWith((states) => customColors.textColor!),
+                            surfaceTintColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+                            overlayColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormalHover!),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )
+                            )
+                          ),
+                          onPressed: () {
+                            if ((textController.text == '' || int.tryParse(textController.text) == null)) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      surfaceTintColor: Colors.transparent,
+                                      backgroundColor: customColors.background,
+                                      title: const Text('Please enter a valid number.'),
+                                      content: const SingleChildScrollView(
+                                        child: Column(
+                                          children: <Widget>[],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            ElevatedButton(
+                                              child: const Text('Okay'),
+                                              style: ButtonStyle(
+                                                backgroundColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormal!),
+                                                foregroundColor: MaterialStateColor.resolveWith((states) => customColors.textColor!),
+                                                surfaceTintColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+                                                overlayColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormalHover!),
+                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10.0),
+                                                  )
+                                                )
+                                              ),
+                                              onPressed: () {
+                                                // setState(() => currentValue = initialValue);
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    );
+                                  });
+                            } else {
+                              if (widget.habit.getType() == EHABITS.measurable) {
+                                _modifyDate = true;
+                              }
+                              if (!ref.watch(dataUpdate)) {
+                                ref.read(dataUpdate.notifier).setUpdate();
+                              }
+                              Navigator.of(context).pop();
+                            }
+                            // setState(() => currentValue = currentValue);
+                          },
+                        ),
+                        SizedBox(width: 16,),
+                        ElevatedButton(
+                          child: const Text('Cancel'),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormal!),
+                            foregroundColor: MaterialStateColor.resolveWith((states) => customColors.textColor!),
+                            surfaceTintColor: MaterialStateColor.resolveWith((states) => Colors.transparent),
+                            overlayColor: MaterialStateColor.resolveWith((states) => customColors.buttonNormalHover!),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )
+                            )
+                          ),
+                          onPressed: () {
+                            textController.text = '';
+                            // setState(() => currentValue = initialValue);
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ]
+                    )
                   ],
                 );
               });
@@ -321,14 +371,14 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                               ));
                         }
                       } else if (widget.habit.getType() == EHABITS.measurable &&
-                          inputNumber != null) {
+                          textController.text != '') {
                         var dateFound = false;
                         for (var h in snapshot.data!) {
                           if (DateFormat('y-M-dd').format(_selectedDate) == h.date) {
                             var id = h.id;
                             var hi = h.habitId;
                             var d = h.date;
-                            var v = int.parse(inputNumber);
+                            var v = int.parse(textController.text);
 
                             if (v == h.getValue()) {
                               dateFound = true;
@@ -365,8 +415,8 @@ class _HabitCalendarState extends ConsumerState<HabitCalendar> {
                           String month = _selectedDate.month.toString();
 
                           widget.isarService.putHabitDate(HabitDate.full(widget.habit.id,
-                              '${_selectedDate.year}-$month-$day', int.parse(inputNumber)));
-                          for (int i = 0; i < int.parse(inputNumber); i++) {
+                              '${_selectedDate.year}-$month-$day', int.parse(textController.text)));
+                          for (int i = 0; i < int.parse(textController.text); i++) {
                             _markedDateMap.add(
                                 DateTime(
                                     _selectedDate.year, _selectedDate.month, _selectedDate.day),
