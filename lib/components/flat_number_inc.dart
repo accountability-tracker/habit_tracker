@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker/theme.dart';
 
 class FlatNumIncField extends StatefulWidget {
-  const FlatNumIncField({super.key, required this.textController, this.hintText});
+  const FlatNumIncField({super.key, required this.textController, required this.frequencyValue});
 
   final TextEditingController textController;
-  final String? hintText;
+  final String frequencyValue;
 
   @override
   State<FlatNumIncField> createState() => _FlatNumIncField();
@@ -27,7 +27,11 @@ class _FlatNumIncField extends State<FlatNumIncField> {
                 child: Icon(Icons.add),
                 decoration: BoxDecoration(shape: BoxShape.circle, color: customColors.backgroundCompliment),
               ),
-              onTap: () {widget.textController.text = (int.parse(widget.textController.text) + 1).toString();}
+              onTap: () {
+                if (widget.frequencyValue != 'Per Day' && !(widget.frequencyValue == 'Per Week' && widget.textController.text == '7')) {
+                  widget.textController.text = (int.parse(widget.textController.text) + 1).toString();
+                }
+              }
             ),
           ),
           SizedBox(
@@ -55,7 +59,11 @@ class _FlatNumIncField extends State<FlatNumIncField> {
                 child: Icon(Icons.remove),
                 decoration: BoxDecoration(shape: BoxShape.circle, color: customColors.backgroundCompliment),  
               ),
-              onTap: () {widget.textController.text = (int.parse(widget.textController.text) - 1).toString();}
+              onTap: () {
+                if (widget.textController.text != '1') {
+                  widget.textController.text = (int.parse(widget.textController.text) - 1).toString();
+                }
+              }
             ),
           ),
         ]
