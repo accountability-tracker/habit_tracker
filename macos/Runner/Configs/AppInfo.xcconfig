@@ -11,4 +11,4 @@ PRODUCT_NAME = habit_tracker
 PRODUCT_BUNDLE_IDENTIFIER = com.example.habitTracker
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/theme.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class MicroMacroNutrientBlock extends ConsumerStatefulWidget {
   const MicroMacroNutrientBlock({super.key, required this.name, required this.receivedNu, required this.totalNu, required this.unit});
@@ -85,37 +84,37 @@ class _MicroMacroNutrientBlock extends ConsumerState<MicroMacroNutrientBlock> {
                   SizedBox(
                     height: 130,
                     width: 130,
-                    child: SfRadialGauge(
-                      axes: [
-                        RadialAxis(
-                          minimum: 0,
-                          maximum: widget.totalNu.toDouble(),
-                          annotations: <GaugeAnnotation>[
-                            GaugeAnnotation(
-                              widget: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text('$progress%',
-                                       style: const TextStyle(fontSize: 24, color: Colors.grey),
-                                      ),
-                                ]
-                              )
-                            )
-                          ],
-                          showLabels: false,
-                          showTicks: false,
-                          startAngle: 270,
-                          endAngle: 270,
-                          ranges: [
-                            GaugeRange(startValue: 0, endValue: (widget.receivedNu).toDouble(),
-                                       gradient: const SweepGradient(colors: [Colors.blue, Colors.lightBlue]),
-                            )
-                          ],
-                          //axisLineStyle: AxisLineStyle(color: Colors.blue),
-                        )
-                      ],
-                    ),
+                    // child: SfRadialGauge(
+                    //   axes: [
+                    //     RadialAxis(
+                    //       minimum: 0,
+                    //       maximum: widget.totalNu.toDouble(),
+                    //       annotations: <GaugeAnnotation>[
+                    //         GaugeAnnotation(
+                    //           widget: Column(
+                    //             crossAxisAlignment: CrossAxisAlignment.center,
+                    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //             children: [
+                    //               Text('$progress%',
+                    //                    style: const TextStyle(fontSize: 24, color: Colors.grey),
+                    //                   ),
+                    //             ]
+                    //           )
+                    //         )
+                    //       ],
+                    //       showLabels: false,
+                    //       showTicks: false,
+                    //       startAngle: 270,
+                    //       endAngle: 270,
+                    //       ranges: [
+                    //         GaugeRange(startValue: 0, endValue: (widget.receivedNu).toDouble(),
+                    //                    gradient: const SweepGradient(colors: [Colors.blue, Colors.lightBlue]),
+                    //         )
+                    //       ],
+                    //       //axisLineStyle: AxisLineStyle(color: Colors.blue),
+                    //     )
+                    //   ],
+                    // ),
                   )
                 ],
               ),
