@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/theme.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class TotalCaloriesBlock extends ConsumerStatefulWidget {
   const TotalCaloriesBlock(
@@ -135,52 +134,52 @@ class _TotalCaloriesBlock extends ConsumerState<TotalCaloriesBlock> {
                   SizedBox(
                     height: 200,
                     width: 200,
-                    child: SfRadialGauge(
-                      axes: [
-                        RadialAxis(
-                          minimum: 0,
-                          maximum: widget.totalCals.toDouble(),
-                          annotations: <GaugeAnnotation>[
-                            GaugeAnnotation(
-                                widget: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                  const SizedBox(
-                                    height: 55.0,
-                                  ),
-                                  Text(
-                                    "Total",
-                                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                                  ),
-                                  const SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    widget.totalCals.toString(),
-                                    style: TextStyle(fontSize: 24),
-                                  ),
-                                  Text(
-                                    "cal",
-                                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                                  ),
-                                  const SizedBox(
-                                    height: 60.0,
-                                  ),
-                                ]))
-                          ],
-                          showLabels: false,
-                          showTicks: false,
-                          startAngle: 270,
-                          endAngle: 270,
-                          ranges: [
-                            GaugeRange(
-                                startValue: 0,
-                                endValue: (widget.receivedCals - widget.burnedCals).toDouble())
-                          ],
-                        )
-                      ],
-                    ),
+                    // child: SfRadialGauge(
+                    //   axes: [
+                    //     RadialAxis(
+                    //       minimum: 0,
+                    //       maximum: widget.totalCals.toDouble(),
+                    //       annotations: <GaugeAnnotation>[
+                    //         GaugeAnnotation(
+                    //             widget: Column(
+                    //                 crossAxisAlignment: CrossAxisAlignment.center,
+                    //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //                 children: [
+                    //               const SizedBox(
+                    //                 height: 55.0,
+                    //               ),
+                    //               Text(
+                    //                 "Total",
+                    //                 style: TextStyle(fontSize: 14, color: Colors.grey),
+                    //               ),
+                    //               const SizedBox(
+                    //                 height: 5.0,
+                    //               ),
+                    //               Text(
+                    //                 widget.totalCals.toString(),
+                    //                 style: TextStyle(fontSize: 24),
+                    //               ),
+                    //               Text(
+                    //                 "cal",
+                    //                 style: TextStyle(fontSize: 14, color: Colors.grey),
+                    //               ),
+                    //               const SizedBox(
+                    //                 height: 60.0,
+                    //               ),
+                    //             ]))
+                    //       ],
+                    //       showLabels: false,
+                    //       showTicks: false,
+                    //       startAngle: 270,
+                    //       endAngle: 270,
+                    //       ranges: [
+                    //         GaugeRange(
+                    //             startValue: 0,
+                    //             endValue: (widget.receivedCals - widget.burnedCals).toDouble())
+                    //       ],
+                    //     )
+                    //   ],
+                    // ),
                   )
                 ],
               ),
