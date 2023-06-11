@@ -347,6 +347,7 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                         ),
                         FlatNumIncField(
                           textController: frequencyAmountController,
+                          frequencyValue: frequencyValue,
                         ),
                       ]
                     ),
@@ -363,6 +364,9 @@ class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo
                             onValueChanged: (String? valueArg) {
                               setState(() {
                                 frequencyValue = valueArg!;
+                                if (frequencyValue == 'Per Day') {
+                                  frequencyAmountController.text = '1';
+                                }
                               });
                             },
                             items: frequencyList,

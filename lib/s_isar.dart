@@ -95,10 +95,10 @@ class IsarService {
 
   Future<List<HabitDate>> getHabitsDateLastSeven(int habitIdArg) async {
     final isar = await db;
-    // return await isar.habitDates.where().findAll();
+    DateTime weekAgo = DateTime.now().subtract(const Duration(days: 8));
 
     // TODO(clearfeld): make this filter an actual week range on the dates
-    return await isar.habitDates.filter().habitIdEqualTo(habitIdArg).limit(10).findAll();
+    return await isar.habitDates.filter().habitIdEqualTo(habitIdArg).dateGreaterThan(weekAgo.toString().substring(0,10)).findAll();
   }
 
   Future<int> putHabitDate(HabitDate habitDate) async {
