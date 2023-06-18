@@ -83,7 +83,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
         reminderTextController.text = "";
       }
       customColor.text = '0xff443a49';
-      currentColor.text = widget.fHabit?.getColorString() ?? '0xfff16567';
+      currentColor.text = widget.fHabit?.getColorString() ?? '0xff1CAA5E';
 
       if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.everyDay) {
         frequencyValue = 'Every Day';
@@ -98,17 +98,17 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       // // String reminderValue = reminderList.first;
       notesTextController.text = widget.fHabit?.getNotes() ?? "";
 
-      if (widget.fHabit?.getColorString() != '0xfff16567' &&
-          widget.fHabit?.getColorString() != '0xff2ec977' &&
+      if (widget.fHabit?.getColorString() != '0xff1CAA5E' &&
+          widget.fHabit?.getColorString() != '0xfff16567' &&
           widget.fHabit?.getColorString() != '0xff5666f3' &&
-          widget.fHabit?.getColorString() != '0xfff7f186' &&
+          widget.fHabit?.getColorString() != '0xffC7BE13' &&
           widget.fHabit?.getColorString() != '0xff9186f4') {
         customColor.text = widget.fHabit?.getColorString() ?? '0xff443a49';
       }
     } else {
       dateController.text = "12:00";
       customColor.text = '0xff443a49';
-      currentColor.text = '0xfff16567';
+      currentColor.text = '0xff1CAA5E';
     }
   }
 
@@ -276,16 +276,16 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 }
               }
             ),
-            SizedBox(width: 10,)
+            SizedBox(width: 20,)
           ],)
         ],
         leading: Row(
           children: [
-            const SizedBox(width: 10),
+            const SizedBox(width: 30),
             Container(
               alignment: Alignment.center,
               child: InkWell(
-                child: Text("Cancel", style: TextStyle(color: customColors.textColorSecondary),),
+                child: const Icon(Icons.cancel),
                 onTap: () {Navigator.of(context).pop();}
               )
             )
@@ -311,6 +311,10 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    const Text("Title", style: TextStyle(fontWeight: FontWeight.bold),),
+                    const SizedBox(
+                      height: 8.0,
+                    ),
                     FlatTextField(
                       textController: nameTextController,
                       hintText: "Title",
@@ -321,13 +325,26 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   ],
                 ),
                 const SizedBox(
-                  height: 8.0,
+                  height: 16.0,
                 ),
+                Divider(color: customColors.backgroundCompliment, thickness: 1,),
 
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ColorSelect(currentColor: currentColor, customColor: customColor,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    const Text("Color", style: TextStyle(fontWeight: FontWeight.bold),),
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        ColorSelect(currentColor: currentColor, customColor: customColor,),
+                      ],
+                    ),
                   ],
                 ),
 
@@ -342,7 +359,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text("Question", style: TextStyle(fontWeight: FontWeight.bold),), 
+                    const Text("Question", style: TextStyle(fontWeight: FontWeight.bold),),
                     const SizedBox(
                       height: 8.0,
                     ),
