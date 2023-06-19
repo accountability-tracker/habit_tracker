@@ -21,23 +21,47 @@ class _ColorSelect extends State<ColorSelect> {
 
     bool customColorSelected = false;
     if (widget.currentColor.text != '0xfff16567' &&
-        widget.currentColor.text != '0xff2ec977' &&
+        widget.currentColor.text != '0xff1CAA5E' &&
         widget.currentColor.text != '0xff5666f3' &&
-        widget.currentColor.text != '0xfff7f186' &&
-        widget.currentColor.text != '0xff9186f4') {
+        widget.currentColor.text != '0xffC7BE13' &&
+        widget.currentColor.text != '0xff8667DB') {
           customColorSelected = true;
     }
 
     return Row(
       children: <Widget>[ 
+        const SizedBox(
+          width: 12.0,
+        ),
         InkWell(
           child: Container(
             decoration: 
               BoxDecoration(
                 shape: BoxShape.circle, 
-                color: 
-                  Color(0xfff16567), 
-                  border: widget.currentColor.text == '0xfff16567' ? Border.all(width: 2.0, color: Colors.amber) : null
+                color: Color(0xff1CAA5E),
+                border: widget.currentColor.text == '0xff1CAA5E' ? Border.all(width: 2.0, color: const Color(0xffff0783)) : null
+              ),
+            width: 36.0,
+            height: 36.0,
+
+          ),
+          onTap: () {
+            setState(() {
+              widget.currentColor.text = '0xff1CAA5E';
+            });
+          },
+        ),
+        const SizedBox(
+          width: 16.0,
+        ),
+        InkWell(
+          child: Container(
+            decoration: 
+              BoxDecoration(
+                shape: BoxShape.circle, 
+                color:
+                  Color(0xfff16567),
+                  border: widget.currentColor.text == '0xfff16567' ? Border.all(width: 2.0, color: const Color(0xffff0783)) : null
               ),
             width: 36.0,
             height: 36.0,
@@ -56,29 +80,8 @@ class _ColorSelect extends State<ColorSelect> {
             decoration: 
               BoxDecoration(
                 shape: BoxShape.circle, 
-                color: Color(0xff2ec977),
-                border: widget.currentColor.text == '0xff2ec977' ? Border.all(width: 2.0, color: Colors.amber) : null
-              ),
-            width: 36.0,
-            height: 36.0,
-            
-          ),
-          onTap: () {
-            setState(() {
-              widget.currentColor.text = '0xff2ec977';
-            });
-          },
-        ),
-        const SizedBox(
-          width: 16.0,
-        ),
-        InkWell(
-          child: Container(
-            decoration: 
-              BoxDecoration(
-                shape: BoxShape.circle, 
                 color: Color(0xff5666f3),
-                border: widget.currentColor.text == '0xff5666f3' ? Border.all(width: 2.0, color: Colors.amber) : null
+                border: widget.currentColor.text == '0xff5666f3' ? Border.all(width: 2.0, color: const Color(0xffff0783)) : null
               ),
             width: 36.0,
             height: 36.0,
@@ -97,15 +100,15 @@ class _ColorSelect extends State<ColorSelect> {
             decoration: 
               BoxDecoration(
                 shape: BoxShape.circle, 
-                color: Color(0xfff7f186),
-                border: widget.currentColor.text == '0xfff7f186' ? Border.all(width: 2.0, color: Colors.amber) : null
+                color: Color(0xffC7BE13),
+                border: widget.currentColor.text == '0xffC7BE13' ? Border.all(width: 2.0, color: const Color(0xffff0783)) : null
               ),
             width: 36.0,
             height: 36.0,
           ),
           onTap: () {
             setState(() {
-              widget.currentColor.text = '0xfff7f186';
+              widget.currentColor.text = '0xffC7BE13';
             });
           },
         ),
@@ -117,15 +120,15 @@ class _ColorSelect extends State<ColorSelect> {
             decoration: 
               BoxDecoration(
                 shape: BoxShape.circle, 
-                color: Color(0xff9186f4),
-                border: widget.currentColor.text == '0xff9186f4' ? Border.all(width: 2.0, color: Colors.amber) : null
+                color: Color(0xff8667DB),
+                border: widget.currentColor.text == '0xff8667DB' ? Border.all(width: 2.0, color: const Color(0xffff0783)) : null
               ),
             width: 36.0,
             height: 36.0,
           ),
           onTap: () {
             setState(() {
-              widget.currentColor.text = '0xff9186f4';
+              widget.currentColor.text = '0xff8667DB';
             });
           },
         ),
@@ -187,12 +190,15 @@ class _ColorSelect extends State<ColorSelect> {
             decoration: BoxDecoration(
               shape: BoxShape.circle, 
               color: Color(int.parse(widget.customColor.text)),
-              border: customColorSelected ? Border.all(width: 2.0, color: Colors.amber) : null
+              border: customColorSelected ? Border.all(width: 2.0, color: const Color(0xffff0783)) : null
             ),
             width: 36.0,
             height: 36.0,
             child: const Icon(Icons.add),
           ),
+        ),
+        const SizedBox(
+          width: 12.0,
         ),
       ]
     );
