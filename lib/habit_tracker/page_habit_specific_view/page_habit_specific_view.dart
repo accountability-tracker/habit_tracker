@@ -5,19 +5,19 @@ import 'package:habit_tracker/s_isar.dart';
 
 import 'package:habit_tracker/theme.dart';
 
-import 'package:habit_tracker/habits.dart';
+import 'package:habit_tracker/habit_tracker/habits.dart';
 import 'package:habit_tracker/entities/habit.dart';
-import 'package:habit_tracker/habit_enums.dart';
+import 'package:habit_tracker/habit_tracker/habit_enums.dart';
 
-import 'package:habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
-import 'package:habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
+import 'package:habit_tracker/habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
+import 'package:habit_tracker/habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
 
-import 'package:habit_tracker/page_habit_specific_view/habit_variables_overview_block.dart';
-import 'package:habit_tracker/page_habit_specific_view/history_chart.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/habit_variables_overview_block.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/history_chart.dart';
 import 'package:habit_tracker/data_notifier.dart';
 
-import 'package:habit_tracker/page_habit_specific_view/habit_calendar.dart';
-import 'package:habit_tracker/page_habit_specific_view/pie_graph.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/habit_calendar.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/pie_graph.dart';
 
 class PageHabitSpecificView extends ConsumerStatefulWidget {
   const PageHabitSpecificView({super.key, required this.isarService, required this.habit});

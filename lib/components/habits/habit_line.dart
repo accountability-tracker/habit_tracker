@@ -6,9 +6,9 @@ import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
-import 'package:habit_tracker/habit_enums.dart';
+import 'package:habit_tracker/habit_tracker/habit_enums.dart';
 
-import 'package:habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
 
 import 'package:habit_tracker/components/habits/habit_yes_or_no_toggle.dart';
 import 'package:habit_tracker/components/habits/habit_measurable_block.dart';
@@ -122,7 +122,7 @@ class _HabitLine extends State<HabitLine> {
                         }
                       }).toList();
 
-                      return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: habits); 
+                      return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: habits);
                     }
                     else {
                       // read the snapshot data and put it with the assoicated date spot

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habit_tracker/components/flat_date_picker.dart';
+import 'package:habit_tracker/components/flat_number_inc.dart';
 import 'package:habit_tracker/components/color_select.dart';
 import 'package:habit_tracker/components/flat_switch.dart';
 
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
-import 'package:habit_tracker/habit_enums.dart';
+import 'package:habit_tracker/habit_tracker/habit_enums.dart';
 
-import 'package:habit_tracker/habits.dart';
+import 'package:habit_tracker/habit_tracker/habits.dart';
 
 import 'package:habit_tracker/components/flat_textfield.dart';
 import 'package:habit_tracker/components/flat_dropdown.dart';
@@ -18,20 +20,18 @@ import 'package:habit_tracker/theme.dart';
 
 // TODO(clearfeld): move this into its own file and make it an enum instead
 const List<String> frequencyList = <String>[
-  'Every Day',
-  'Every Week',
-  'Every Other Week',
-  'Every Month'
+  'Per Day',
+  'Per Week',
+  'Bi-weekly',
+  'Per Month',
+  'Every # Days'
 ];
 
 // TODO(clearfeld): expend this into its own class
 const List<String> reminderList = <String>['Off', 'On'];
 
-// TODO(clearfeld): change this to an enum later
-const List<String> targetTypeList = <String>['At least', 'At most'];
-
-class PageCreateNewHabitMeasurable extends ConsumerStatefulWidget {
-  const PageCreateNewHabitMeasurable({
+class PageCreateNewHabitYesOrNo extends ConsumerStatefulWidget {
+  const PageCreateNewHabitYesOrNo({
     super.key,
     required this.isarService,
     this.fHabit,
@@ -41,26 +41,23 @@ class PageCreateNewHabitMeasurable extends ConsumerStatefulWidget {
   final Habit? fHabit;
 
   @override
-  ConsumerState<PageCreateNewHabitMeasurable> createState() => _PageCreateNewHabitMeasurable();
-  // State<Page_CreateNewHabitMeasurable> createState() => _Page_CreateNewHabitMeasurable();
+  ConsumerState<PageCreateNewHabitYesOrNo> createState() => _PageCreateNewHabitYesOrNo();
+  // State<Page_CreateNewHabitYesOrNo> createState() => _Page_CreateNewHabitYesOrNo();
 }
 
-class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeasurable> {
+class _PageCreateNewHabitYesOrNo extends ConsumerState<PageCreateNewHabitYesOrNo> {
   final nameTextController = TextEditingController();
   final questionTextController = TextEditingController();
-  final unitTextController = TextEditingController();
-  final targetTextController = TextEditingController();
   String frequencyValue = frequencyList.first;
-  String targetTypeValue = targetTypeList.first;
+
   String reminderValue = reminderList.first;
   final reminderOn = TextEditingController();
   final notesTextController = TextEditingController();
   final reminderTextController = TextEditingController();
-
-  // create some values
-  Color pickerColor = const Color(0xff443a49);
   final currentColor = TextEditingController();
   final customColor = TextEditingController();
+
+  final frequencyAmountController = TextEditingController();
   final dateController = TextEditingController();
 
   @override
@@ -71,10 +68,9 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
     if (widget.fHabit != null) {
       nameTextController.text = widget.fHabit?.getTitle() ?? "";
       questionTextController.text = widget.fHabit?.getQuestion() ?? "";
-      unitTextController.text = widget.fHabit?.getUnit() ?? "";
-      targetTextController.text = widget.fHabit?.getTarget().toString() ?? "";
+      frequencyAmountController.text = widget.fHabit?.getFrequencyAmount().toString() ?? "1";
       if (widget.fHabit?.getReminderTime() != null) {
-        dateController.text = widget.fHabit?.getReminderTime() ?? "12:00";  //"12:00";
+        dateController.text = widget.fHabit?.getReminderTime() ?? "12:00";
         reminderTextController.text = widget.fHabit?.getReminderMessage() ?? "";
         reminderOn.text = 't';
       }
@@ -86,13 +82,14 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
       currentColor.text = widget.fHabit?.getColorString() ?? '0xff1CAA5E';
 
       if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.everyDay) {
-        frequencyValue = 'Every Day';
+        frequencyValue = 'Per Day';
       } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.xTimesPerWeek) {
-        frequencyValue = 'Every Week';
+        frequencyValue = 'Per Week';
       } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.xTimesPerMonth) {
-        frequencyValue = 'Every Month';
+        frequencyValue = 'Per Month';
+      } else if (widget.fHabit?.getFrequency() == EHABITFREQUENCY.everyXDays) {
+        frequencyValue = 'Every # Days';
       }
-
       // // String frequencyValue = frequencyList.first;
 
       // // String reminderValue = reminderList.first;
@@ -106,6 +103,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
         customColor.text = widget.fHabit?.getColorString() ?? '0xff443a49';
       }
     } else {
+      frequencyAmountController.text = "1";
       dateController.text = "12:00";
       customColor.text = '0xff443a49';
       currentColor.text = '0xff1CAA5E';
@@ -115,21 +113,22 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
   @override
   void dispose() {
     nameTextController.dispose();
-    unitTextController.dispose();
-    targetTextController.dispose();
     questionTextController.dispose();
     notesTextController.dispose();
+    frequencyAmountController.dispose();
     super.dispose();
   }
 
   void addHabit() {
     var freq = EHABITFREQUENCY.everyDay;
-    if (frequencyValue == 'Every Day') {
+    if (frequencyValue == 'Per Day') {
       freq = EHABITFREQUENCY.everyDay;
-    } else if (frequencyValue == 'Every Week') {
+    } else if (frequencyValue == 'Per Week') {
       freq = EHABITFREQUENCY.xTimesPerWeek;
-    } else if (frequencyValue == 'Every Month') {
+    } else if (frequencyValue == 'Per Month') {
       freq = EHABITFREQUENCY.xTimesPerMonth;
+    } else if (frequencyValue == 'Every # Days') {
+      freq = EHABITFREQUENCY.everyXDays;
     }
 
     if (widget.fHabit != null) {
@@ -141,13 +140,13 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
         reminderText = reminderTextController.text;
         reminderTime = dateController.text;
       }
+
       h?.title = nameTextController.text;
       h?.question = questionTextController.text;
-      h?.unit = unitTextController.text;
-      h?.target = int.parse(targetTextController.text);
       h?.notes = notesTextController.text;
       h?.color = c;
       h?.frequency = freq;
+      h?.frequencyAmount = int.parse(frequencyAmountController.text);
       h?.reminderMessage = reminderText;
       h?.reminderTime = reminderTime;
 
@@ -161,29 +160,26 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
         reminderTime = dateController.text;
       }
 
-      widget.isarService.saveHabit(Habit.fullMeasurable(
-          EHABITS.measurable,
+      widget.isarService.saveHabit(Habit.full(
+          EHABITS.yesOrNo,
           nameTextController.text,
           c,
-          unitTextController.text,
-          int.parse(targetTextController.text),
           freq,
-          1,
+          int.parse(frequencyAmountController.text),
           reminderTime,
           reminderText,
           questionTextController.text,
           notesTextController.text));
     }
-    // TODO: add measurable habit save
-    // widget.isar_service.saveHabit(
-    //   Habit.Full(
-    //     E_HABITS.YES_OR_NO,
-    //     nameTextController.text,
-    //     currentColor.toString(),
-    //     questionTextController.text,
-    //     notesTextController.text
-    //   )
-    // );
+
+    ref.watch(habitsManagerProvider.notifier).addHabit(HabitYesOrNo(
+        // TODO(clearfeld): pull id from isar or whatever the persistance ends up being
+        -1,
+        EHABITS.yesOrNo,
+        nameTextController.text,
+        Color(int.parse(currentColor.text)),
+        questionTextController.text,
+        notesTextController.text));
 
     // showDialog(
     //   context: context,
@@ -191,14 +187,11 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
     //     return AlertDialog(
     //       content: Text(
     //         nameTextController.text + " " +
-    //         currentColor.toString() + " " +
     //         questionTextController.text + " " +
-    //         unitTextController.text + " " +
-    //         targetTextController.text + " " +
     //         frequencyValue + " " +
-    //         targetTypeValue + " " +
     //         reminderValue + " " +
-    //         notesTextController.text
+    //         notesTextController.text + " " +
+    //         currentColor.toString()
     //       )
     //     );
     //   },
@@ -228,7 +221,6 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
               child: Text("Save", style: TextStyle(color: customColors.textColorLink)),
               onTap: () {
                 if (nameTextController.text == '') {
-                  // var res =
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -248,27 +240,6 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                           ],
                         );
                       });
-                }
-                else if (targetTextController.text == '') {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        backgroundColor: customColors.background,
-                        surfaceTintColor: customColors.background,
-                        title: const Text('Please enter a valid Target Amount.'),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            child: Text('Okay', style: TextStyle(color: customColors.textColorLink)),
-                            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(customColors.backgroundCompliment)),
-                            onPressed: () {
-                              // setState(() => currentValue = initialValue);
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    });
                 } else {
                   addHabit();
                   ref.read(dataUpdate.notifier).setUpdate();
@@ -276,7 +247,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                 }
               }
             ),
-            SizedBox(width: 20,)
+            SizedBox(width: 10,)
           ],)
         ],
         leading: Row(
@@ -365,7 +336,7 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                     ),
                     FlatTextField(
                       textController: questionTextController,
-                      hintText: "e.g. How many miles did you run today?",
+                      hintText: "e.g. Did you exercise today?",
                     ),
                   ],
                 ),
@@ -378,43 +349,24 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                   height: 16.0,
                 ),
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text("Unit", style: TextStyle(fontWeight: FontWeight.bold),),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    FlatTextField(
-                      textController: unitTextController,
-                      hintText: "e.g. miles",
-                    ),
+                Row(
+                  children: const [
+                    Text("Frequency", style: TextStyle(fontWeight: FontWeight.bold),),
                   ],
                 ),
-
-                const SizedBox(
-                  height: 32.0,
-                ),
-
                 Row(
-                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    SizedBox(
-                      width: 80.0,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text("Target", style: TextStyle(fontWeight: FontWeight.bold),),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          FlatTextField(
-                            textController: targetTextController,
-                            hintText: "e.g. 15",
-                            keyboardType: 'num',
-                          ),
-                        ],
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 16.0,
+                        ),
+                        FlatNumIncField(
+                          textController: frequencyAmountController,
+                          frequencyValue: frequencyValue,
+                        ),
+                      ]
                     ),
                     const SizedBox(
                       width: 8.0,
@@ -423,48 +375,21 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Text("Frequency", style: TextStyle(fontWeight: FontWeight.bold),),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
+                          const Text(""),
                           FlatDropdown(
                             value: frequencyValue,
                             onValueChanged: (String? valueArg) {
                               setState(() {
                                 frequencyValue = valueArg!;
+                                if (frequencyValue == 'Per Day') {
+                                  frequencyAmountController.text = '1';
+                                }
                               });
                             },
                             items: frequencyList,
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(
-                  height: 32.0,
-                ),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: const <Widget>[
-                        Text("Target Type", style: TextStyle(fontWeight: FontWeight.bold),),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    FlatDropdown(
-                      value: targetTypeValue,
-                      onValueChanged: (String? valueArg) {
-                        setState(() {
-                          targetTypeValue = valueArg!;
-                        });
-                      },
-                      items: targetTypeList,
                     ),
                   ],
                 ),
@@ -534,12 +459,6 @@ class _PageCreateNewHabitMeasurable extends ConsumerState<PageCreateNewHabitMeas
             ),
           ),
         ),
-
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: _incrementCounter,
-        //   tooltip: 'Increment',
-        //   child: const Icon(Icons.add),
-        // ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

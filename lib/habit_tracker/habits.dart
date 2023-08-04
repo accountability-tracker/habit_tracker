@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // import "s_isar.dart";
-import "../habit_enums.dart";
+import 'habit_enums.dart';
 
 // TODO: IN-PROGRESS remove this file completey
 

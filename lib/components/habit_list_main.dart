@@ -9,7 +9,7 @@ import 'package:habit_tracker/theme.dart';
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit.dart';
 
-import 'package:habit_tracker/habits.dart';
+import 'package:habit_tracker/habit_tracker/habits.dart';
 import 'package:habit_tracker/components/habits/habit_line.dart';
 import 'package:habit_tracker/components/habits/habit_progress_bar.dart';
 import 'package:habit_tracker/components/five_day_line.dart';

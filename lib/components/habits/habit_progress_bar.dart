@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:habit_tracker/data_notifier.dart';
-import 'package:habit_tracker/habit_enums.dart';
-import 'package:habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
+import 'package:habit_tracker/habit_tracker/habit_enums.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/page_habit_specific_view.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:habit_tracker/s_isar.dart';

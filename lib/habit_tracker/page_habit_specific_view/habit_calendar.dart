@@ -12,9 +12,9 @@ import 'package:habit_tracker/components/flat_textfield.dart';
 import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';
 
-import 'package:habit_tracker/page_habit_specific_view/habit_calendar_event_icon.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/habit_calendar_event_icon.dart';
 
-import 'package:habit_tracker/habit_enums.dart';
+import 'package:habit_tracker/habit_tracker/habit_enums.dart';
 import 'package:habit_tracker/data_notifier.dart';
 import 'package:remixicon/remixicon.dart';
 

@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:habit_tracker/data_notifier.dart';
 import 'package:habit_tracker/s_isar.dart';
 
-import 'package:habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
-import 'package:habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
+import 'package:habit_tracker/habit_tracker/page_create_new_habit_yes_or_no/page_create_new_habit_yes_or_no.dart';
+import 'package:habit_tracker/habit_tracker/page_create_new_habit_measurable/page_create_new_habit_measurable.dart';
 import 'package:habit_tracker/theme.dart';
 
 class AddHabitTypeModal extends ConsumerStatefulWidget {

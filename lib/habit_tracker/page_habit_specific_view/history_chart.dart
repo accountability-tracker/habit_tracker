@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker/s_isar.dart';
 import 'package:habit_tracker/entities/habit_date.dart';
 
-import 'package:habit_tracker/page_habit_specific_view/history_bar_chart.dart';
-import 'package:habit_tracker/page_habit_specific_view/history_line_chart.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/history_bar_chart.dart';
+import 'package:habit_tracker/habit_tracker/page_habit_specific_view/history_line_chart.dart';
 import 'package:habit_tracker/theme.dart';
 import 'package:intl/intl.dart';
 

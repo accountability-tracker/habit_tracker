@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 
-import 'package:habit_tracker/habit_enums.dart';
+import 'package:habit_tracker/habit_tracker/habit_enums.dart';
 
 part "habit.g.dart";
 
