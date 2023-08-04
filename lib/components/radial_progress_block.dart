@@ -98,7 +98,7 @@ class _RadialProgressBlock extends ConsumerState<RadialProgressBlock> {
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [Text(widget.receivedNu.toString(), style: TextStyle(fontSize: widget.textSize, color: customColors.textColor),), 
+                              children: [Text(widget.receivedNu.toString(), style: TextStyle(fontSize: widget.textSize, color: customColors.textColor),),
                                         Text("  /  ${widget.totalNu}", style: TextStyle(fontSize: widget.textSize, color: customColors.textColorSecondary),),
                                         Text(" ${widget.unit}", style: TextStyle(fontSize: widget.textSize, color: customColors.textColorSecondary),)
                                         ],
