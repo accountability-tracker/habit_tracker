@@ -31,8 +31,8 @@ class _HistoryLineChart extends State<HistoryLineChart> {
       width: MediaQuery.of(context).size.width,
       height: 320.0,
       child: LineChart(
-        swapAnimationDuration: const Duration(milliseconds: 150),
-        swapAnimationCurve: Curves.linear,
+        // swapAnimationDuration: const Duration(milliseconds: 150),
+        // swapAnimationCurve: Curves.linear,
         LineChartData(
           minX: 0,
           lineTouchData: LineTouchData(
